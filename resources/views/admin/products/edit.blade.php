@@ -1,5 +1,9 @@
 @extends('admin.layouts')
 
+@push('select2-css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @section('title', 'Edit Products')
 
 @section('content')
@@ -105,6 +109,26 @@
                                         {{ "selected" }}
                                         @endif
                                         >{{ $object->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                            <div class="form-group @error('size') has-error has-feedback @enderror">
+
+                                <label>Size products</label>
+
+                                <select name="size[]" multiple id="size"
+                                    class="form-control @error('size') is-invalid @enderror">
+                                    @foreach ($sizes as $key => $size)
+                                    @if(count($product->size) > 0)
+                                    @foreach ($product->size as $item)
+                                    <option value="{{ $size->id }}" {{ $size->id === $item->id ? 'selected' : '' }}>
+                                        {{ $size->name }}</option>
+                                    @endforeach
+                                    @else
+                                    <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
 
@@ -233,5 +257,16 @@
 <script>
     // Script Ckeditor 4
     CKEDITOR.replace("description");
+</script>
+@endpush
+
+@push('select2-js')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#size').select2({
+            placeholder: "Select size"
+        });
+    });
 </script>
 @endpush

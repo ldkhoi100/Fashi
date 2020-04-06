@@ -12,6 +12,8 @@ class Bill_detail extends Model
     protected $table = 'bill_detail';
     protected $primaryKey = 'id';
 
+    protected $fillable = ['id_bill', 'id_product', 'name_products', 'size', 'quantity', 'unit_price', 'total_price', 'status'];
+
     public function bills()
     {
         return $this->belongsTo("App\Bills", 'id_bill', 'id');

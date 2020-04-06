@@ -12,6 +12,8 @@ Route::get('/home', 'HomeController@index');
 Route::resource('/details', 'ChangePasswordController');
 Route::get('/password', 'ChangePasswordController@index')->name('password');
 Route::get('/user/account/profile', 'ChangePasswordController@edit')->name('details');
+Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
+
 
 //Change email
 Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email');
@@ -35,13 +37,11 @@ Auth::routes();
 //Users
 Route::resource('/users', 'UserControllers');
 
-
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
 Route::get('/products', 'FashionControllers@product')->name('product');
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
 Route::get('/shoppingcart', 'FashionControllers@shoppingcart')->name('shoppingcart');
-Route::get('/checkout', 'FashionControllers@checkout')->name('checkout');
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
 Route::get('/faq', 'FashionControllers@faq')->name('faq');
 
@@ -61,14 +61,26 @@ Route::post('/loadingmore/load_data/{id}', 'AjaxBlogsController@load_data_produc
 
 //Men product
 Route::get('/shop/men', 'FashionControllers@men')->name('men');
-Route::get('/shop/men/{id}', 'FashionControllers@getProductMen')->name('getProductMen');
-Route::get('/shop/men/detail/{id}', 'FashionControllers@getDetailProductMen')->name('getDetailProductMen');
-//Ajax load more data button for database detail product
-Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
-
 Route::get('/shop/women', 'FashionControllers@women')->name('women');
 Route::get('/shop/kid', 'FashionControllers@kid')->name('kid');
 
+Route::get('/shop/men/{id}', 'FashionControllers@getProductMen')->name('getProductMen');
+Route::get('/shop/women/{id}', 'FashionControllers@getProductWomen')->name('getProductWomen');
+Route::get('/shop/kid/{id}', 'FashionControllers@getProductKid')->name('getProductKid');
+//Ajax load more data button for database detail product
+Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
+
+//Detail products
+Route::get('/shop/detail/{id}', 'FashionControllers@getDetailProduct')->name('getDetailProductMen');
+
+
+//Cart
+Route::resource('/cart', 'CartController');
+Route::get('/addCart/{id}', 'CartController@addCart')->name('addCart');
+Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
+Route::get('/deleteCart/{id}', 'CartController@deleteCart')->name('deleteCart');
+Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
+Route::post('/checkout', 'CartController@formCheckout')->name('formCheckout');
 
 //Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
@@ -95,6 +107,22 @@ Route::get('/product/{id}/delete', 'ProductsController@delete')->name('product.d
 Route::get('/product-delete-all', 'ProductsController@deleteAll')->name('product.delete-all');
 Route::get('/highlight/{id}', 'ProductsController@highlights')->name('product.highlights');
 Route::get('/new/{id}', 'ProductsController@news')->name('product.new');
+
+//Bills
+Route::resource('/bills', 'BillsController');
+Route::get('/trash-bills', 'BillsController@trashed')->name('bills.trash');
+Route::get('/bills/{id}/restore', 'BillsController@restore')->name('bills.restore');
+Route::get('/bills-restore-all', 'BillsController@restoreAll')->name('bills.restore-all');
+Route::get('/bills/{id}/delete', 'BillsController@delete')->name('bills.delete');
+Route::get('/bills-delete-all', 'BillsController@deleteAll')->name('bills.delete-all');
+Route::get('/bills/paymoney/{id}', 'BillsController@pay_money')->name('bills.pay_money');
+Route::get('/bills/status/{id}', 'BillsController@status')->name('bills.status');
+Route::get('/bills/detail/status/{id}', 'BillsController@statusDetailBills')->name('bills.statusDetailBills');
+Route::get('/bills/detail/{id}', 'BillsController@detailBills')->name('bills.details');
+
+//Bill detail
+Route::resource('/billDetail', 'BillDetailController');
+Route::get('/trash/billDetail/{id}', 'BillDetailController@trashed')->name('billDetail.trash');
 
 //Reviews Products table
 Route::resource('/reivew', 'ReviewsController');

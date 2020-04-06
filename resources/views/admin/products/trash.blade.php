@@ -36,6 +36,7 @@
                             <th>Name</th>
                             <th width='10%'>Category</th>
                             <th width='6%'>Description</th>
+                            <th>Size</th>
                             <th>Cost</th>
                             <th>Sale</th>
                             <th>Amount</th>
@@ -55,6 +56,7 @@
                             <th>Name</th>
                             <th width='10%'>Category</th>
                             <th width='6%'>Description</th>
+                            <th>Size</th>
                             <th>Cost</th>
                             <th>Sale</th>
                             <th>Amount</th>
@@ -81,6 +83,11 @@
                             <td><button data-url="{{ route('product.show',$product->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
+                            <td>
+                                @foreach ($product->size as $size)
+                                {{ $size->name }},
+                                @endforeach
+                            </td>
 
                             <td>{{ $product->unit_price }}</td>
                             <td>{{ $product->promotion_price }}</td>

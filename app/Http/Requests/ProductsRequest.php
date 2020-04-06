@@ -35,7 +35,8 @@ class ProductsRequest extends FormRequest
             'image3' => 'image | mimes:png,jpg,jpeg',
             'image4' => 'image | mimes:png,jpg,jpeg',
             'highlight' => 'required | numeric',
-            'new' => 'required | numeric'
+            'new' => 'required | numeric',
+            'size' => 'required'
         ];
     }
 

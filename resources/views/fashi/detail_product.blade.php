@@ -51,7 +51,7 @@
                 <div class="breadcrumb-text product-more">
                     <a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a>
                     <a href="{{ route('shop') }}"> Shop</a>
-                    <a href="{{ route('men') }}"> Men's</a>
+                    <a href="{{ route($product->objects->link_objects) }}"> {{ $product->objects->name }}</a>
                     <a href="{{ route('getProductMen', $product->id_categories) }}">{{ $product->categories->name }}</a>
                     <span>{{ $product->name }}</span>
                 </div>
@@ -70,9 +70,15 @@
                     <h4 class="fw-title">Categories</h4>
                     <ul class="filter-catagories">
                         @foreach ($categories as $categories)
-
+                        @if($product->id_objects == 2)
                         <li><a href="{{ route('getProductMen', $categories->id) }}">{{ $categories->name }}</a></li>
-
+                        @elseif($product->id_objects == 3)
+                        <li><a href="{{ route('getProductWomen', $categories->id) }}">{{ $categories->name }}</a></li>
+                        @elseif($product->id_objects == 4)
+                        <li><a href="{{ route('getProductKid', $categories->id) }}">{{ $categories->name }}</a></li>
+                        @else
+                        <li>None</li>
+                        @endif
                         @endforeach
                     </ul>
                 </div>
@@ -206,8 +212,9 @@
                                                                     <i class="fa fa-star"></i>
                                                                     @endif
                                                                     <span> ({{ round($avgRating, 1) }})</span>
-                                                                    <span>{{ count($countRating) }} Rating</span><br>
-                                                                    <span>view count:
+                                                                    <span>{{ count($countRating) }}
+                                                                        Rating</span><br><br>
+                                                                    <span><i class="far fa-eye"></i> &nbsp;
                                                                         {{ $product->view_count }}</span>
                             </div>
                             <div class="pd-desc" style="margin-top: 30px">
@@ -251,41 +258,51 @@
                                     </div>
                                 </div>
                             </div>  --}}
-                            <div class="pd-size-choose" style="margin-top: 100px">
-                                <div class="sc-item">
-                                    <input type="radio" id="sm-size">
-                                    <label for="sm-size">s</label>
+                            {{-- Form add cart method post --}}
+                            <form action="{{ route('addCartPost', $product->id) }}" method="POST">
+                                @csrf
+
+                                <div class="pd-size-choose" style="margin-top: 160px">
+                                    <div class="sc-item">
+                                        <input type="radio" id="size" name="size12" value="2" height="50" width="50"
+                                            style="display: flex">Size
+                                    </div>
+
+                                    {{-- Size --}}
+                                    @foreach ($product->size as $size)
+                                    <div class="sc-item">
+                                        <input type="radio" name="size12" value="{{ $size->id }}">
+                                        <label for="sm-size">{{ $size->name }}</label>
+                                    </div>
+                                    @endforeach
+
                                 </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="md-size">
-                                    <label for="md-size">m</label>
+
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="hidden" name="check_stock" value="{{ $product->amount }}">
+                                        <input type="number" value="1" min="1" max="{{ $product->amount }}"
+                                            style="display: flex" name="qty">
+                                    </div>
+                                    @if($product->amount > 0)
+                                    <button type="submit" class="primary-btn pd-cart">Add To
+                                        Cart</button>
+                                    @else
+                                    <a href="javascript:window.location.href=window.location.href"
+                                        class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To Cart</a>
+                                    @endif
                                 </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="lg-size">
-                                    <label for="lg-size">l</label>
-                                </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="xl-size">
-                                    <label for="xl-size">xs</label>
-                                </div>
-                            </div>
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1" style="display: flex">
-                                </div>
-                                @if($product->amount > 0)
-                                <a href="#" class="primary-btn pd-cart">Add To Cart</a>
-                                @else
-                                <a href="javascript:window.location.href=window.location.href"
-                                    class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To Cart</a>
-                                @endif
-                            </div>
+
+                            </form>
+
                             <ul class="pd-tags">
+                                <li><span>AVAILABILITY</span>: {{ $product->amount }}</li>
                                 <li><span>CATEGORIES</span>: {{ $product->categories->name }}</li>
                                 <li><span>TAGS</span>: {{ $product->categories->name }},
                                     {{ $product->objects->name }}
                                 </li>
                             </ul>
+
                             <div class="pd-share">
                                 <div class="p-code">Sku : 00{{ $product->id }}</div>
                                 <div class="pd-social">
@@ -294,6 +311,7 @@
                                     <a href="#"><i class="ti-linkedin"></i></a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -316,6 +334,7 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="tab-item-content">
                         <div class="tab-content">
                             <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
@@ -354,7 +373,8 @@
                                                         <i class="far fa-star"></i>
                                                         <i class="far fa-star"></i>
                                                         @elseif($avgRating >= 1 && $avgRating < 1.1) <i
-                                                            class="fa fa-star"></i>
+                                                            class="fa fa-star">
+                                                            </i>
                                                             <i class="far fa-star"></i>
                                                             <i class="far fa-star"></i>
                                                             <i class="far fa-star"></i>
@@ -397,7 +417,8 @@
                                                                                     <i class="far fa-star"></i>
                                                                                     @elseif($avgRating >= 4.1 &&
                                                                                     $avgRating < 5) <i
-                                                                                        class="fa fa-star"></i>
+                                                                                        class="fa fa-star">
+                                                                                        </i>
                                                                                         <i class="fa fa-star"></i>
                                                                                         <i class="fa fa-star"></i>
                                                                                         <i class="fa fa-star"></i>
@@ -447,7 +468,9 @@
                                         <tr>
                                             <td class="p-catagory">Size</td>
                                             <td>
-                                                <div class="p-size">S, M, L, XS</div>
+                                                <div class="p-size">@foreach ($product->size as $size)
+                                                    {{ $size->name }},
+                                                    @endforeach</div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -559,7 +582,14 @@
                                         <span class="stars"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <textarea placeholder="Messages" name="comment">{{ old('comment') }}</textarea>
+                                        {{-- <textarea placeholder="Messages" name="comment">{{ old('comment') }}</textarea>
+                                        --}}
+                                        <textarea id="comment" placeholder="Messages" name="comment" rows="5"
+                                            maxlength="250" style="margin-bottom: 10px">{{ old('comment') }}</textarea>
+                                        <div id="the-count_comment" style="margin-bottom: 30px">
+                                            <span id="current_comment">0</span>
+                                            <span id="maximum_comment"> / 250</span>
+                                        </div>
                                         <button type="submit" class="site-btn">Send message</button>
                                     </div>
                                 </div>
@@ -567,38 +597,12 @@
 
                         </div>
 
-                        @else
+                        @endif
 
-                        <div class="leave-comment">
-                            <h4>Leave A Comment</h4>
-                            <form action="{{ route('reviews') }}" method="POST" class="comment-form">
-                                @csrf
-                                <div class="row">
-                                    <input type="hidden" name="id_products" value="{{ $product->id }}">
-
-                                    <div class="col-lg-6">
-                                        <input type="text" placeholder="Name" name="name" value="{{ old('name') }}">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input type="email" placeholder="Email" name="email" value="{{ old('email') }}">
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <textarea placeholder="Messages" name="comment">{{ old('comment') }}</textarea>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <button type="submit" class="site-btn">Send message</button>
-                                    </div>
-                                </div>
-                        </div>
-                        </form>
                     </div>
-
-                    @endif
-
                 </div>
             </div>
         </div>
-    </div>
     </div>
     </div>
     </div>
@@ -643,7 +647,8 @@
                         <i class="icon_heart_alt"></i>
                     </div>
                     <ul>
-                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                        <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i
+                                    class="icon_bag_alt"></i></a></li>
                         <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+ Quick
                                 View</a></li>
                         <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
@@ -736,5 +741,30 @@
       $("#star1").click(function(){
         $(".stars").html("<b style='color: #A52A2A'>Very bad</b>");
       });
+    });
+</script>
+
+<script>
+    $('#comment').keyup(function() {
+        var characterCount = $(this).val().length,
+            current = $('#current_comment'),
+            maximum = $('#maximum_comment'),
+            theCount = $('#the-count_comment');
+        var maxlength = $(this).attr('maxlength');
+        var changeColor = 0.75 * maxlength;
+        current.text(characterCount);
+
+        if (characterCount > changeColor && characterCount < maxlength) {
+            current.css('color', '#FF4500');
+            current.css('fontWeight', 'bold');
+        } else if (characterCount >= maxlength) {
+            current.css('color', '#B22222');
+            current.css('fontWeight', 'bold');
+        } else {
+            var col = maximum.css('color');
+            var fontW = maximum.css('fontWeight');
+            current.css('color', col);
+            current.css('fontWeight', fontW);
+        }
     });
 </script>

@@ -31,8 +31,10 @@ class FashionControllers extends Controller
         $large_image2 = Image_large_products::take(1)->orderBy('id', 'desc')->get();
         $banners = Banners::where('position', '>', 0)->orderBy('position', 'asc')->take(3)->get();
         $instagram = Instagrams::take(6)->get();
-        $product = Products::where('id_objects', 2)->where('amount', '>', 0)->inRandomOrder('4231')->get();
-        return view('fashi.home', compact('slide', 'large_image1', 'large_image2', 'banners', 'instagram', 'product'));
+        $men = Products::where('id_objects', 2)->where('amount', '>', 0)->inRandomOrder('4231')->get();
+        $women = Products::where('id_objects', 3)->where('amount', '>', 0)->inRandomOrder('4231')->get();
+        $blogs = Blogs::orderBy('view_count', 'DESC')->paginate(3);
+        return view('fashi.home', compact('slide', 'large_image1', 'large_image2', 'banners', 'instagram', 'men', 'women', 'blogs'));
     }
 
     public function product()
@@ -102,7 +104,7 @@ class FashionControllers extends Controller
         $blog = Blogs::findOrFail($id);
         $id_blog = Blogs::find($id);
         $previous_blog = Blogs::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        $next_blog = Blogs::where('id', '>', $id)->orderBy('id', 'desc')->first();
+        $next_blog = Blogs::where('id', '>', $id)->orderBy('id', 'asc')->first();
         $comments = Blogcomments::where('id_blogs', 4)->get();
         return view('fashi.blogdetail', compact('blog', 'previous_blog', 'next_blog', 'comments', 'id_blog'));
     }
@@ -182,6 +184,36 @@ class FashionControllers extends Controller
         return view('fashi.men', compact('categories', 'product', 'tags', 'count_product'));
     }
 
+    public function women(Request $request)
+    {
+        $product = Products::where('id_objects', 3)->paginate(12);
+        $count_product = Products::where('id_objects', 3)->count();
+        $categories = Categories::where('id_objects', 3)->get();
+        $tags = Categories::where('id_objects', 3)->get();
+        if ($request->ajax()) {
+            return [
+                'product' => view('ajax.women')->with(compact('product'))->render(),
+                'next_page' => $product->nextPageUrl()
+            ];
+        }
+        return view('fashi.women', compact('categories', 'product', 'tags', 'count_product'));
+    }
+
+    public function kid(Request $request)
+    {
+        $product = Products::where('id_objects', 4)->paginate(12);
+        $count_product = Products::where('id_objects', 4)->count();
+        $categories = Categories::where('id_objects', 4)->get();
+        $tags = Categories::where('id_objects', 4)->get();
+        if ($request->ajax()) {
+            return [
+                'product' => view('ajax.kid')->with(compact('product'))->render(),
+                'next_page' => $product->nextPageUrl()
+            ];
+        }
+        return view('fashi.kid', compact('categories', 'product', 'tags', 'count_product'));
+    }
+
     public function getProductMen(Request $request, $id)
     {
         $product = Products::where('id_categories', $id)->paginate(9);
@@ -197,7 +229,37 @@ class FashionControllers extends Controller
         return view('fashi.men_type_product', compact('categories', 'product', 'id_categories', 'tags'));
     }
 
-    public function getDetailProductMen($id)
+    public function getProductWomen(Request $request, $id)
+    {
+        $product = Products::where('id_categories', $id)->paginate(9);
+        $categories = Categories::where('id_objects', 3)->get();
+        $tags = Categories::where('id_objects', 3)->get();
+        $id_categories = Categories::find($id);
+        if ($request->ajax()) {
+            return [
+                'product' => view('ajax.womenProduct')->with(compact('product'))->render(),
+                'next_page' => $product->nextPageUrl()
+            ];
+        }
+        return view('fashi.women_type_product', compact('categories', 'product', 'id_categories', 'tags'));
+    }
+
+    public function getProductKid(Request $request, $id)
+    {
+        $product = Products::where('id_categories', $id)->paginate(9);
+        $categories = Categories::where('id_objects', 4)->get();
+        $tags = Categories::where('id_objects', 4)->get();
+        $id_categories = Categories::find($id);
+        if ($request->ajax()) {
+            return [
+                'product' => view('ajax.kidProduct')->with(compact('product'))->render(),
+                'next_page' => $product->nextPageUrl()
+            ];
+        }
+        return view('fashi.kid_type_product', compact('categories', 'product', 'id_categories', 'tags'));
+    }
+
+    public function getDetailProduct($id)
     {
         $productKey = 'product_' . $id;
 
@@ -211,27 +273,11 @@ class FashionControllers extends Controller
         $product = Products::find($id);
         $id_product = Products::find($id);
         $related_products = Products::where('id_categories', $product->id_categories)->where('amount', '<>', 0)->where('id', '<>', $product->id)->inRandomOrder()->paginate(8);
-        $categories = Categories::where('id_objects', 2)->get();
+        $categories = Categories::where('id_objects', $product->id_objects)->get();
         $id_categories = Categories::find($id);
         $reviews = Reviews::where('id_products', $product->id)->get();
         $avgRating = DB::table('reviews')->where('id_products', $product->id)->avg('rating');
         $countRating = Reviews::where('id_products', $product->id)->where('rating', '>', 0)->get();
-        return view('fashi.men_detail_product', compact('categories', 'product', 'id_categories', 'related_products', 'reviews', 'avgRating', 'countRating', 'id_product'));
-    }
-
-
-
-    //'categories', 'product', 'name_categories'
-    public function women()
-    {
-        $product = Products::where('id_objects', 2)->inRandomOrder('4231')->get();
-        $categories = Categories::where('id_objects', 2)->get();
-        $tags = Categories::where('id_objects', 2)->get();
-        return view('fashi.women', compact('categories', 'product', 'tags'));
-    }
-
-    public function kid()
-    {
-        return view('fashi.kid');
+        return view('fashi.detail_product', compact('categories', 'product', 'id_categories', 'related_products', 'reviews', 'avgRating', 'countRating', 'id_product'));
     }
 }

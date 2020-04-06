@@ -1,5 +1,9 @@
 @extends('admin.layouts')
 
+@push('select2-css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @section('title', 'Create Products')
 
 @section('content')
@@ -98,6 +102,19 @@
 
                             </div>
 
+                            <div class="form-group @error('size') has-error has-feedback @enderror">
+
+                                <label>Size products</label>
+
+                                <select name="size[]" multiple id="size"
+                                    class="form-control @error('size') is-invalid @enderror">
+                                    @foreach ($size as $size)
+                                    <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
                             <div class=" form-group @error('unit_price') has-error has-feedback @enderror">
 
                                 <label>Cost</label>
@@ -123,7 +140,7 @@
                                 <label>Amount</label>
 
                                 <input type="number" class="form-control @error('amount') is-invalid @enderror"
-                                    name="amount" @if(old('amount')) value="{{ old('amount') }}" @else value="0" @endif
+                                    name="amount" @if(old('amount')) value="{{ old('amount') }}" @else value="10" @endif
                                     placeholder="Amount in stock" required>
 
                             </div>
@@ -224,5 +241,16 @@
 <script>
     // Script Ckeditor 4
     CKEDITOR.replace("description");
+</script>
+@endpush
+
+@push('select2-js')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#size').select2({
+            placeholder: "Select size"
+        });
+    });
 </script>
 @endpush

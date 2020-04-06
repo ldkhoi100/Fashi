@@ -67,7 +67,8 @@ class AjaxProductController extends Controller
                     <div class="avatar-pic">
                         <div
                             style="width: 27px; height: 27px; text-align: center; background: #ddd; font-weight: bold; color: #666">
-                            ' . strtoupper(substr($value->name, 0, 1)) . '</div>
+                            ' . strtoupper(substr($value->name, 0, 1)) .
+                        '</div>
                     </div>
                     <div class="avatar-text">
                         <div class="at-rating">';

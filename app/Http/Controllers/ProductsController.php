@@ -14,6 +14,7 @@ use App\Products;
 use App\Categories;
 use App\Objects;
 use App\Reviews;
+use App\Size;
 
 class ProductsController extends Controller
 {
@@ -46,7 +47,8 @@ class ProductsController extends Controller
         $mans = Categories::where('id_objects', 2)->get();
         $womans = Categories::where('id_objects', 3)->get();
         $kids = Categories::where('id_objects', 4)->get();
-        return view('admin.products.create', compact('mans', 'womans', 'kids', 'none', 'objects'));
+        $size = Size::all();
+        return view('admin.products.create', compact('mans', 'womans', 'kids', 'none', 'objects', 'size'));
     }
 
     /**
@@ -79,7 +81,6 @@ class ProductsController extends Controller
                 $image1 = Str::random(5) . "_" . $name_image1;
             }
             $file1->move("img/products", $image1);
-
             $product->image1 = $image1;
         }
 
@@ -91,7 +92,6 @@ class ProductsController extends Controller
                 $image2 = Str::random(5) . "_" . $name_image2;
             }
             $file2->move("img/products", $image2);
-
             $product->image2 = $image2;
         }
 
@@ -103,7 +103,6 @@ class ProductsController extends Controller
                 $image3 = Str::random(5) . "_" . $name_image3;
             }
             $file3->move("img/products", $image3);
-
             $product->image3 = $image3;
         }
 
@@ -115,12 +114,16 @@ class ProductsController extends Controller
                 $image4 = Str::random(5) . "_" . $name_image4;
             }
             $file4->move("img/products", $image4);
-
             $product->image4 = $image4;
         }
 
         $product->user_created = Auth::user()->username;
         $product->save();
+
+        // dd(request('size'));
+        if (request('size')) {
+            $product->size()->attach(request('size'));
+        }
 
         return redirect()->route('product.create')->with('success', "Product $product->name created!");
     }
@@ -152,7 +155,8 @@ class ProductsController extends Controller
         $mans = Categories::where('id_objects', 2)->get();
         $womans = Categories::where('id_objects', 3)->get();
         $kids = Categories::where('id_objects', 4)->get();
-        return view('admin.products.edit', compact('product', 'none', 'mans', 'womans', 'kids', 'objects'));
+        $sizes = Size::all();
+        return view('admin.products.edit', compact('product', 'none', 'mans', 'womans', 'kids', 'objects', 'sizes'));
     }
 
     /**
@@ -238,6 +242,8 @@ class ProductsController extends Controller
         $product->user_updated = Auth::user()->username;
         $product->save();
 
+        $product->size()->sync(request('size'));
+
         return redirect()->route('product.edit', $product->id)->with('success', "Product $product->name updated!");
     }
 
@@ -297,6 +303,7 @@ class ProductsController extends Controller
         if (!empty($product->image4)) {
             unlink("img/products/" . $product->image4);
         }
+        $product->size()->detach();
         $product->forceDelete();
         return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
     }

@@ -1,6 +1,6 @@
 @extends('fashi.layouts')
 
-@section('title', 'home')
+@section('title', 'Fashion')
 
 @section('content')
 
@@ -75,103 +75,59 @@
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
+                        <li class="active">Best - selling product</li>
+                        {{-- <li>HandBag</li>
                         <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li>Accessories</li> --}}
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
+
+                    @foreach ($women as $product)
+
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="img/products/women-1.jpg" alt="">
-                            <div class="sale">Sale</div>
+                            <img src={{ "img/products/" . $product->image1 }} alt="">
+                            @if($product->promotion_price > 0)
+                            <div class="sale">
+                                -{{ number_format(100 - ($product->promotion_price * 100 / $product->unit_price), 0) }}%
+                            </div>
+                            @endif
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i
+                                            class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
+                                        Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
+                            <div class="catagory-name">{{ $product->categories->name }}</div>
                             <a href="#">
-                                <h5>Pure Pineapple</h5>
+                                <h5>{{ $product->name }}</h5>
                             </a>
+
+                            @if($product->promotion_price > 0)
                             <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
+                                ${{ number_format($product->promotion_price, 2) }}
+                                <span>${{ number_format($product->unit_price, 2) }}</span>
                             </div>
+
+                            @else
+
+                            <div class="product-price">
+                                ${{ number_format($product->unit_price, 2) }}
+                            </div>
+
+                            @endif
+
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-2.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-3.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-4.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -223,15 +179,15 @@
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
+                        <li class="active">Best - selling product</li>
+                        {{-- <li>HandBag</li>
                         <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li>Accessories</li> --}}
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
 
-                    @foreach ($product as $product)
+                    @foreach ($men as $product)
 
                     <div class="product-item">
                         <div class="pi-pic">
@@ -245,7 +201,8 @@
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i
+                                            class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                                         Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
@@ -317,18 +274,21 @@
             </div>
         </div>
         <div class="row">
+
+            @foreach ($blogs as $blog)
+
             <div class="col-lg-4 col-md-6">
                 <div class="single-latest-blog">
-                    <img src="img/latest-1.jpg" alt="">
+                    <img src={{ "img/blog/" . $blog->image }} alt="" height='300px'>
                     <div class="latest-text">
                         <div class="tag-list">
                             <div class="tag-item">
                                 <i class="fa fa-calendar-o"></i>
-                                May 4,2019
+                                {{ date("M d, Y H:i", strtotime($blog->created_at)) }}
                             </div>
                             <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
+                                <i class="far fa-eye"></i>
+                                {{ $blog->view_count }}
                             </div>
                         </div>
                         <a href="#">
@@ -338,48 +298,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/latest-2.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2019
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>Vogue's Ultimate Guide To Autumn/Winter 2019 Shoes</h4>
-                        </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/latest-3.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2019
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
-                        </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
+
+            @endforeach
+
         </div>
         <div class="benefit-items">
             <div class="row">

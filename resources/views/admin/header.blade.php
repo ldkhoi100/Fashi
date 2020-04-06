@@ -29,6 +29,8 @@
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
 
+    @stack('select2-css')
+
 </head>
 
 <body id="page-top">
@@ -141,6 +143,12 @@
                 <a class="nav-link" href="{{ route('table') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('bills.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Bills</span></a>
             </li>
 
             <li class="nav-item">

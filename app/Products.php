@@ -39,4 +39,9 @@ class Products extends Model
     {
         return $this->hasMany("App\Reviews", 'id_products', 'id');
     }
+
+    public function size()
+    {
+        return $this->belongsToMany(Size::class, 'size_products', 'id_products', 'id_size');
+    }
 }

@@ -60,7 +60,6 @@ class ChangePasswordController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->name = request('name');
         $user->address = request('address');
-        // $user->phone = request('phone');
         $user->save();
 
         return redirect()->back()->with('success', 'Success, Details has changed');
@@ -112,5 +111,17 @@ class ChangePasswordController extends Controller
             $user->save();
             return redirect()->route('details')->with('success', 'Success, Your phone has changed');
         }
+    }
+
+    public function postChangeAddress(Request $request)
+    {
+        $this->validate($request, [
+            'address' => 'required | string | min:5 | max:255'
+        ]);
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->address = request('address');
+        $user->save();
+        return redirect()->back()->with('toast', 'Change address success');
     }
 }

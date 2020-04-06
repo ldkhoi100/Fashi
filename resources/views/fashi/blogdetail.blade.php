@@ -28,7 +28,8 @@
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
                         <h2>{{ $blog->title }}</h2>
-                        <p>{{ $blog->categories->name }} <span> - {{ date("M d, Y H:i") }}</span></p>
+                        <p>{{ $blog->categories->name }} <span> -
+                                {{ date("M d, Y H:i", strtotime($blog->created_at)) }}</span></p>
                     </div>
                     <div class="blog-large-pic">
                         <img src="{{ "img/blog/" . $blog->image }}" alt="">
@@ -44,7 +45,8 @@
                                 <li>{{ $blog->objects->name }}</li>
                             </ul>
                         </div>
-                        <span style="float: right; color: #6c757d;">View count: {{ $blog->view_count }}</span>
+                        <span style="float: right; color: #6c757d;"><i class="far fa-eye"></i>
+                            {{ $blog->view_count }}</span>
                     </div>
 
                     <div class="blog-post">

@@ -22,7 +22,10 @@
             <i class="icon_heart_alt"></i>
         </div>
         <ul>
-            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+            @if($product->amount > 0)
+            <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i class="icon_bag_alt"></i></a>
+            </li>
+            @endif
             <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                     Quick View</a>
             </li>

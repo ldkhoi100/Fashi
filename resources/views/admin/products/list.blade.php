@@ -23,7 +23,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                    style="font-size: 14.5px;">
+                    style="font-size: 13.5px;">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -31,6 +31,7 @@
                             <th width='6%'>Category</th>
                             <th width='6%'>Object</th>
                             <th width='6%'>Description</th>
+                            <th>Size</th>
                             <th>Cost</th>
                             <th>Sale</th>
                             <th>Amount</th>
@@ -51,6 +52,7 @@
                             <th width='6%'>Category</th>
                             <th width='6%'>Object</th>
                             <th width='6%'>Description</th>
+                            <th>Size</th>
                             <th>Cost</th>
                             <th>Sale</th>
                             <th>Amount</th>
@@ -77,6 +79,11 @@
                             <td><button data-url="{{ route('product.show',$product->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
+                            <td>
+                                @foreach ($product->size as $size)
+                                {{ $size->name }},
+                                @endforeach
+                            </td>
                             <td>{{ $product->unit_price }}</td>
                             <td>{{ $product->promotion_price }}</td>
                             <td>{{ $product->amount }}</td>

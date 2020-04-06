@@ -12,6 +12,8 @@ class Bills extends Model
     protected $table = 'bills';
     protected $primaryKey = 'id';
 
+    protected $fillable = ['id_customer', 'date_order', 'total', 'payment', 'status'];
+
     public function customers()
     {
         return $this->belongsTo("App\Customers", 'id_customer', 'id');

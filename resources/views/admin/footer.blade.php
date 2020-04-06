@@ -63,6 +63,7 @@
 @stack('ckeditor-js')
 @stack('chart-js')
 @stack('show-ajax')
+@stack('select2-js')
 
 <script>
     //Image onchange

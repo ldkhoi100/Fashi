@@ -1,9 +1,17 @@
 @extends('fashi.layouts')
 
-@section('title', 'home')
+@section('title', 'Checkout')
 
 @section('content')
 
+<style>
+    .box {
+        color: black;
+        padding: 5px;
+        display: none;
+    }
+</style>
+@include('partials.message')
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -23,52 +31,94 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form action="{{ route('login') }}" class="checkout-form">
+        <form action="{{ route('formCheckout') }}" class="checkout-form" method="POST">
+            @csrf
+
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
-                        <a href="#" class="content-btn">Click Here To Login</a>
+                        <a href="{{ route('login') }}" class="content-btn">Click Here To Login</a>
                     </div>
                     <h4>Biiling Details</h4>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <label for="fir">First Name<span>*</span></label>
-                            <input type="text" id="fir">
+                        <div class="col-lg-12">
+                            <label for="fir">Full Name<span>*</span></label>
+                            <input type="text" id="fir" name="name" style="margin-bottom: 5px"
+                                class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                            @error('name')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <label for="last">Last Name<span>*</span></label>
                             <input type="text" id="last">
-                        </div>
+                        </div> --}}
                         <div class="col-lg-12">
-                            <label for="cun-name">Company Name</label>
-                            <input type="text" id="cun-name">
+                            <label for="cun-name">Email<span>*</span></label>
+                            <input type="text" id="cun-name" name="email" style="margin-bottom: 5px"
+                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                            @error('email')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="cun">Country<span>*</span></label>
-                            <input type="text" id="cun">
+                            <input type="text" id="cun" name="country" style="margin-bottom: 5px"
+                                class="form-control @error('country') is-invalid @enderror"
+                                value="{{ old('country') }}">
+                            @error('country')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Street Address<span>*</span></label>
-                            <input type="text" id="street" class="street-first">
-                            <input type="text">
+                            <input type="text" id="street" name="address" style="margin-bottom: 5px"
+                                class="form-control @error('address') is-invalid @enderror"
+                                value="{{ old('address') }}">
+                            @error('address')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="zip">Postcode / ZIP (optional)</label>
-                            <input type="text" id="zip">
+                            <input type="text" id="zip" name="postcode" style="margin-bottom: 5px"
+                                class="form-control @error('postcode') is-invalid @enderror"
+                                value="{{ old('postcode') }}">
+                            @error('postcode')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="town">Town / City<span>*</span></label>
-                            <input type="text" id="town">
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="email">Email Address<span>*</span></label>
-                            <input type="text" id="email">
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="phone">Phone<span>*</span></label>
-                            <input type="text" id="phone">
+                            <input type="text" id="town" name="city" style="margin-bottom: 5px"
+                                class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}">
+                            @error('city')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-lg-12">
+                            <label for="phone">Phone<span>*</span></label>
+                            <input type="text" id="phone" name="phone" style="margin-bottom: 5px"
+                                class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                            @error('phone')
+                            <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        {{-- <div class="col-lg-12">
                             <div class="create-item">
                                 <label for="acc-create">
                                     Create an account?
@@ -76,7 +126,7 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -88,30 +138,84 @@
                         <div class="order-total">
                             <ul class="order-table">
                                 <li>Product <span>Total</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$120.00</span></li>
-                                <li class="fw-normal">Subtotal <span>$240.00</span></li>
-                                <li class="total-price">Total <span>$240.00</span></li>
+
+                                <?php $i=0; ?>
+                                @foreach (Cart::content() as $value)
+
+                                <li class="fw-normal">{{ $value->name . ' x ' . $value->qty }}
+                                    @if(count($product[$i]->size) != 0)
+                                    - Size:
+                                    <select name="{{ "size" . $i }}" id="" class="form-control-sm">
+
+                                        @foreach ($product[$i]->size as $size)
+                                        <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                        @endforeach
+
+                                    </select>
+
+                                    @endif
+
+                                    <span>${{ number_format($value->total, 2) }}</span>
+                                </li>
+
+                                <?php ++$i ?>
+
+                                @endforeach
+
+                                <li class="fw-normal">Subtotal <span>${{ Cart::tax() }}</span></li>
+                                <li class="total-price">Total <span>${{ Cart::total() }}</span></li>
                             </ul>
-                            <div class="payment-check">
-                                <div class="pc-item">
-                                    <label for="pc-check">
-                                        Cheque Payment
-                                        <input type="checkbox" id="pc-check">
-                                        <span class="checkmark"></span>
-                                    </label>
+
+                            <div>
+                                <label><input type="radio" name="payment" value="Payment on delivery" class="red"
+                                        style="width: auto; height: auto" checked>
+                                    Payment on
+                                    delivery</label> <br />
+                                <div class="red card box" style="display: block">It may take<strong> 2-4 days
+                                    </strong>for delivery
                                 </div>
-                                <div class="pc-item">
-                                    <label for="pc-paypal">
-                                        Paypal
-                                        <input type="checkbox" id="pc-paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <label><input type="radio" name="payment" value="Pay by credit card" class="green"
+                                        style="width: auto; height: auto">
+                                    Pay by credit card</label> <br />
+                                <div class="green card box">Transfer funds to the following account number:
+                                    <br>- Account number: 123 456 78910
+                                    <br>- Owner ATM: Le Dang Khoi
+                                    <br>- Bank Vietinbank, Hue
                                 </div>
-                            </div>
+                            </div><br>
                             <div class="order-btn">
-                                <button type="submit" class="site-btn place-btn">Place Order</button>
+                                @if(Cart::count() != 0)
+                                <button type="button" class="btn btn-primary proceed-btn"
+                                    style="width: 50%; background:black" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    PROCEED TO CHECK OUT
+                                </button>
+                                @endif
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirm bills</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure this information is correct?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    width="20%">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,3 +227,19 @@
 <!-- Shopping Cart Section End -->
 
 @endsection
+
+@push('cartjs')
+
+<script>
+    //Type radio show/hide
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            var inputValue = $(this).attr("class");
+            var targetBox = $("." + inputValue);
+            $(".box").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+</script>
+
+@endpush

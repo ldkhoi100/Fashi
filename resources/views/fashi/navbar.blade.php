@@ -35,8 +35,8 @@
                     <ul class="dropdown">
                         {{-- <li><a href="{{ route('blogdetail') }}">Blog Details</a>
                 </li> --}}
-                <li><a href="{{ route('shoppingcart') }}">Shopping Cart</a></li>
-                <li><a href="{{ route('checkout') }}">Checkout</a></li>
+                <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
+                {{-- <li><a href="{{ route('checkout') }}">Checkout</a></li> --}}
                 <li><a href="{{ route('faq') }}">Faq</a></li>
                 <li><a href="{{ route('register') }}">Register</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>

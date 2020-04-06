@@ -33,11 +33,12 @@
     <link rel="stylesheet" href="css/back-to-top.css" type="text/css">
     <!--  Zoom image detail product  -->
     <link rel="stylesheet" href="css/zoom-image.css" type="text/css">
+    <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
 </head>
 
 @if(session('toast'))
 <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="4000"
-    style="position: fixed; top:13px; right: 13px; width: -webkit-fill-available; background: #FF7F50; z-index: 999999;">
+    style="position: fixed; top:13px; right: 13px; width: -webkit-fill-available; background: orange; z-index: 999999;">
     <div class="toast-header">
         <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
@@ -48,7 +49,25 @@
             style="position: relative; top:0; right: 0; font-size:25px; color:black">&times;</button>
     </div>
     <div class="toast-body">
-        {{ session('toast') }}
+        <b>{{ session('toast') }}</b>
+    </div>
+</div>
+@endif
+
+@if(session('toast_error'))
+<div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="4000"
+    style="position: fixed; top:13px; right: 13px; width: -webkit-fill-available; background: #F08080; z-index: 999999;">
+    <div class="toast-header">
+        <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+            <rect width="100%" height="100%" fill="#007aff"></rect>
+        </svg>
+        <strong class="mr-auto text-primary">Messeage</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
+            style="position: relative; top:0; right: 0; font-size:25px; color:black">&times;</button>
+    </div>
+    <div class="toast-body">
+        <b>{{ session('toast_error') }}</b>
     </div>
 </div>
 @endif
@@ -144,50 +163,67 @@
                             <li class="cart-icon">
                                 <a href="#">
                                     <i class="icon_bag_alt"></i>
-                                    <span>3</span>
+                                    <span>{{ Cart::count() }}</span>
                                 </a>
+                                @if(Cart::count() != 0)
+
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
                                             <tbody>
+
+                                                @foreach (Cart::content() as $row)
+
                                                 <tr>
-                                                    <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
+                                                    <td class="si-pic">
+                                                        <a href="{{ route('getDetailProductMen', $row->id) }}"><img
+                                                                src="{{ "img/products/" . $row->options->img }}"
+                                                                alt="No image" width='80px'>
+                                                        </a>
+                                                    </td>
                                                     <td class="si-text">
                                                         <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
+                                                            <p>${{ number_format($row->price, 2) }} x {{ $row->qty }}
+                                                            </p>
+                                                            <h6><a href="{{ route('getDetailProductMen', $row->id) }}">{{ $row->name }}
+                                                                </a>
+                                                            </h6>
                                                         </div>
                                                     </td>
                                                     <td class="si-close">
-                                                        <i class="ti-close"></i>
+                                                        <a href="{{ route('deleteCart', $row->rowId) }}">
+                                                            <i class="ti-close"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
+
+                                                @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>$120.00</h5>
+                                        <h5>${{ Cart::total() }}</h5>
                                     </div>
+
+                                    @endif
+
                                     <div class="select-button">
-                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        {{--  <a href="#" class="primary-btn view-card">VIEW CARD</a>  --}}
+
+                                        @if(Cart::count() == 0)
+
+                                        @else
+                                        <a href="{{ route('cart.index') }}" class="primary-btn checkout-btn">CHECK
+                                            OUT</a>
+
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">$150.00</li>
+                            <li class="cart-price">${{ Cart::total() }}</li>
+                            @endif
                         </ul>
                     </div>
                 </div>

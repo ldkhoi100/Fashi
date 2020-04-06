@@ -59,7 +59,7 @@
                     <h5>Information</h5>
                     <ul>
                         <li><a href="{{ route('contact') }}">About Us</a></li>
-                        <li><a href="{{ route('checkout') }}">Checkout</a></li>
+                        {{-- <li><a href="{{ route('checkout') }}">Checkout</a></li> --}}
                         <li><a href="{{ route('contact') }}">Contact</a></li>
                         <li><a href="#">Serivius</a></li>
                     </ul>
@@ -121,8 +121,10 @@
 <script src="js/jquery.slicknav.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/toastr.min.js"></script>
 <!-- Back to top button -->
 <script src="js/back-to-top.js"></script>
+@stack('cartjs')
 <script>
     $(document).ready(function(){
       $('.toast').toast('show');
@@ -138,7 +140,7 @@
             if(page !== null) {
                 clearTimeout( $.data( this, "scrollCheck" ) );
                 $.data( this, "scrollCheck", setTimeout(function() {
-                    var scroll_position_for_products_load = $(window).height() + $(window).scrollTop() + 800;
+                    var scroll_position_for_products_load = $(window).height() + $(window).scrollTop() + 780;
                     if(scroll_position_for_products_load >= $(document).height()) {
                         $.get(page, function(data){
                             $('.scroll').append(data.product);

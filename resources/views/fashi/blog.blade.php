@@ -53,7 +53,8 @@
                                 </div>
                                 <div class="rb-text">
                                     <h6>{{ substr($blog->title, 0, 50) }}...</h6>
-                                    <p>{{ $blog->categories->name }}<span> - {{ date("M d, Y H:i") }}</span></p>
+                                    <p>{{ $blog->categories->name }}<span> -
+                                            {{ date("M d, Y H:i", strtotime($blog->created_at)) }}</span></p>
                                 </div>
                             </a>
                         </div>
@@ -80,13 +81,17 @@
                         <div class="blog-item">
                             <div class="bi-pic">
                                 <a href="{{ route('blogdetail', $blog->id) }}"><img
-                                        src="{{ "img/blog/" . $blog->image }}" alt="" height='400px'></a>
+                                        src="{{ "img/blog/" . $blog->image }}" alt="" height='300px'></a>
                             </div>
                             <div class="bi-text">
                                 <a href="{{ route('blogdetail', $blog->id) }}">
-                                    <h4>{{ $blog->title }}</h4>
+                                    <h4>{{ $blog->title }} <br>
+                                        <span style="margin-right: 50px; font-size: 15px"><i class="far fa-eye"></i>
+                                            {{ $blog->view_count }}</span></h4>
                                 </a>
-                                <p>{{ $blog->categories->name }}<span> - {{ date("M d, Y H:i") }}</span></p>
+
+                                <p>{{ $blog->categories->name }}<span> -
+                                        {{ date("M d, Y H:i", strtotime($blog->created_at)) }}</span></p>
                             </div>
                         </div>
                     </div>

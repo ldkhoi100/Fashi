@@ -32,9 +32,9 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Comment</th>
+                            <th width='35%'>Comment</th>
                             <th>Rating</th>
-                            <th>Products</th>
+                            {{-- <th>Products</th> --}}
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
@@ -44,9 +44,9 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Comment</th>
+                            <th width='35%'>Comment</th>
                             <th>Rating</th>
-                            <th>Products</th>
+                            {{-- <th>Products</th> --}}
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
@@ -59,7 +59,7 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $reviews->name }}</td>
                             <td>{{ $reviews->email }}</td>
-                            <td>{{ $reviews->comment }}</td>
+                            <td style="width: auto; word-break: break-all;">{{ $reviews->comment }}</td>
                             <td>{{ $reviews->rating }}
                                 @if($reviews->rating > 0)
                                 <span style="color: #FAC451;">
@@ -70,7 +70,7 @@
                                 {{ "No rating" }}
                                 @endif
                             </td>
-                            <td>{{ $reviews->products->name }}</td>
+                            {{-- <td>{{ $reviews->products->name }}</td> --}}
 
                             <td><b style="color:orange">{{ $reviews->user_created }}</b> <br>
                                 {{ $reviews->created_at }}
