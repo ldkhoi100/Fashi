@@ -22,12 +22,12 @@ class Categories extends Model
 
     public function blogs()
     {
-        return $this->hasMany("App\Blogs", 'id_categories', 'id');
+        return $this->hasMany("App\Blogs", 'id_categories', 'id')->withTrashed();
     }
 
     public function products()
     {
-        return $this->hasMany("App\Products", 'id_categories', 'id');
+        return $this->hasMany("App\Products", 'id_categories', 'id')->withTrashed();
     }
 
     public function objects()

@@ -31,7 +31,7 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bills::all();
+        $bills = Bills::orderBy('id', 'DESC')->get();
         $list = Bill_detail::all();
         return view('admin.bills.list', compact('bills', 'list'));
     }
@@ -96,9 +96,9 @@ class BillsController extends Controller
         $this->validate($request, [
             'name' => 'required | min:5 | max:255 | string',
             'address' => 'required | min:5 | max:255 | string',
-            'phone' => 'required | numeric',
-            'pay_money' => 'required | numeric',
-            'status' => 'required | numeric',
+            'phone' => 'required | numeric | min:0',
+            'pay_money' => 'required | numeric | between:0,1',
+            'status' => 'required | numeric | between:0,1',
             'total' => 'required | numeric',
         ]);
 
@@ -133,6 +133,7 @@ class BillsController extends Controller
     public function destroy($id)
     {
         $bill = Bills::findOrFail($id);
+        $bill->bill_detail()->delete();
         Bills::find($id)->update(['user_deleted' => Auth::user()->username]);
         $bill->delete();
 
@@ -142,12 +143,14 @@ class BillsController extends Controller
     public function trashed(Request $request)
     {
         $bills = Bills::onlyTrashed()->get();
+        // dd($bills);
         return view('admin.bills.trash', compact('bills'));
     }
 
     public function restore($id)
     {
         $bill = Bills::onlyTrashed()->findOrFail($id);
+        $bill->bill_detail()->restore();
         $bill->restore();
 
         return redirect()->route('bills.trash')->with('success', "Bills $bill->id restored!");
@@ -159,7 +162,11 @@ class BillsController extends Controller
         if (count($bill) == 0) {
             return redirect()->route('bills.trash')->with('success', "Clean trash, nothing to restore!");
         } else {
-            Bills::onlyTrashed()->restore();
+            foreach ($bill as $item) {
+                $bill_detail = Bill_detail::onlyTrashed()->where('id_bill', $item->id)->first();
+                $bill_detail->restore();
+            }
+            $bills = Bills::onlyTrashed()->restore();
             return redirect()->route('bills.trash')->with('success', "All data restored!");
         }
     }
@@ -207,7 +214,19 @@ class BillsController extends Controller
     public function detailBills($id)
     {
         $bill_detail = Bill_detail::where('id_bill', $id)->get();
-        return view('admin.bills.detailBills', compact('bill_detail'));
+        $total_price = 0;
+        foreach ($bill_detail as $bill) {
+            $total_price += $bill->total_price;
+        }
+
+        $id_bill_detail = Bill_detail::withTrashed()->where('id_bill', $id)->first();
+        if ($id_bill_detail) {
+            $bills = Bills::withTrashed()->where('id', $id_bill_detail->id_bill)->first();
+        } else {
+            $bills = null;
+        }
+
+        return view('admin.bills.detailBills', compact('bill_detail', 'id_bill_detail', 'bills', 'total_price'));
     }
 
     public function statusDetailBills($id)

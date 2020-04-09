@@ -72,7 +72,8 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $product->name }}</td>
+                            <td><a href="{{ route('getDetailProductMen', $product->id) }}"
+                                    target="_blank">{{ $product->name }}</a></td>
                             <td>{{ $product->categories->name }}</td>
                             <td>{{ $product->objects->name }}</td>
                             {{-- <td><a href="{{ route('product.show', $product->id) }}">Details</a></td> --}}
@@ -85,23 +86,45 @@
                                 @endforeach
                             </td>
                             <td>{{ $product->unit_price }}</td>
+
                             <td>{{ $product->promotion_price }}</td>
+
                             <td>{{ $product->amount }}</td>
+
                             <td><img src="img/products/{{ $product->image1 }}" alt="" srcset="" width="75px">
                             </td>
+
                             @if($product->highlight == 1)
-                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link">Yes</a></td>
-                            @else
-                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link">No</a>
+                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link"
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change highlights column of this product?')">Yes</a>
                             </td>
-                            @endif
-                            @if($product->new == 1)
-                            <td><a href="{{ route('product.new', $product->id) }}">Yes</a></td>
+
                             @else
-                            <td><a href="{{ route('product.new', $product->id) }}">No</a></td>
+
+                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link"
+                                    style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change highlights column of this product?')">No</a>
+                            </td>
+
                             @endif
 
-                            <td><a href="{{ route('reivew.show', $product->id) }}">{{ count($product->reviews) }}</a>
+                            @if($product->new == 1)
+                            <td><a href="{{ route('product.new', $product->id) }}"
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">Yes</a>
+                            </td>
+
+                            @else
+
+                            <td><a href="{{ route('product.new', $product->id) }}" style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">No</a>
+                            </td>
+
+                            @endif
+
+                            <td><a
+                                    href="{{ route('reivew.show', $product->id) }}"><b>{{ count($product->reviews) }}</b></a>
                             </td>
 
                             <td><b style="color:orange">{{ $product->user_created }}</b> <br> {{ $product->created_at }}
@@ -109,6 +132,7 @@
 
                             <td><b style="color:purple">{{ $product->user_updated }}</b> <br> {{ $product->updated_at }}
                             </td>
+
                             <td><a href="{{ route('product.edit', $product->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>

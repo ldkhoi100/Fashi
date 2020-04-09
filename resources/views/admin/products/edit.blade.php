@@ -235,7 +235,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary"
+                                onclick="return confirm('Are you sure update this product?')">Update</button>
 
                             <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Cancle
                             </button>

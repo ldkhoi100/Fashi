@@ -39,18 +39,18 @@
             <div class="col-lg-3">
                 <div class="footer-left">
                     <div class="footer-logo">
-                        <a href="{{ route('home') }}"><img src="img/footer-logo.png" alt=""></a>
+                        <a href="{{ route('home') }}"><img src="img/logo.png" alt="" width="150px"></a>
                     </div>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello.colorlib@gmail.com</li>
+                        <li>Address: 4/2 Dang Van Ngu street, Hue, Viet Nam</li>
+                        <li>Phone: +84 79.399.5401</li>
+                        <li>Email: ldkhoi100@gmail.com</li>
                     </ul>
                     <div class="footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/demon977"><i class="fab fa-facebook"></i></a>
+                        {{-- <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a> --}}
                     </div>
                 </div>
             </div>
@@ -69,9 +69,9 @@
                 <div class="footer-widget">
                     <h5>My Account</h5>
                     <ul>
-                        <li><a href="#">My Account</a></li>
+                        <li><a href="{{ route('details') }}">My Account</a></li>
                         <li><a href="{{ route('contact') }}">Contact</a></li>
-                        <li><a href="{{ route('shoppingcart') }}">Shopping Cart</a></li>
+                        <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
                         <li><a href="{{ route('shop') }}">Shop</a></li>
                     </ul>
                 </div>
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="copyright-reserved">
+    {{-- <div class="copyright-reserved">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </footer>
 <!-- Footer Section End -->
 
@@ -140,7 +140,7 @@
             if(page !== null) {
                 clearTimeout( $.data( this, "scrollCheck" ) );
                 $.data( this, "scrollCheck", setTimeout(function() {
-                    var scroll_position_for_products_load = $(window).height() + $(window).scrollTop() + 780;
+                    var scroll_position_for_products_load = $(window).height() + $(window).scrollTop() + 800;
                     if(scroll_position_for_products_load >= $(document).height()) {
                         $.get(page, function(data){
                             $('.scroll').append(data.product);

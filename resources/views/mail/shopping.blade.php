@@ -127,6 +127,7 @@
                                                         @else
                                                         {{ " No size" }}
                                                         @endif
+                                                        - Id product: SKU00{{ $item->id }}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -139,7 +140,15 @@
                                                         :</td>
                                                     <td align="left" valign="top"
                                                         style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666;line-height:20px;padding-left:10px;padding-bottom:5px">
-                                                        ${{ number_format($item->total_price, 2) }}
+                                                        ${{ number_format($item->total_price, 2) }} &nbsp;
+
+                                                        @if(($item->unit_price * $item->quantity) > $item->total_price)
+                                                        <span
+                                                            style="text-decoration: line-through; font-size: 11px; font-weight:400; color: #b2b2b2;">
+                                                            ${{ number_format($item->unit_price * $item->quantity, 2) }}
+                                                        </span>
+                                                        @endif
+
                                                     </td>
                                                 </tr>
                                                 <tr>

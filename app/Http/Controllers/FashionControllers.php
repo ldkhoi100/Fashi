@@ -112,8 +112,8 @@ class FashionControllers extends Controller
     public function comments(Request $request)
     {
         $this->validate($request, [
-            'comment' => 'required | min:30 | max:255 |string',
-            'id_blogs' => 'required | numeric'
+            'comment' => 'required | min:10 | max:255 | string',
+            'id_blogs' => 'required | numeric | min:0'
         ]);
         $reviews = new Blogcomments();
 
@@ -148,7 +148,7 @@ class FashionControllers extends Controller
     {
         $this->validate($request, [
             'comment' => 'required | min:30 | max:255 |string',
-            'id_products' => 'required | numeric'
+            'id_products' => 'required | numeric | min:0'
         ]);
         $reviews = new Reviews();
 

@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use App\Http\Requests\categoriesRequest;
 use App\Categories;
 use App\Objects;
+use App\Size;
+use App\Products;
 
 class CategoriesController extends Controller
 {
@@ -143,6 +145,8 @@ class CategoriesController extends Controller
     {
         $categories = Categories::findOrFail($id);
         Categories::find($id)->update(['user_deleted' => Auth::user()->username]);
+
+        $categories->products()->delete();
         $categories->delete();
 
         return redirect()->route('categories.index')->with('delete', "Categories $categories->name moved to trash!");
@@ -157,6 +161,7 @@ class CategoriesController extends Controller
     public function restore($id)
     {
         $categories = Categories::onlyTrashed()->findOrFail($id);
+        $categories->products()->restore();
         $categories->restore();
 
         return redirect()->route('categories.trash')->with('success', "Categories $categories->name restored!");
@@ -168,19 +173,44 @@ class CategoriesController extends Controller
         if (count($categories) == 0) {
             return redirect()->route('categories.trash')->with('success', "Clean trash, nothing to restore!");
         } else {
+            foreach ($categories as $category) {
+                $category->products()->restore();
+            }
             Categories::onlyTrashed()->restore();
-            return redirect()->route('categories.trash')->with('success', "All data restored!");
+            return redirect()->route('categories.trash')->with('success', "All categories and all products of them restored!");
         }
     }
 
     public function delete($id)
     {
         $categories = Categories::onlyTrashed()->findOrFail($id);
+        $products = Products::where('id_categories', $id)->onlyTrashed()->get();
+
+        foreach ($products as $product) {
+            $product->size()->detach();
+        }
+
         if (!empty($categories->image)) {
             unlink("img/categories/" . $categories->image);
         }
+        foreach ($products as $product) {
+            if (!empty($product->image1)) {
+                unlink("img/products/" . $product->image1);
+            }
+            if (!empty($product->image2)) {
+                unlink("img/products/" . $product->image2);
+            }
+            if (!empty($product->image3)) {
+                unlink("img/products/" . $product->image3);
+            }
+            if (!empty($product->image4)) {
+                unlink("img/products/" . $product->image4);
+            }
+        }
+
+        $categories->products()->forceDelete();
         $categories->forceDelete();
-        return redirect()->route('categories.trash')->with('delete', "categories $categories->name destroyed!");
+        return redirect()->route('categories.trash')->with('delete', "categories $categories->name and all products of this categories destroyed!");
     }
 
     public function deleteAll()
@@ -192,9 +222,25 @@ class CategoriesController extends Controller
                 unlink("img/categories/" . $value->image);
             }
         }
+
         if (count($categories) == 0) {
             return redirect()->route('categories.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
+            foreach ($categories as $category) {
+                if (!empty($category->products()->image1)) {
+                    unlink("img/products/" . $category->products()->image1);
+                }
+                if (!empty($category->products()->image2)) {
+                    unlink("img/products/" . $category->products()->image2);
+                }
+                if (!empty($category->products()->image3)) {
+                    unlink("img/products/" . $category->products()->image3);
+                }
+                if (!empty($category->products()->image4)) {
+                    unlink("img/products/" . $category->products()->image4);
+                }
+                $category->products()->forceDelete();
+            }
             Categories::onlyTrashed()->forceDelete();
             return redirect()->route('categories.trash')->with('delete', "All data destroyed!");
         }

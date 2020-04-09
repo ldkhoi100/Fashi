@@ -12,6 +12,6 @@ class Reviews extends Model
 
     public function products()
     {
-        return $this->belongsTo("App\Products", 'id_products', 'id');
+        return $this->belongsTo("App\Products", 'id_products', 'id')->withTrashed();
     }
 }

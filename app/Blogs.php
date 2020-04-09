@@ -33,7 +33,7 @@ class Blogs extends Model
 
     public function categories()
     {
-        return $this->belongsTo("App\Categories", 'id_categories', 'id');
+        return $this->belongsTo("App\Categories", 'id_categories', 'id')->withTrashed();
     }
 
     public function Objects()

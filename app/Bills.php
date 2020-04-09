@@ -12,15 +12,18 @@ class Bills extends Model
     protected $table = 'bills';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id_customer', 'date_order', 'total', 'payment', 'status'];
+    protected $fillable = ['id_customer', 'date_order', 'total', 'payment', 'status', 'user_deleted'];
+
+    protected $dates = ['deleted_at'];
 
     public function customers()
     {
-        return $this->belongsTo("App\Customers", 'id_customer', 'id');
+        return $this->belongsTo("App\Customers", 'id_customer', 'id')->withTrashed();
     }
+
 
     public function bill_detail()
     {
-        return $this->hasMany("App\Bill_detail", 'id_bill', 'id');
+        return $this->hasMany("App\Bill_detail", 'id_bill', 'id')->withTrashed();
     }
 }

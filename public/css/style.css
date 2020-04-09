@@ -1522,7 +1522,7 @@ ol {
 
 .footer-section {
     background: #191919;
-    padding-top: 75px;
+    padding-top: 60px;
 }
 
 .footer-left {
@@ -2684,7 +2684,7 @@ ol {
     font-weight: 700;
     border-bottom: 1px solid #ebebeb;
     text-align: center;
-    padding: 18px 0 19px;
+    padding: 18px 20px 19px;
     text-transform: uppercase;
 }
 

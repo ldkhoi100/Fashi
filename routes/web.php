@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+Auth::routes();
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
 
 Route::get('/home', 'HomeController@index');
 
@@ -13,7 +16,6 @@ Route::resource('/details', 'ChangePasswordController');
 Route::get('/password', 'ChangePasswordController@index')->name('password');
 Route::get('/user/account/profile', 'ChangePasswordController@edit')->name('details');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
-
 
 //Change email
 Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email');
@@ -31,8 +33,6 @@ Route::group(['middleware' => 'locale'], function () {
     Route::get('change-language/{language}', 'HomeController@changeLanguage')
         ->name('user.change-language');
 });
-
-Auth::routes();
 
 //Users
 Route::resource('/users', 'UserControllers');
@@ -67,12 +67,11 @@ Route::get('/shop/kid', 'FashionControllers@kid')->name('kid');
 Route::get('/shop/men/{id}', 'FashionControllers@getProductMen')->name('getProductMen');
 Route::get('/shop/women/{id}', 'FashionControllers@getProductWomen')->name('getProductWomen');
 Route::get('/shop/kid/{id}', 'FashionControllers@getProductKid')->name('getProductKid');
-//Ajax load more data button for database detail product
-Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
 
 //Detail products
 Route::get('/shop/detail/{id}', 'FashionControllers@getDetailProduct')->name('getDetailProductMen');
-
+//Ajax load more data button for database detail product
+Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
 
 //Cart
 Route::resource('/cart', 'CartController');
@@ -81,6 +80,9 @@ Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::get('/deleteCart/{id}', 'CartController@deleteCart')->name('deleteCart');
 Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::post('/checkout', 'CartController@formCheckout')->name('formCheckout');
+
+//Coupons apply
+Route::post('/coupons/apply', 'CartController@coupons')->name('coupons');
 
 //Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
@@ -97,6 +99,7 @@ Route::get('/animation', 'AdminController@animation')->name('animation');
 Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
+Route::post('/add/quantity/{id}', 'AdminController@addQuantity')->name('add.quantity');
 
 //Product
 Route::resource('/product', 'ProductsController');
@@ -123,6 +126,10 @@ Route::get('/bills/detail/{id}', 'BillsController@detailBills')->name('bills.det
 //Bill detail
 Route::resource('/billDetail', 'BillDetailController');
 Route::get('/trash/billDetail/{id}', 'BillDetailController@trashed')->name('billDetail.trash');
+Route::get('/billDetail/restore/{id}', 'BillDetailController@restore')->name('billDetail.restore');
+Route::get('/billDetail-restore-all', 'BillDetailController@restoreAll')->name('billDetail.restore-all');
+Route::get('/billDetail/delete/{id}', 'BillDetailController@delete')->name('billDetail.delete');
+Route::get('/billDetail-delete-all', 'BillDetailController@deleteAll')->name('billDetail.delete-all');
 
 //Reviews Products table
 Route::resource('/reivew', 'ReviewsController');
@@ -185,3 +192,22 @@ Route::get('/instagram/{id}/restore', 'InstagramsController@restore')->name('ins
 Route::get('/instagram-restore-all', 'InstagramsController@restoreAll')->name('instagram.restore-all');
 Route::get('/instagram/{id}/delete', 'InstagramsController@delete')->name('instagram.delete');
 Route::get('/instagram-delete-all', 'InstagramsController@deleteAll')->name('instagram.delete-all');
+
+
+// Customers
+Route::resource('/customers', 'CustomersController');
+Route::get('/trash-customers', 'CustomersController@trashed')->name('customers.trash');
+Route::get('/customers/{id}/restore', 'CustomersController@restore')->name('customers.restore');
+Route::get('/customers-restore-all', 'CustomersController@restoreAll')->name('customers.restore-all');
+Route::get('/customers/{id}/delete', 'CustomersController@delete')->name('customers.delete');
+Route::get('/customers-delete-all', 'CustomersController@deleteAll')->name('customers.delete-all');
+Route::get('/active-customers/{id}', 'CustomersController@active')->name('customers.active');
+
+//Coupons
+Route::resource('/coupons', 'CouponsController');
+Route::get('/trash-coupons', 'CouponsController@trashed')->name('coupons.trash');
+Route::get('/coupons/{id}/restore', 'CouponsController@restore')->name('coupons.restore');
+Route::get('/coupons-restore-all', 'CouponsController@restoreAll')->name('coupons.restore-all');
+Route::get('/coupons/{id}/delete', 'CouponsController@delete')->name('coupons.delete');
+Route::get('/coupons-delete-all', 'CouponsController@deleteAll')->name('coupons.delete-all');
+Route::get('/used-coupons/{id}', 'CouponsController@used')->name('coupons.used');

@@ -27,12 +27,12 @@ class Products extends Model
 
     public function categories()
     {
-        return $this->belongsTo("App\Categories", 'id_categories', 'id');
+        return $this->belongsTo("App\Categories", 'id_categories', 'id')->withTrashed();
     }
 
     public function bill_detail()
     {
-        return $this->hasMany("App\Bill_detail", 'id_product', 'id');
+        return $this->hasMany("App\Bill_detail", 'id_product', 'id')->withTrashed();
     }
 
     public function reviews()
@@ -43,5 +43,10 @@ class Products extends Model
     public function size()
     {
         return $this->belongsToMany(Size::class, 'size_products', 'id_products', 'id_size');
+    }
+
+    public function size_product()
+    {
+        return $this->hasMany("App\Size_products", 'id_products', 'id');
     }
 }

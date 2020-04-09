@@ -36,7 +36,7 @@
                             <th>Pay money</th>
                             <th width='8%'>Status</th>
                             <th width='7%'>Bill detail</th>
-                            <th width='8.5%'>User updated</th>
+                            <th width='10%'>User updated</th>
                             <th width='4%'>Edit</th>
                             <th width='5%'>Delete</th>
                         </tr>
@@ -53,7 +53,7 @@
                             <th>Pay money</th>
                             <th width='8%'>Status</th>
                             <th width='7%'>Bill detail</th>
-                            <th width='8.5%'>User updated</th>
+                            <th width='10%'>User updated</th>
                             <th width='4%'>Edit</th>
                             <th width='5%'>Delete</th>
                         </tr>
@@ -65,7 +65,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $bills->id }}</td>
-                            <td>{{ $bills->customers->name }}</td>
+                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }}</td>
                             <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
@@ -76,19 +76,25 @@
 
                             @if($bills->pay_money == 1)
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"
-                                    style="color:#32CD32; font-weight: bold">Paid</a>
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change pay money column of this bills to not paid?')">Paid</a>
                             </td>
                             @else
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"
-                                    style="color:red; font-weight: bold">Not paid</a>
+                                    style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change pay money column of this bills to paid?')">Not
+                                    paid</a>
                             </td>
                             @endif
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.status', $bills->id) }}"
-                                    style="color:#32CD32; font-weight: bold">Complete</a></td>
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change status column of this bills to Uncomplete?')">Complete</a>
+                            </td>
                             @else
-                            <td><a href="{{ route('bills.status', $bills->id) }}"
-                                    style="color:red; font-weight: bold;">Uncomplete</a></td>
+                            <td><a href="{{ route('bills.status', $bills->id) }}" style="color:red; font-weight: bold;"
+                                    onclick="return confirm('Do you want change status column of this bills to complete?')">Uncomplete</a>
+                            </td>
                             @endif
 
                             <td align="center"><a href="{{ route('bills.details', $bills->id) }}"

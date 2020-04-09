@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductsRequest;
@@ -59,6 +57,9 @@ class ProductsController extends Controller
      */
     public function store(ProductsRequest $request)
     {
+        if (request('promotion_price') > request('unit_price')) {
+            return back()->with('delete', "Promotion price must be smaller than unit price!");
+        }
         $product = new Products();
         $product->name = request('name');
         $product->id_objects = request('id_objects');
@@ -119,8 +120,6 @@ class ProductsController extends Controller
 
         $product->user_created = Auth::user()->username;
         $product->save();
-
-        // dd(request('size'));
         if (request('size')) {
             $product->size()->attach(request('size'));
         }
@@ -137,7 +136,6 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Products::withTrashed()->findOrFail($id);
-        // return view('admin.products.show', compact('product'));
         return response()->json(['data' => $product, 'name' => 'Khôi'], 200); // 200 là mã lỗi
     }
 
@@ -168,8 +166,11 @@ class ProductsController extends Controller
      */
     public function update(ProductsRequest $request, $id)
     {
-        $product = Products::withTrashed()->findOrFail($id);
+        if (request('promotion_price') > request('unit_price')) {
+            return back()->with('delete', "Promotion price must be smaller than unit price!");
+        }
 
+        $product = Products::withTrashed()->findOrFail($id);
         $product->name = request('name');
         $product->description = request('description');
         $product->unit_price = request('unit_price');
@@ -303,6 +304,7 @@ class ProductsController extends Controller
         if (!empty($product->image4)) {
             unlink("img/products/" . $product->image4);
         }
+
         $product->size()->detach();
         $product->forceDelete();
         return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
@@ -337,7 +339,7 @@ class ProductsController extends Controller
 
     public function highlights($id)
     {
-        $product = Products::findOrFail($id);
+        $product = Products::withTrashed()->findOrFail($id);
         $product->highlight = !$product->highlight;
         $product->save();
         return redirect()->back()->with('success', "Product $product->name changed column highlight");
@@ -345,9 +347,20 @@ class ProductsController extends Controller
 
     public function news($id)
     {
-        $product = Products::findOrFail($id);
+        $product = Products::withTrashed()->findOrFail($id);
         $product->new = !$product->new;
         $product->save();
         return redirect()->back()->with('success', "Product $product->name changed column new");
+    }
+
+    public function addQuantity(Request $request, $id)
+    {
+        $this->validate($request, [
+            'amount' => 'required | numeric | min: 0'
+        ]);
+        $products = Products::findOrFail($id);
+        $products->amount += request('amount');
+        $products->save();
+        return redirect()->back()->with('success', "Product $products->name updated quantity to $products->amount !");
     }
 }

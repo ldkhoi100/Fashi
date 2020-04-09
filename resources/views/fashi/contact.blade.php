@@ -23,10 +23,14 @@
 <div class="map spad">
     <div class="container">
         <div class="map-inner">
-            <iframe
+            {{-- <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.305462977965!2d-74.13283844036356!3d41.02757295168286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sbd!4v1575917275626!5m2!1sen!2sbd"
                 height="610" style="border:0" allowfullscreen="">
-            </iframe>
+            </iframe> --}}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.364827977654!2d107.59936971481298!3d16.457054388642355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a16b2f566917%3A0x5f5c283c442d24ff!2zNCDEkOG6t25nIFbEg24gTmfhu68sIEFuIMSQw7RuZywgVGjDoG5oIHBo4buRIEh14bq_LCBUaOG7q2EgVGhpw6puIEh14bq_LCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1586138480706!5m2!1svi!2s"
+                width="600" height="610" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                tabindex="0"></iframe>
             <div class="icon">
                 <i class="fa fa-map-marker"></i>
             </div>
@@ -52,7 +56,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Address:</span>
-                            <p>60-49 Road 11378 New York</p>
+                            <p>4/2 Dang Van Ngu Street</p>
                         </div>
                     </div>
                     <div class="cw-item">
@@ -61,7 +65,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Phone:</span>
-                            <p>+65 11.188.888</p>
+                            <p>+84 79.399.5401</p>
                         </div>
                     </div>
                     <div class="cw-item">
@@ -70,7 +74,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Email:</span>
-                            <p>hellocolorlib@gmail.com</p>
+                            <p>ldkhoi100@gmail.com</p>
                         </div>
                     </div>
                 </div>

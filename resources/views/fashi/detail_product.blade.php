@@ -484,6 +484,15 @@
                             </div>
                             <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 <div class="customer-review-option">
+
+                                    {{-- Check admin can check review product --}}
+
+                                    @if(!Auth::check())
+                                    @elseif(Auth::user()->username == "ldkhoi97")
+                                    <h4><a href="{{ route('reivew.show', $product->id) }}" style="color:blue;"
+                                            target="_blank">Check review</a></h4>
+                                    @endif
+
                                     <h4>{{ count($reviews) }} Comments</h4>
                                     <div class="comment-option">
                                         {{ csrf_field() }}
@@ -582,8 +591,6 @@
                                         <span class="stars"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        {{-- <textarea placeholder="Messages" name="comment">{{ old('comment') }}</textarea>
-                                        --}}
                                         <textarea id="comment" placeholder="Messages" name="comment" rows="5"
                                             maxlength="250" style="margin-bottom: 10px">{{ old('comment') }}</textarea>
                                         <div id="the-count_comment" style="margin-bottom: 30px">

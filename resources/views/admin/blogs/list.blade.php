@@ -28,14 +28,14 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th width='25%'>Title</th>
                             <th>Categories</th>
                             <th>Description</th>
                             <th>Image</th>
                             <th>Total comments</th>
                             <th>Views count</th>
-                            <th>User created</th>
-                            <th>User updated</th>
+                            <th width='10%'>User created</th>
+                            <th width='10%'>User updated</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -43,14 +43,14 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th width='25%'>Title</th>
                             <th>Object</th>
                             <th>Description</th>
                             <th>Image</th>
                             <th>Total comments</th>
                             <th>Views count</th>
-                            <th>User created</th>
-                            <th>User updated</th>
+                            <th width='10%'>User created</th>
+                            <th width='10%'>User updated</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -61,14 +61,15 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $blogs->title }}</td>
+                            <td><a href="{{ route('blogdetail', $blogs->id) }}" target="_blank">{{ $blogs->title }}</a>
+                            </td>
                             <td>{{ $blogs->categories->name }}</td>
                             {{-- <td><a href="{{ route('blogs.show', $blogs->id) }}">Details</a></td> --}}
                             <td><button data-url="{{ route('blogs.show',$blogs->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
 
-                            <td><img src="img/blog/{{ $blogs->image }}" alt="" srcset="" width="75px"></td>
+                            <td><img src="img/blog/{{ $blogs->image }}" alt="" srcset="" width="100px"></td>
 
                             <td><a href="{{ route('comment.show', $blogs->id) }}">{{ count($blogs->blogcomments) }}</a>
                             </td>

@@ -10,12 +10,19 @@
     <!-- Page Heading -->
     <p class="mb-4">
         <a href="{{ route('bills.index') }}" class="btn btn-primary">Home bills</a>
-        <a href="{{ route('bills.trash') }}" class="btn btn-danger" style="float:right">Garbage can</a>
+        @if(!empty($bills->id))
+        <a href="{{ route('billDetail.trash', $bills->id) }}" class="btn btn-danger" style="float:right">Garbage
+            can</a>
+        @endif
     </p>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List of bills details</h6>
+            @if(!empty($id_bill_detail))
+            <h6 class="m-0 font-weight-bold text-primary">List of bills details of code bills
+                {{ $id_bill_detail->id_bill }} - <span style="color:orange;">Total price:
+                    ${{ number_format($total_price, 2) }}</span></h6>
+            @endif
         </div>
 
         <div class="col-sm-12">@include('partials.message')</div>
@@ -32,6 +39,7 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
+                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
                             <th>User updated</th>
@@ -47,6 +55,7 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
+                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
                             <th>User updated</th>
@@ -60,8 +69,14 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $bills->id_product }}</td>
-                            <td>{{ $bills->name_products }}</td>
+
+                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
+                                    target="_blank">{{ $bills->id_product }}</a></td>
+
+                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
+                                    target="_blank">{{ $bills->products->name }}</a>
+                            </td>
+
                             @if($bills->size == 1)
                             <td>S</td>
                             @elseif($bills->size == 2)
@@ -73,8 +88,16 @@
                             @else
                             <td>{{ $bills->size }}</td>
                             @endif
+
                             <td>{{ $bills->quantity }}</td>
                             <td>${{ number_format($bills->unit_price, 2) }}</td>
+
+                            @if($bills->discount > 0)
+                            <td>{{ $bills->discount }}%</td>
+                            @else
+                            <td>0%</td>
+                            @endif
+
                             <td>${{ number_format($bills->total_price, 2) }}</td>
 
                             @if($bills->status == 1)
@@ -87,7 +110,7 @@
 
                             <td><b style="color:purple">{{ $bills->user_updated }}</b> <br> {{ $bills->updated_at }}
                             </td>
-                            <td><a href="{{ route('bills.edit', $bills->id) }}" class="btn btn-info btn-sm">
+                            <td><a href="{{ route('billDetail.edit', $bills->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>

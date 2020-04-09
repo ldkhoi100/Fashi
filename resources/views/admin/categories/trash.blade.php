@@ -11,8 +11,8 @@
     <p class="mb-4">
         <a href="{{ route('categories.index') }}" class="btn btn-primary">Home page categories</a>
 
-        <a href="{{ route('categories.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+        {{-- <a href="{{ route('categories.delete-all') }}" class="btn btn-danger float-right"
+        onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a> --}}
 
         <a href="{{ route('categories.restore-all') }}" class="btn btn-warning float-right mr-2"
             onclick="return confirm('Do you want restore all data?')">Restore all</a>

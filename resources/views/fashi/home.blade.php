@@ -150,23 +150,23 @@
             </div>
             <div class="countdown-timer" id="countdown">
                 <div class="cd-item">
-                    <span>56</span>
+                    <span>6</span>
                     <p>Days</p>
                 </div>
                 <div class="cd-item">
-                    <span>12</span>
+                    <span>23</span>
                     <p>Hrs</p>
                 </div>
                 <div class="cd-item">
-                    <span>40</span>
+                    <span>59</span>
                     <p>Mins</p>
                 </div>
                 <div class="cd-item">
-                    <span>52</span>
+                    <span>59</span>
                     <p>Secs</p>
                 </div>
             </div>
-            <a href="#" class="primary-btn">Shop Now</a>
+            <a href="/shop/women/8" class="primary-btn">Shop Now</a>
         </div>
     </div>
 </section>
@@ -279,7 +279,8 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="single-latest-blog">
-                    <img src={{ "img/blog/" . $blog->image }} alt="" height='300px'>
+                    <a href="{{ route('blogdetail', $blog->id) }}"><img src={{ "img/blog/" . $blog->image }} alt=""
+                            height='300px'></a>
                     <div class="latest-text">
                         <div class="tag-list">
                             <div class="tag-item">
@@ -291,10 +292,10 @@
                                 {{ $blog->view_count }}
                             </div>
                         </div>
-                        <a href="#">
-                            <h4>The Best Street Style From London Fashion Week</h4>
+                        <a href="{{ route('blogdetail', $blog->id) }}">
+                            <h4>{{ $blog->title }}</h4>
                         </a>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        {{-- {!! substr($blog->description, 0, 20) !!} --}}
                     </div>
                 </div>
             </div>

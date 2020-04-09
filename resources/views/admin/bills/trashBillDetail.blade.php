@@ -9,18 +9,19 @@
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <a href="{{ route('bills.index') }}" class="btn btn-primary">Home page bills</a>
+        <a href="{{ route('bills.details', $id_bills->id) }}" class="btn btn-primary">Home page bills</a>
 
-        <a href="{{ route('bills.delete-all') }}" class="btn btn-danger float-right"
+        <a href="{{ route('billDetail.delete-all') }}" class="btn btn-danger float-right"
             onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
 
-        <a href="{{ route('bills.restore-all') }}" class="btn btn-warning float-right mr-2"
+        <a href="{{ route('billDetail.restore-all') }}" class="btn btn-warning float-right mr-2"
             onclick="return confirm('Do you want restore all data?')">Restore all</a>
     </p>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List of bills details</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Garbage of bills details of code bills
+                {{ $id_bill_detail->id_bill }}</h6>
         </div>
 
         <div class="col-sm-12">@include('partials.message')</div>
@@ -37,11 +38,13 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
+                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
-                            <th>User updated</th>
+                            <th>User deleted</th>
                             <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Restore</th>
+                            <th>Destroy</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -52,11 +55,13 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
+                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
-                            <th>User updated</th>
+                            <th>User deleted</th>
                             <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Restore</th>
+                            <th>Destroy</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -65,8 +70,13 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $bills->id_product }}</td>
-                            <td>{{ $bills->name_products }}</td>
+
+                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
+                                    target="_blank">{{ $bills->id_product }}</a></td>
+
+                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
+                                    target="_blank">{{ $bills->products->name }}</a></td>
+
                             @if($bills->size == 1)
                             <td>S</td>
                             @elseif($bills->size == 2)
@@ -80,6 +90,13 @@
                             @endif
                             <td>{{ $bills->quantity }}</td>
                             <td>${{ number_format($bills->unit_price, 2) }}</td>
+
+                            @if($bills->discount > 0)
+                            <td>{{ $bills->discount }}%</td>
+                            @else
+                            <td>0%</td>
+                            @endif
+
                             <td>${{ number_format($bills->total_price, 2) }}</td>
 
                             @if($bills->status == 1)
@@ -90,19 +107,27 @@
                                     style="color:red; font-weight: bold">Uncomplete</a></td>
                             @endif
 
-                            <td><b style="color:purple">{{ $bills->user_updated }}</b> <br> {{ $bills->updated_at }}
+                            <td><b style="color:orange">{{ $bills->user_deleted }}</b> <br> {{ $bills->deleted_at }}
                             </td>
-                            <td><a href="{{ route('bills.edit', $bills->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fa fa-edit" title="Edit"></i></a>
-                            </td>
+
                             <td>
-                                <form action="{{ route('billDetail.destroy', $bills->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Do you want delete bills {{$bills->name}} ?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
-                                </form>
+                                <a href="{{ route('billDetail.edit', $bills->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fa fa-edit" title="Edit"></i>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="{{ route('billDetail.restore', $bills->id) }}" class="btn btn-warning btn-sm"
+                                    onclick="return confirm('Do you want restore bills {{ $bills->id }}?')">
+                                    <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="{{ route('billDetail.delete', $bills->id) }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Do you want destroy bills {{ $bills->name }}?')">
+                                    <i class="fa fa-minus-circle" title="Destroy"></i>
+                                </a>
                             </td>
                         </tr>
 

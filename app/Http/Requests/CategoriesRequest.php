@@ -24,7 +24,7 @@ class CategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required | min:2 | max:255 | string',
+            'name' => 'required | min:3 | max:255 | string',
             'description' => 'required | min:3 | string',
             'id_objects' => 'required | numeric',
             'image' => 'image | mimes:png,jpg,jpeg'

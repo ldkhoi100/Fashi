@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blogs;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -143,6 +144,7 @@ class BlogCategoriesController extends Controller
     {
         $categories = Categories::findOrFail($id);
         Categories::find($id)->update(['user_deleted' => Auth::user()->username]);
+        $categories->blogs()->delete();
         $categories->delete();
 
         return redirect()->route('categories-blogs.index')->with('delete', "Categories $categories->name moved to trash!");
@@ -157,6 +159,7 @@ class BlogCategoriesController extends Controller
     public function restore($id)
     {
         $categories = Categories::onlyTrashed()->findOrFail($id);
+        $categories->products()->restore();
         $categories->restore();
 
         return redirect()->route('categories-blogs.trash')->with('success', "Categories $categories->name restored!");
@@ -168,6 +171,9 @@ class BlogCategoriesController extends Controller
         if (count($categories) == 0) {
             return redirect()->route('categories-blogs.trash')->with('success', "Clean trash, nothing to restore!");
         } else {
+            foreach ($categories as $category) {
+                $category->products()->restore();
+            }
             Categories::onlyTrashed()->restore();
             return redirect()->route('categories-blogs.trash')->with('success', "All data restored!");
         }
@@ -176,9 +182,17 @@ class BlogCategoriesController extends Controller
     public function delete($id)
     {
         $categories = Categories::onlyTrashed()->findOrFail($id);
+        $blogs = Blogs::where('id_categories', $id)->onlyTrashed()->get();
+
         if (!empty($categories->image)) {
             unlink("img/categories/" . $categories->image);
         }
+        foreach ($blogs as $blog) {
+            if (!empty($blog->image)) {
+                unlink("img/blog/" . $blog->image);
+            }
+        }
+        $categories->blogs()->forceDelete();
         $categories->forceDelete();
         return redirect()->route('categories-blogs.trash')->with('delete', "categories $categories->name destroyed!");
     }
@@ -195,6 +209,9 @@ class BlogCategoriesController extends Controller
         if (count($categories) == 0) {
             return redirect()->route('categories-blogs.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
+            foreach ($categories as $category) {
+                $category->products()->forceDelete();
+            }
             Categories::onlyTrashed()->forceDelete();
             return redirect()->route('categories-blogs.trash')->with('delete', "All data destroyed!");
         }

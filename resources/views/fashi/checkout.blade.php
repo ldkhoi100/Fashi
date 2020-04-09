@@ -11,7 +11,6 @@
         display: none;
     }
 </style>
-@include('partials.message')
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -31,8 +30,14 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
+
+        @include('partials.message')
+
         <form action="{{ route('formCheckout') }}" class="checkout-form" method="POST">
             @csrf
+
+            {{-- Check coupon code --}}
+            <input type="hidden" value="{{ $coupon }}" name="code" hidden>
 
             <div class="row">
                 <div class="col-lg-6">
@@ -131,7 +136,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="checkout-content">
-                        <input type="text" placeholder="Enter Your Coupon Code">
+                        {{-- <input type="text" placeholder="Enter Your Coupon Code"> --}}
+                        <button type="button" class="btn btn-secondary proceed-btn" style="width: 100%; height: 50px;
+                        margin-top: 5px;" data-toggle="modal" data-target="#exampleModal1">
+                            Enter the discount code
+                        </button>
                     </div>
                     <div class="place-order">
                         <h4>Your Order</h4>
@@ -161,16 +170,29 @@
                                 <?php ++$i ?>
 
                                 @endforeach
+                                <li class="subtotal">Current price: <span
+                                        style="color:#d0011b;">${{ Cart::priceTotal() }}</span></li>
 
-                                <li class="fw-normal">Subtotal <span>${{ Cart::tax() }}</span></li>
-                                <li class="total-price">Total <span>${{ Cart::total() }}</span></li>
+                                @if(Cart::discount() > 0)
+                                <li class="subtotal" style="margin-top: 10px;">
+                                    Discount percent:
+                                    <span>{{ number_format(Cart::discount() * 100 / Cart::priceTotal(), 0) }}%</span>
+                                </li>
+                                @endif
+
+                                <li class="subtotal" style="margin-top: 10px;">
+                                    Discount amount: <span style="color:blue">-
+                                        ${{ number_format(Cart::discount(), 2) }}</span>
+                                </li>
+
+                                {{-- <li class="fw-normal">Subtotal <span>${{ Cart::tax() }}</span></li> --}}
+                                <li class="total-price">Total price: <span>${{ Cart::total() }}</span></li>
                             </ul>
 
                             <div>
                                 <label><input type="radio" name="payment" value="Payment on delivery" class="red"
                                         style="width: auto; height: auto" checked>
-                                    Payment on
-                                    delivery</label> <br />
+                                    Payment on delivery</label> <br />
                                 <div class="red card box" style="display: block">It may take<strong> 2-4 days
                                     </strong>for delivery
                                 </div>
@@ -183,6 +205,7 @@
                                     <br>- Bank Vietinbank, Hue
                                 </div>
                             </div><br>
+
                             <div class="order-btn">
                                 @if(Cart::count() != 0)
                                 <button type="button" class="btn btn-primary proceed-btn"
@@ -192,7 +215,7 @@
                                 </button>
                                 @endif
 
-                                <!-- Modal -->
+                                <!-- Modal confirm checkout-->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -216,12 +239,45 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+
+        <!-- Modal COUPONS -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Enter the discount code
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form action="{{ route('coupons') }}" class="coupon-form" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            Your discount codes: <br><br>
+                            <input type="text" name="code" class="form-control" placeholder="Enter DISCOUNT CODES here"
+                                required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" width="25%">Apply</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 <!-- Shopping Cart Section End -->
