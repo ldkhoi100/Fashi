@@ -21,9 +21,13 @@ class Bills extends Model
         return $this->belongsTo("App\Customers", 'id_customer', 'id')->withTrashed();
     }
 
-
     public function bill_detail()
     {
         return $this->hasMany("App\Bill_detail", 'id_bill', 'id')->withTrashed();
+    }
+
+    public function message()
+    {
+        return $this->hasMany("App\MessageCenter", 'id_bill', 'id');
     }
 }

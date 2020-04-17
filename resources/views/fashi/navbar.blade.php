@@ -54,16 +54,17 @@
                 @else
                 <li><a href="{{ route('contact') }}">Contact</a></li>
                 @endif
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        {{-- <li><a href="{{ route('blogdetail') }}">Blog Details</a>
-                </li> --}}
-                <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
-                {{-- <li><a href="{{ route('checkout') }}">Checkout</a></li> --}}
+                @if(Request::is('faq*'))
+                <li class="active"><a href="{{ route('faq') }}">FAQs</a>
+                    @else
+                <li><a href="{{ route('faq') }}">FAQs</a>
+                    @endif
+                    {{-- <ul class="dropdown">
+                        <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
                 <li><a href="{{ route('faq') }}">Faq</a></li>
                 <li><a href="{{ route('register') }}">Register</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>
-            </ul>
+            </ul> --}}
             </li>
             </ul>
         </nav>
@@ -71,4 +72,5 @@
     </div>
 </div>
 
+@include('partials.message')
 <!-- Navbar End -->

@@ -1,3 +1,37 @@
+@php
+
+function time_elapsed_string1($datetime, $full = false)
+{
+$now = new DateTime;
+$ago = new DateTime($datetime);
+$diff = $now->diff($ago);
+
+$diff->w = floor($diff->d / 7);
+$diff->d -= $diff->w * 7;
+
+$string = array(
+'y' => 'year',
+'m' => 'month',
+'w' => 'week',
+'d' => 'day',
+'h' => 'hour',
+'i' => 'minute',
+'s' => 'second',
+);
+foreach ($string as $k => &$v) {
+if ($diff->$k) {
+$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+} else {
+unset($string[$k]);
+}
+}
+
+if (!$full) $string = array_slice($string, 0, 1);
+return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
+@endphp
+
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -47,54 +81,95 @@
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
+
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
+
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                @if($total_not_read == 0)
+                @elseif($total_not_read < 6) <span class="badge badge-danger badge-counter">{{ $total_not_read }}</span>
+                    @else
+                    <span class="badge badge-danger badge-counter">5+</span>
+                    @endif
             </a>
+
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown">
+
                 <h6 class="dropdown-header">
                     Alerts Center
+                    <span style="float: right">
+                        <a href="{{ route('mark.all.read') }}" style="color: white; font-size: 10px;">
+                            Mark All as Read <i class="far fa-check-circle"></i>
+                        </a>
+                    </span>
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                @foreach ($alerts_center as $alert)
+                @if(!empty($alert->id_bill) && empty($alert->id_review))
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('bills.read', $alert->id) }}">
                     <div class="mr-3">
                         <div class="icon-circle bg-primary">
                             <i class="fas fa-file-alt text-white"></i>
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">December 12, 2019</div>
-                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                        <div class="small text-gray-500">{{ time_elapsed_string1($alert->created_at) }}</div>
+                        <span style="font-size:13.5px" @if($alert->reader == 0)
+                            class="font-weight-bold"
+                            @endif >New invoice: {{ $alert->bills->id }}, total money:
+                            ${{ number_format($alert->bills->total, 2) }}, customer:
+                            {{ $alert->bills->customers->name }}</span>
                     </div>
                 </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                @elseif(!empty($alert->id_review) && empty($alert->id_bill))
+
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('reviews.read', $alert->id) }}"
+                    target="_blank">
                     <div class="mr-3">
-                        <div class="icon-circle bg-success">
-                            <i class="fas fa-donate text-white"></i>
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-comments"></i>
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">December 7, 2019</div>
-                        $290.29 has been deposited into your account!
+                        <div class="small text-gray-500">{{ time_elapsed_string1($alert->created_at) }}</div>
+                        <span style="font-size:13.5px" @if($alert->reader == 0)
+                            class="font-weight-bold"
+                            @endif >New reviews: {{ $alert->reivews->name }}, rating:
+                            {{ $alert->reivews->rating }} <span style="color: #FAC451;">
+                                <i class="fa fa-star fa-sm"></i></span>,
+                            products: {{ $alert->reivews->products->name }}
+                        </span>
                     </div>
                 </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                @endif
+
+                @endforeach
+
+                {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
                         <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
+                            <i class="fas fa-comments"></i>
+
                         </div>
                     </div>
                     <div>
                         <div class="small text-gray-500">December 2, 2019</div>
                         Spending Alert: We've noticed unusually high spending for your account.
                     </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                </a> --}}
+
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications') }}">Show All
+                    Alerts</a>
             </div>
         </li>
+
+        {{-- <i class="fas fa-file-alt text-white"></i>
+                            <i class="fas fa-donate text-white"></i>
+                            <i class="fas fa-exclamation-triangle text-white"></i> --}}
 
         <!-- Nav Item - Messages -->
         <li class="nav-item dropdown no-arrow mx-1">
@@ -102,59 +177,54 @@
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
+                @if($count_messenger_sent == 0)
+                @else
+                <span class="badge badge-danger badge-counter">{{ $count_messenger_sent }}</span>
+                @endif
             </a>
             <!-- Dropdown - Messages -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                     Message Center
+                    <span style="float: right">
+                        <a href="{{ route('messenger.create') }}" style="color: white; font-size: 10px;">
+                            Create message <i class="fas fa-plus"></i>
+                        </a>
+                    </span>
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                @foreach ($messenger_sent as $messenger_sent)
+
+                <a class="dropdown-item d-flex align-items-center"
+                    href="{{ route('messenger.show', Crypt::encrypt($messenger_sent->id)) }}">
+
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                            problem I've been having.</div>
-                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                        <div class="status-indicator"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">I have the photos that you ordered last month, how
-                            would you like them sent to you?</div>
-                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
+                        @if(!empty($messenger_sent->user1->image))
+                        <img src="img/user/{{ $messenger_sent->user1->image }}" alt="image" width="60px"
+                            class="rounded-circle">
+                        @else
                         <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                        <div class="status-indicator bg-warning"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                            the progress so far, keep up the good work!</div>
-                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                        @endif
                         <div class="status-indicator bg-success"></div>
                     </div>
+
                     <div>
-                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                            told me that people say this to all dogs, even if they aren't good...</div>
-                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                        <div class="text-truncate" @if($messenger_sent->reader == 0)
+                            style='font-weight: bold';
+                            @endif
+                            >{{ $messenger_sent->title }}</div>
+                        <div class="small text-gray-500">{{ $messenger_sent->user1->username }} ·
+                            {{ time_elapsed_string1($messenger_sent->created_at) }}</div>
                     </div>
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+
+                @endforeach
+
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('mailbox') }}">
+                    Read More Messages
+                </a>
+
             </div>
         </li>
 
@@ -164,24 +234,43 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
+                @if(Auth::check())
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><b>{{ Auth::user()->username }}</b></span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                @endif
+                @if(!empty(Auth::user()->image))
+                <img src="img/user/{{ Auth::user()->image }}" alt="image" class="img-profile rounded-circle">
+                @else
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/daily/60x60">
+                @endif
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+
+                @if(Auth::user())
+                <a class="dropdown-item" href="{{ route('details') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
                 </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+
+                @if(Auth::user()->username)
+                <a class="dropdown-item" href="{{ route('users.index') }}">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Users managerment
                 </a>
-                <a class="dropdown-item" href="#">
+                @endif
+                {{-- <a class="dropdown-item" href="#">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-                </a>
+                </a> --}}
+
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
                 </a>
+                @else
+
+                <a class="dropdown-item" href="{{ route('login') }}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Login
+                </a>
+
+                @endif
             </div>
         </li>
 

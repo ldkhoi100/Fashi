@@ -47,11 +47,25 @@ class CouponsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($number, $percent, Request $request)
     {
+        if ($request->ajax()) {
+            if (!is_numeric($number) || $number < 1) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'The number you entered is incorrect !'
+                ]);
+            }
+            if (!is_numeric($percent) || $percent < 1 || $percent > 100) {
+                return response()->json([
+                    'status' => 'percent',
+                    'msg2' => 'The discount percentage must be beetween 1 and 100 !'
+                ]);
+            }
+        }
         $coupon = Coupons::withTrashed()->get();
-        if (request('number_coupons') > 0) {
-            for ($i = 0; $i < request('number_coupons'); $i++) {
+        if ($number > 0) {
+            for ($i = 0; $i < $number; $i++) {
                 $coupons = new Coupons();
                 $random = "FS" . rand(1000000000, 9999999999);
                 foreach ($coupon as $item) {
@@ -60,13 +74,14 @@ class CouponsController extends Controller
                     }
                 }
                 $coupons->id_coupon = $random;
-                $coupons->discount = request('discount');
+                $coupons->discount = $percent;
                 $coupons->user_created = Auth::user()->username;
                 $coupons->save();
             }
         }
-
-        return back()->with('success', "Coupons $coupons->id_coupon created!");
+        $coupons = Coupons::orderBy('created_at', 'DESC')->get();
+        return view('admin.coupons.ajaxUsed', compact('coupons'));
+        // return back()->with('success', "Coupons $coupons->id_coupon created!");
     }
 
     /**
@@ -173,9 +188,19 @@ class CouponsController extends Controller
 
     public function used($id)
     {
-        $coupons = Coupons::withTrashed()->findOrFail($id);
-        $coupons->used = !$coupons->used;
-        $coupons->save();
-        return back()->with('success', "Coupons $coupons->id_coupon changed column highlight");
+        $coupons_id = Coupons::withTrashed()->findOrFail($id);
+        $coupons_id->used = !$coupons_id->used;
+        $coupons_id->save();
+        $coupons = Coupons::orderBy('created_at', 'DESC')->get();
+        return view('admin.coupons.ajaxUsed', compact('coupons'));
+    }
+
+    public function usedTrash($id)
+    {
+        $coupons_id = Coupons::withTrashed()->findOrFail($id);
+        $coupons_id->used = !$coupons_id->used;
+        $coupons_id->save();
+        $coupons = Coupons::onlyTrashed()->get();
+        return view('admin.coupons.trashAjaxUsed', compact('coupons'));
     }
 }

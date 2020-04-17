@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">
                         <form method="post" action="{{ route('billDetail.update', $bills->id) }}"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" id="my-form">
                             @csrf
                             @method('PUT')
 
@@ -62,7 +62,7 @@
                                 <select name="size" id="size" class="form-control @error('size') is-invalid @enderror">
                                     @foreach ($size_product as $key => $size)
 
-                                    <option value="{{ $size->size->id }}" @if($bills->size == $size->size->id)
+                                    <option value="{{ $size->size->name }}" @if($bills->size == $size->size->name)
                                         {{ "selected" }}
                                         @endif>{{ $size->size->name }}</option>
 
@@ -108,7 +108,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit"
+                                style="border: none">Update</button>
 
                             <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Cancle
                             </button>

@@ -22,6 +22,7 @@
 <!-- Product Shop Section Begin -->
 <section class="product-shop spad">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                 <div class="filter-widget">
@@ -43,6 +44,17 @@
             </div>
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="product-show-option">
+
+                    <div class="row" style="margin: auto; margin-bottom: 40px;">
+                        @if(session('search_products'))
+                        <p style="font-size: 28px; font-weight: bold; color: #00008B">
+                            <span style="text-decoration: underline">Search products</span> :
+                            {{ session('search_products') }}
+                            {{ Session::forget('search_products') }}
+                        </p>
+                        @endif
+                    </div>
+
                     <div class="row">
                         <div class="col-lg-7 col-md-7">
                             <div class="select-option">
@@ -76,7 +88,6 @@
                                             class="sale pp-sale">
                                             Sold out
                                 </div>
-                                {{--  @else  --}}
                                 @elseif($product->promotion_price > 0)
                                 <div class="sale pp-sale">
                                     -{{ number_format(100 - ($product->promotion_price * 100 / $product->unit_price), 0) }}%
@@ -88,9 +99,16 @@
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
+                                    @if(!Auth::user())
+                                    <li class="w-icon active"><a href="javascript:void(0);" class="click">
+                                            <i class="icon_bag_alt" data-target="#exampleModal1"></i></a>
+                                    </li>
+                                    @else
                                     @if($product->amount > 0)
-                                    <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i
-                                                class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a onclick="AddCart({{ $product->id }})"
+                                            href="javascript:"><i class="fas fa-cart-arrow-down"></i></a>
+                                    </li>
+                                    @endif
                                     @endif
                                     <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                                             Quick View</a>
@@ -131,7 +149,7 @@
 
         <div class="loading-more">
             <i class="icon_loading"></i>
-            <a href="#">
+            <a href="javascript:void(0);">
                 Loading More
             </a>
         </div>

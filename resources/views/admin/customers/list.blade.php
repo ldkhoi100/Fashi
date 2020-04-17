@@ -99,12 +99,14 @@
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('customers.destroy', $customers->id) }}" method="POST">
+                                <form action="{{ route('customers.destroy', $customers->id) }}" method="POST"
+                                    id="my-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         onclick="return confirm('Do you want delete customers {{$customers->name}} ?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
+                                        class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>

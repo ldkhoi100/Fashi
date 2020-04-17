@@ -79,7 +79,7 @@ class BillDetailController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'size' => 'required | numeric | min:0',
+            'size' => 'required | string | min:0',
             'quantity' => 'required | numeric | min:0',
             'status' => 'required | numeric | between:0,1',
             'discount' => 'required | numeric | between:0,100',
@@ -100,9 +100,8 @@ class BillDetailController extends Controller
         }
         $bool = true;
         $total = 0;
-
         foreach ($size_product as $size) {
-            if (request('size') == $size->id_size) {
+            if (request('size') == $size->size->name) {
                 $bill->size = request('size');
                 $bill->quantity = request('quantity');
                 $bill->discount = request('discount');
@@ -111,15 +110,13 @@ class BillDetailController extends Controller
                 Bill_detail::withTrashed()->findOrFail($id)->update(['user_updated' => Auth::user()->username]);
                 $bill->save();
 
-                $amountBill = Bill_detail::where('id_bill', $bill->id_bill)->get();
-
+                $amountBill = Bill_detail::withTrashed()->where('id_bill', $bill->id_bill)->get();
                 foreach ($amountBill as $price) {
                     $total += $price->total_price;
                 }
-
                 $code_bill->total = $total;
                 $code_bill->save();
-                return back()->with('success', "Update $bill->id success!");
+                return back()->with('success', "Update bill detail $bill->id success!");
             } else {
                 $bool = false;
             }

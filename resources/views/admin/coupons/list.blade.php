@@ -4,6 +4,12 @@
 
 @section('content')
 
+<style>
+    .container-fluid {
+        padding-right: 16px;
+    }
+</style>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -64,15 +70,19 @@
                             <td>{{ $coupons->id_coupon }}</td>
                             <td>{{ $coupons->discount }}%</td>
 
+                            {{-- <td class="used">
+                                <a href="javascript:void(0);" data-id="{{ $coupons->id }}">{{ $coupons->used }}</a>
+                            </td> --}}
+
                             @if($coupons->used == 1)
-                            <td><a href="{{ route('coupons.used', $coupons->id) }}"
+                            <td class="used"><a href="javascript:void(0);" data-id="{{ $coupons->id }}"
                                     style="color:#32CD32; font-weight: bold;"
-                                    onclick="return confirm('Do you want change used column of this coupons?')">Yes</a>
+                                    onclick="return confirm('Do you want change used column of this coupon to no?')">Yes</a>
                             </td>
                             @else
-                            <td><a href="{{ route('coupons.used', $coupons->id) }}"
+                            <td class="used"><a href="javascript:void(0);" data-id="{{ $coupons->id }}"
                                     style="color:red; font-weight: bold;"
-                                    onclick="return confirm('Do you want change used column of this coupons?')">No</a>
+                                    onclick="return confirm('Do you want change used column of this coupon to yes?')">No</a>
                             </td>
                             @endif
 
@@ -88,18 +98,57 @@
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('coupons.destroy', $coupons->id) }}" method="POST">
+                                <form action="{{ route('coupons.destroy', $coupons->id) }}" method="POST" id="my-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         onclick="return confirm('Do you want delete coupons {{$coupons->name}} ?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
+                                        class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>
 
                         @endforeach
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title" id="exampleModalLongTitle" style="color:blue;">Create
+                                            coupons
+                                        </h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {{-- <form action="{{ route('coupons.store') }}" method="POST"> --}}
+                                    {{-- @csrf --}}
+                                    <div class="modal-body">
+                                        <p>
+                                            <b>Enter the number of discount codes:</b>
+                                            <input type="number" id="number_code" class="form-control" min="0"
+                                                name="number_coupons">
+                                        </p>
+                                        <p>
+                                            <b>Enter the discount percentage: (%)</b>
+                                            <input type="number" id="percent_code" class="form-control" min="0"
+                                                name="discount">
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <a href="javascript:void(0);" onclick="createCoupon()"><button type="button"
+                                                class="btn btn-primary">Save
+                                                changes</button></a>
+                                    </div>
+                                    {{-- </form> --}}
+                                </div>
+                            </div>
+                        </div>
                     </tbody>
                 </table>
             </div>
@@ -109,37 +158,46 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLongTitle" style="color:blue;">Create coupons
-                </h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('coupons.store') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <p>
-                        <b>Enter the number of discount codes:</b>
-                        <input type="number" class="form-control" min="0" name="number_coupons">
-                    </p>
-                    <p>
-                        <b>Enter the discount percentage: (%)</b>
-                        <input type="number" class="form-control" min="0" name="discount">
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @endsection
+
+@push('show-ajax')
+
+<script>
+    //used or not use
+    $(".container-fluid").on("click", ".used a", function(){
+        $.ajax({
+            url : 'used-coupons/'+ $(this).data("id"),
+            type : 'GET',
+        }).done(function(response){
+            $(".container-fluid").empty();
+            $(".container-fluid").html(response);
+            $('#dataTable').DataTable();
+            toastr.success("Update coupons success");
+        });
+    });
+</script>
+<script>
+    //Add coupons
+    function createCoupon(){
+        let number_code = document.getElementById('number_code').value;
+        let percent_code = document.getElementById('percent_code').value;
+        $.ajax({
+            url : "/create-coupons/"+number_code+'/'+percent_code,
+            type : "GET"
+        }).done(function(response){
+            if(response.status == "error") {
+                toastr.warning(response.msg);
+            } else if(response.status == "percent") {
+                toastr.warning(response.msg2);
+            } else {    
+                $(".container-fluid").empty();
+                $(".container-fluid").html(response);
+                $('#dataTable').DataTable();
+                $('body').removeClass('modal-open');
+                toastr.success("Create coupons success");
+            }
+        });
+    }
+</script>
+
+@endpush

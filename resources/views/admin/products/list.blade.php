@@ -20,7 +20,7 @@
 
         <div class="col-sm-12">@include('partials.message')</div>
 
-        <div class="card-body">
+        <div class="card-body" id="tableProducts">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
                     style="font-size: 13.5px;">
@@ -52,7 +52,7 @@
                             <th width='6%'>Category</th>
                             <th width='6%'>Object</th>
                             <th width='6%'>Description</th>
-                            <th>Size</th>
+                            <th width='10%'>Size</th>
                             <th>Cost</th>
                             <th>Sale</th>
                             <th>Amount</th>
@@ -76,13 +76,16 @@
                                     target="_blank">{{ $product->name }}</a></td>
                             <td>{{ $product->categories->name }}</td>
                             <td>{{ $product->objects->name }}</td>
-                            {{-- <td><a href="{{ route('product.show', $product->id) }}">Details</a></td> --}}
+
                             <td><button data-url="{{ route('product.show',$product->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
-                                    class="btn btn-info btn-show btn-sm">Detail</button></td>
+                                    class="btn btn-info btn-show btn-sm">Detail</button> <br><br>
+                                <a href="{{ route('product.qtySizeGet', $product->id) }}"
+                                    class="btn btn-warning btn-sm">Quantity</a>
+                            </td>
                             <td>
-                                @foreach ($product->size as $size)
-                                {{ $size->name }},
+                                @foreach ($product->size_product as $size)
+                                {{ $size->size->name }}: <b style="color:blue">{{ $size->quantity }}</b><br>
                                 @endforeach
                             </td>
                             <td>{{ $product->unit_price }}</td>
@@ -95,30 +98,27 @@
                             </td>
 
                             @if($product->highlight == 1)
-                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change highlights column of this product?')">Yes</a>
+                            <td><a href="javascript:void(0);" onclick="changeHighlight({{ $product->id }})"
+                                    style="color:#32CD32; font-weight: bold">Yes</a>
                             </td>
 
                             @else
 
-                            <td><a href="{{ route('product.highlights', $product->id) }}" class="ajax_link"
-                                    style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change highlights column of this product?')">No</a>
+                            <td><a href="javascript:void(0);" onclick="changeHighlight({{ $product->id }})"
+                                    style="color:red; font-weight: bold">No</a>
                             </td>
 
                             @endif
 
                             @if($product->new == 1)
-                            <td><a href="{{ route('product.new', $product->id) }}"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change news column of this product?')">Yes</a>
+                            <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold"
+                                    onclick="changeNew({{ $product->id }})">Yes</a>
                             </td>
 
                             @else
 
-                            <td><a href="{{ route('product.new', $product->id) }}" style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change news column of this product?')">No</a>
+                            <td><a href="javascript:void(0);" style="color:red; font-weight: bold"
+                                    onclick="changeNew({{ $product->id }})">No</a>
                             </td>
 
                             @endif
@@ -137,12 +137,13 @@
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                                <form action="{{ route('product.destroy', $product->id) }}" method="POST" id="my-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         onclick="return confirm('Do you want delete product {{$product->name}} ?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
+                                        class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -161,6 +162,92 @@
 @endsection
 
 @push('show-ajax')
+<script>
+    function changeHighlight(id) {
+        var conf = confirm("Do you want change?");
+        $.ajax({
+            url : '/highlight/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change highlight success");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        })
+    }
+
+    function changeNew(id) {
+        var conf = confirm("Do you want change?");
+        $.ajax({
+            url : '/new/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true){
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change new success");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
 {{-- @csrf ajax--}}
 <meta name="csrf-token" content="{{ csrf_token() }}">​
 <script type="text/javascript" charset="utf-8">

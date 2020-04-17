@@ -26,11 +26,10 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Change password</h2>
-                    <form action="{{ route('details.store') }}" method="POST">
+                    <form action="{{ route('details.store') }}" method="POST" id="my-form">
                         @csrf
-                        @include('partials.message')
 
-                        <div class="group-input has-error has-feedback">
+                        <div class="form-input has-error has-feedback" style="margin-bottom: 20px">
                             <label for="password">Current Password</label>
 
                             <input id="password" type="password"
@@ -44,7 +43,7 @@
                             @enderror
                         </div>
 
-                        <div class="group-input has-error has-feedback">
+                        <div class="form-input has-error has-feedback" style="margin-bottom: 20px">
                             <label for="password">New Password</label>
 
                             <input id="new_password" type="password"
@@ -58,7 +57,7 @@
                             @enderror
                         </div>
 
-                        <div class="group-input has-error has-feedback">
+                        <div class="form-input has-error has-feedback" style="margin-bottom: 25px">
                             <label for="password">Confirm Password</label>
 
                             <input id="new_confirm_password" type="password"
@@ -72,7 +71,8 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="site-btn login-btn">Change password</button>
+                        <button type="submit" class="site-btn login-btn" id="btn-submit" style="border: none">Change
+                            password</button>
                     </form>
 
                     <div class="switch-login">
@@ -87,3 +87,17 @@
 <!-- Register Form Section End -->
 
 @endsection
+
+@push('clicked')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+		  $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+
+@endpush

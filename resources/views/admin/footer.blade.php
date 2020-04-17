@@ -59,11 +59,27 @@
 <script src="sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
+<script src="js/toastr.min.js"></script>
 
 @stack('ckeditor-js')
 @stack('chart-js')
 @stack('show-ajax')
 @stack('select2-js')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+		  $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+        $("#my-form2").submit(function (e) {
+            $("#btn-submit2").attr("disabled", true);
+		  $("#btn-submit2").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
 
 <script>
     //Image onchange

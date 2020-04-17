@@ -27,9 +27,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'current_password' => ['required', new MatchOldPassword],
-            'name' => ['string', 'max:255'],
+            'name' => ['string', 'min: 5', 'max:255'],
             'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore($this->user()->id)],
-            'address' => ['max:255'],
+            'address' => ['max:255', 'min: 5'],
+            'image' => ['image', 'mimes:png,jpg,jpeg', 'max:8000'],
         ];
     }
 

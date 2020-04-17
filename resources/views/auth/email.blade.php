@@ -36,7 +36,7 @@
                         password</span>
                     <hr>
 
-                    <form action="{{ route('verifyemail') }}" method="post" class="beta-form-checkout">
+                    <form action="{{ route('verifyemail') }}" method="POST" class="beta-form-checkout" id="my-form">
                         @csrf
 
                         <table>
@@ -77,7 +77,8 @@
                         </div>
                         <br><br>
 
-                        <button type="submit" class="site-btn register-btn">Confirm</button>
+                        <button type="submit" class="site-btn register-btn" id="btn-submit"
+                            style="border: none">Confirm</button>
                     </form>
 
                     <div class="switch-login">
@@ -91,3 +92,17 @@
 <!-- Register Form Section End -->
 
 @endsection
+
+@push('clicked')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+		  $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+
+@endpush

@@ -102,10 +102,16 @@
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
+                                    @if(!Auth::user())
+                                    <li class="w-icon active"><a href="javascript:void(0);" class="click">
+                                            <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
+                                    @else
                                     @if($product->amount > 0)
                                     <li class="w-icon active">
-                                        <a href="{{ route('addCart', $product->id) }}"><i class="icon_bag_alt"></i></a>
+                                        <a onclick="AddCart({{ $product->id }})" href="javascript:"><i
+                                                class="fas fa-cart-arrow-down"></i></a>
                                     </li>
+                                    @endif
                                     @endif
                                     <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                                             Quick View</a>
@@ -147,7 +153,7 @@
         </div>
         <div class="loading-more">
             <i class="icon_loading"></i>
-            <a href="#">
+            <a href="javascript:void(0);">
                 Loading More
             </a>
         </div>

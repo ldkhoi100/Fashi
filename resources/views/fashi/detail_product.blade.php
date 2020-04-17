@@ -43,7 +43,6 @@
 
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
-    @include('partials.message')
 
     <div class="container">
         <div class="row">
@@ -259,41 +258,70 @@
                                 </div>
                             </div>  --}}
                             {{-- Form add cart method post --}}
-                            <form action="{{ route('addCartPost', $product->id) }}" method="POST">
-                                @csrf
+                            {{-- <form action="{{ route('addCartPost', $product->id) }}" method="POST" id="my-form">
+                            --}}
+                            {{-- @csrf --}}
 
-                                <div class="pd-size-choose" style="margin-top: 160px">
-                                    <div class="sc-item">
-                                        <input type="radio" id="size" name="size12" value="2" height="50" width="50"
-                                            style="display: flex">Size
-                                    </div>
-
-                                    {{-- Size --}}
-                                    @foreach ($product->size as $size)
-                                    <div class="sc-item">
-                                        <input type="radio" name="size12" value="{{ $size->id }}">
-                                        <label for="sm-size">{{ $size->name }}</label>
-                                    </div>
-                                    @endforeach
-
+                            <div class="pd-size-choose" style="margin-top: 160px">
+                                <div class="sc-item">
+                                    <input type="radio" id="size" name="size12" value="2" height="50" width="50"
+                                        style="display: flex">Size
                                 </div>
 
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="hidden" name="check_stock" value="{{ $product->amount }}">
-                                        <input type="number" value="1" min="1" max="{{ $product->amount }}"
-                                            style="display: flex" name="qty">
-                                    </div>
-                                    @if($product->amount > 0)
-                                    <button type="submit" class="primary-btn pd-cart">Add To
-                                        Cart</button>
-                                    @else
-                                    <a href="javascript:window.location.href=window.location.href"
-                                        class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To Cart</a>
-                                    @endif
+                                {{-- Size --}}
+                                <?php $i=0; ?>
+                                @foreach ($product->size_product as $size)
+                                <div class="sc-item" id="size-select">
+                                    <input type="radio" name="size" value="{{ $size->size->name }}">
+                                    <label for="sm-size" class="size-select1" onclick="sizes({{ $size->size->id }})"
+                                        value="{{ $size->size->name }}" aria-disabled="true">
+                                        {{ $size->size->name }}
+                                    </label>
                                 </div>
+                                <?php $i++; ?>
+                                @endforeach
 
-                            </form>
+                                <br>
+
+                                <?php $y=0; ?>
+                                @foreach ($product->size_product as $size)
+                                <div class="sc-item"
+                                    style="float: left; font-weight: bold; margin-left: 0px; color: #757575">
+                                    <span class="{{ $size->size->name }} qtyavailable">{{ $size->quantity . " products
+                                        available" }}</span>
+                                </div>
+                                <?php $y++; ?>
+                                @endforeach
+
+                            </div>
+
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="hidden" id="check_stock" name="check_stock"
+                                        value="{{ $product->amount }}" style="display: flex">
+                                    <input type="number" value="1" min="1" max="{{ $product->amount }}"
+                                        style="display: flex; width: -webkit-fill-available; font-size: 19px" name="qty"
+                                        id="quantity">
+                                </div>
+                                @if(!Auth::user())
+                                <a href="javascript:void(0);" class="click primary-btn pd-cart" style="border: none">
+                                    Add To Cart</a>
+                                @else
+                                @if($product->amount > 0)
+                                <a onclick="AddCartPost({{ $product->id }})" class="primary-btn pd-cart"
+                                    style="border: none" href="javascript:">Add To Cart</a>
+
+                                {{-- <button type="submit" class="primary-btn pd-cart" id="btn-submit"
+                                        style="border: none">Add To Cart
+                                    </button> --}}
+                                @else
+                                <a href="javascript:window.location.href=window.location.href"
+                                    class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To Cart</a>
+                                @endif
+                                @endif
+                            </div>
+
+                            {{-- </form> --}}
 
                             <ul class="pd-tags">
                                 <li><span>AVAILABILITY</span>: {{ $product->amount }}</li>
@@ -568,7 +596,7 @@
                             <h4>Leave A Comment</h4>
 
                             <!-- Form reviews -->
-                            <form action="{{ route('reviews') }}" method="POST" class="comment-form">
+                            <form action="{{ route('reviews') }}" method="POST" class="comment-form" id="my-form2">
                                 @csrf
                                 <div class="row">
                                     <input type="hidden" name="id_products" value="{{ $product->id }}">
@@ -597,7 +625,9 @@
                                             <span id="current_comment">0</span>
                                             <span id="maximum_comment"> / 250</span>
                                         </div>
-                                        <button type="submit" class="site-btn">Send message</button>
+                                        <button type="submit" class="site-btn" id="btn-submit2"
+                                            style="border: none">Send
+                                            message</button>
                                     </div>
                                 </div>
                             </form>
@@ -654,8 +684,13 @@
                         <i class="icon_heart_alt"></i>
                     </div>
                     <ul>
-                        <li class="w-icon active"><a href="{{ route('addCart', $product->id) }}"><i
-                                    class="icon_bag_alt"></i></a></li>
+                        @if(!Auth::user())
+                        <li class="w-icon active"><a href="javascript:void(0);" class="click">
+                                <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
+                        @else
+                        <li class="w-icon active"><a onclick="AddCart({{ $product->id }})" href="javascript:"><i
+                                    class="fas fa-cart-arrow-down"></i></a></li>
+                        @endif
                         <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+ Quick
                                 View</a></li>
                         <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
@@ -723,6 +758,7 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function() {
   $('label').click(function() {
@@ -773,5 +809,23 @@
             current.css('color', col);
             current.css('fontWeight', fontW);
         }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+            $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form2").submit(function (e) {
+            $("#btn-submit2").attr("disabled", true);
+            $("#btn-submit2").addClass('button-clicked');
+            return true;
+        });
     });
 </script>

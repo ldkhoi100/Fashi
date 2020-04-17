@@ -22,8 +22,8 @@ class UserControllers extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('users.list', compact('users'));
+        $users = User::all();
+        return view('admin.users.list', compact('users'));
     }
 
     /**
@@ -66,8 +66,9 @@ class UserControllers extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        $users = User::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.users.edit', compact('users', 'roles'));
     }
 
     /**
@@ -81,23 +82,18 @@ class UserControllers extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:5', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'numeric', 'unique:users'],
+            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
             'address' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:1'],
         ]);
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = request('name');
-        $user->email = request('email');
         $user->phone = request('phone');
         $user->address = request('address');
-        if (!empty(request('password'))) {
-            $user->password = Hash::make(request('password'));
-        }
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated');
+        $user->roles()->sync(request('role'));
+
+        return back()->with('success', "User $user->username update success");
     }
 
     /**
@@ -109,7 +105,16 @@ class UserControllers extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        $user->roles()->detach();
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'This user deleted');
+        return back()->with('success', "User $user->username deleted");
+    }
+
+    public function block($id)
+    {
+        $user = User::findOrFail($id);
+        $user->block = !$user->block;
+        $user->save();
+        return back()->with('success', "User $user->username change column block");
     }
 }

@@ -25,11 +25,17 @@
 
     <!-- Custom styles for this template-->
     <link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
 
     @stack('select2-css')
+    <style>
+        .button-clicked {
+            background: #ffd9b3;
+        }
+    </style>
 
 </head>
 
@@ -126,7 +132,6 @@
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>
                 <a class="collapse-item" href="{{ route('error404') }}">404 Page</a>
-                <a class="collapse-item" href="{{ route('blank') }}">Blank Page</a>
             </div>
         </div>
     </li>

@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">
                         <form method="post" action="{{ route('banner.update', $banner->id) }}"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" id="my-form">
                             @csrf
                             @method('PUT')
 
@@ -88,7 +88,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit"
+                                style="border: none">Update</button>
 
                             <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Cancle
                             </button>

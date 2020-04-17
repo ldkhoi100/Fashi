@@ -1,6 +1,6 @@
 @extends('admin.layouts')
 
-@section('title', 'Create categories')
+@section('title', 'Create instagram')
 
 @section('content')
 
@@ -9,8 +9,8 @@
 
     <!-- Page Heading -->
     <div class="row">
-        <h1 class="h3 mb-2 text-gray-800"><a href="{{ route('categories.index') }}"
-                style="text-decoration: none; color: purple"><i class="fa fa-chevron-left"></i> Back categories</a>
+        <h1 class="h3 mb-2 text-gray-800"><a href="{{ route('instagram.index') }}"
+                style="text-decoration: none; color: purple"><i class="fa fa-chevron-left"></i> Back Instagram</a>
         </h1>
     </div>
     <!-- Content Row -->
@@ -21,11 +21,12 @@
             <!-- Area Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Create new categories</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Create new instagram</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">
-                        <form method="post" action="{{ route('categories.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('instagram.store') }}" enctype="multipart/form-data"
+                            id="my-form">
                             @csrf
                             @include('partials.message')
 
@@ -38,28 +39,12 @@
 
                             </div>
 
-                            <div class="form-group @error('description') has-error has-feedback @enderror">
+                            <div class="form-group @error('link') has-error has-feedback @enderror">
 
-                                <label>Description</label>
+                                <label>Link</label>
 
-                                <textarea class="form-control @error('description') is-invalid @enderror"
-                                    name="description" id="description" required>{!! old('description') !!}</textarea>
-
-                            </div>
-
-                            <div class="form-group @error('id_objects') has-error has-feedback @enderror">
-
-                                <label>Object</label>
-
-                                <select name="id_objects" id=""
-                                    class="form-control @error('id_objects') is-invalid @enderror">
-                                    @foreach ($objects as $object)
-                                    <option value="{{ $object->id }}" @if(old('id_objects')==$object->id)
-                                        {{ "selected" }}
-                                        @endif
-                                        >{{ $object->name }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control @error('link') is-invalid @enderror" name="link"
+                                    value="{{ old('link') }}" required>
 
                             </div>
 
@@ -74,7 +59,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit"
+                                style="border: none">Create</button>
 
                             <button class="btn btn-secondary"
                                 onclick="window.history.go(-1); return false;">Cancle</button>
@@ -90,12 +76,3 @@
     <!-- /.container-fluid -->
 </div>
 @endsection
-
-@push('ckeditor-js')
-<!-- CK editor 4 installed-->
-<script src="ckeditor/ckeditor.js"></script>
-<script>
-    // Script Ckeditor 4
-    CKEDITOR.replace("description");
-</script>
-@endpush

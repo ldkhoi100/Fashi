@@ -32,25 +32,20 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
                     <h2>My Profile</h2>
-                    <form action="{{ route('details.update', $user->id) }}" method="post" class="beta-form-checkout">
+                    <form action="{{ route('details.update', $user->id) }}" method="POST" class="beta-form-checkout"
+                        id="my-form" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
-                        @include('partials.message')
-
-                        <div class="form-input @error('username') has-error has-feedback @enderror">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username"
-                                class="form-control @error('username') is-invalid @enderror"
-                                value="{{ $user->username }}" required autocomplete="username" autofocus disabled>
-                            @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div><br>
-
+                        <img id="zoom" src="img/user/{{ $user->image }}" alt="No Image" srcset="" width="150"
+                            style="float: right; border: 1px solid #d9d9d9;" class="img-thumbnail">
                         <table>
+
+                            <tr>
+                                <td><label for="email">Username: &nbsp;</label> </td>
+                                <td><span>{{ Auth::user()->username }}</span></td>
+                            </tr>
+
                             <tr>
                                 <td><label for="email">Email address: &nbsp;</label> </td>
                                 <td>
@@ -73,7 +68,29 @@
                                     </span>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td><label for="phone">Password: &nbsp;</label></td>
+                                <td>
+                                    <span>*********
+                                        <a href="{{ route('password') }}"
+                                            style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
+                                            Change</a>
+                                    </span>
+                                </td>
+                            </tr>
                         </table>
+
+                        <div class="form-group @error('image') has-error has-feedback @enderror"
+                            style="margin-bottom: 0px;">
+
+                            <label>Avatar</label>
+
+                            <input id="imgPost" type="file" name="image"
+                                class="form-control @error('image') is-invalid @enderror" onchange="readURL(event)"
+                                style="width: 58%; margin-left: 0px;">
+
+                        </div><br>
 
                         <div class="form-input @error('name') has-error has-feedback @enderror">
                             <label for="name">Full name</label>
@@ -111,7 +128,8 @@
                         </div>
                         <br><br>
 
-                        <button type="submit" class="site-btn register-btn">Update</button>
+                        <button type="submit" class="site-btn register-btn" id="btn-submit"
+                            style="border: none">Update</button>
                     </form>
 
                     <div class="switch-login">
@@ -125,3 +143,31 @@
 <!-- Register Form Section End -->
 
 @endsection
+
+@push('clicked')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+		  $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+<script>
+    function readURL(event) {
+        if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function () {
+        let output = document.getElementById('zoom');
+        output.src = reader.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+</script>
+
+@endpush

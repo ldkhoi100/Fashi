@@ -123,17 +123,9 @@
                             </span>
                             @enderror
                         </div>
-                        {{-- <div class="col-lg-12">
-                            <div class="create-item">
-                                <label for="acc-create">
-                                    Create an account?
-                                    <input type="checkbox" id="acc-create">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="checkout-content">
                         {{-- <input type="text" placeholder="Enter Your Coupon Code"> --}}
@@ -151,7 +143,7 @@
                                 <?php $i=0; ?>
                                 @foreach (Cart::content() as $value)
 
-                                <li class="fw-normal">{{ $value->name . ' x ' . $value->qty }}
+                                <li class="fw-normal">{{ $value->name . ' x ' . $value->qty }} <br>
                                     @if(count($product[$i]->size) != 0)
                                     - Size:
                                     <select name="{{ "size" . $i }}" id="" class="form-control-sm">
@@ -170,6 +162,7 @@
                                 <?php ++$i ?>
 
                                 @endforeach
+
                                 <li class="subtotal">Current price: <span
                                         style="color:#d0011b;">${{ Cart::priceTotal() }}</span></li>
 
@@ -185,7 +178,6 @@
                                         ${{ number_format(Cart::discount(), 2) }}</span>
                                 </li>
 
-                                {{-- <li class="fw-normal">Subtotal <span>${{ Cart::tax() }}</span></li> --}}
                                 <li class="total-price">Total price: <span>${{ Cart::total() }}</span></li>
                             </ul>
 

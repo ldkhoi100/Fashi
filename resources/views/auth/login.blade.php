@@ -26,14 +26,13 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Login</h2>
-                    <form action="{{ route('login') }}" method="POST">
+                    <form action="{{ route('login') }}" method="POST" id="my-form">
                         @csrf
-                        @include('partials.message')
                         <div class="group-input has-error has-feedback">
                             <label for="username">Username or email address</label>
-                            <input id="username" type="username"
-                                class="form-control @if(session('error')) is-invalid @enderror" name="username"
-                                value="{{ old('username') }}" required autocomplete="username" autofocus>
+                            <input type="username" class="form-control @if(session('error')) is-invalid @enderror"
+                                name="username" value="{{ old('username') }}" required autocomplete="username"
+                                autofocus>
 
                             @error('username')
                             <span class="invalid-feedback" role="alert">
@@ -44,9 +43,8 @@
 
                         <div class="group-input has-error has-feedback">
                             <label for="password">Password</label>
-                            <input id="password" type="password"
-                                class="form-control @if(session('error')) is-invalid @enderror" name="password" required
-                                autocomplete="current-password">
+                            <input type="password" class="form-control @if(session('error')) is-invalid @enderror"
+                                name="password" required autocomplete="current-password">
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -67,7 +65,8 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="site-btn login-btn">Sign In</button>
+                        <button type="submit" class="site-btn login-btn" id="btn-submit" style="border: none">Sign
+                            In</button>
                     </form>
 
                     <div class="switch-login">
@@ -82,3 +81,17 @@
 <!-- Register Form Section End -->
 
 @endsection
+
+@push('clicked')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+		  $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+
+@endpush

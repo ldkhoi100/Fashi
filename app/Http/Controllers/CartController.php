@@ -16,6 +16,8 @@ use App\Size;
 use Mail;
 use App\Mail\ShoppingMail;
 use App\Coupons;
+use App\MessageCenter;
+use App\Size_products;
 
 class CartController extends Controller
 {
@@ -27,30 +29,20 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $product = null;
-
-        foreach (Cart::content() as $cart) {
-            $product[] = Products::find($cart->id);
-            $check_amount = Products::find($cart->id);
-
-            //Check if in cart of customer, product out of stock
-            if ($check_amount->amount <= 0) {
-                Cart::remove($cart->rowId);
-                $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
+        $size_product = null;
+        if (Auth::user()) {
+            foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+                $check = $product[] = Products::find($cart->id);
+                $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
             }
         }
-
-        //Request coupon code in function coupon()
+        //Request coupon code in function coupon
         if ($request->session()->has('coupon')) {
             $coupon = Session('coupon');
         } else {
             $coupon = null;
         }
-
-        if (Auth::user()) {
-            return view('fashi.shoppingcart', compact("product", "coupon"));
-        } else {
-            return view('fashi.checkout', compact("product", "coupon"));
-        }
+        return view('fashi.shoppingcart', compact("product", "coupon", "size_product"));
     }
 
     /**
@@ -73,7 +65,7 @@ class CartController extends Controller
     {
         $this->validate($request, [
             'payment' => "required",
-            "size.*" => "required | numeric | min:0"
+            "size.*" => "required | string | min:0"
         ]);
         $oderdetail = array();
 
@@ -86,6 +78,12 @@ class CartController extends Controller
                 // Check if user current have made a previous purchase
                 if ($check_customer == true) {
                     $id_customer = $check_customer->id;
+                    $customer = Customers::findOrFail($check_customer->id);
+                    $customer->name = Auth::user()->name;
+                    $customer->email = Auth::user()->email;
+                    $customer->address = Auth::user()->address;
+                    $customer->phone = Auth::user()->phone;
+                    $customer->save();
                 } else {
                     $customer = new Customers();
                     $customer->username = Auth::user()->username;
@@ -97,20 +95,21 @@ class CartController extends Controller
                 }
 
                 $data = $request->all();
-                if ($check_customer == true) {
-                    $data["id_customer"] = $id_customer;
-                } else {
-                    $data["id_customer"] = $customer->id;
-                }
+                $data["id_customer"] = $customer->id;
+
                 $data["date_order"] = date('Y-m-d H:i:s');
-                $data["total"] = Cart::total();
+                $data["total"] = Cart::instance(Auth::user()->id)->total();
                 $data["payment"] = $request->payment;
                 $bills = Bills::create($data);
                 $id_order = $bills->id;
                 $bill_detail = [];
 
+                $message = new MessageCenter();
+                $message->id_bill = $id_order;
+                $message->save();
+
                 $i = 0;
-                foreach (Cart::content() as $key => $cart) {
+                foreach (Cart::instance(Auth::user()->id)->content() as $key => $cart) {
                     $bill_detail["id_bill"] = $id_order;
                     $bill_detail["id_product"] = $cart->id;
                     $bill_detail["name_products"] = $cart->name;
@@ -139,14 +138,13 @@ class CartController extends Controller
                     }
                 }
 
-                // if ($check_customer == true) {
-                //     Mail::to($check_customer->email)->send(new ShoppingMail($bills, $oderdetail));
-                // } else {
-                //     Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
-                // }
-                Cart::destroy();
+                Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
+
+                Cart::instance(Auth::user()->id)->destroy();
                 return redirect()->route('home')->with('toast', 'You have successfully placed an order! We will send a mail to confirm your order today');
-            } else { }
+            } else {
+                return redirect()->route('login');
+            }
         }
     }
 
@@ -163,9 +161,7 @@ class CartController extends Controller
             'address' => 'required | string | min:5 | max: 255',
             'phone' => 'required | numeric | min:0',
         ]);
-
         $oderdetail = array();
-
         if (request('qty') > request('check_availability')) {
             return redirect()->back()->with('error', 'The quantity of products you entered is incorrect');
         } else {
@@ -183,15 +179,19 @@ class CartController extends Controller
                 $data = $request->all();
                 $data["id_customer"] = $customer->id;
                 $data["date_order"] = date('Y-m-d H:i:s');
-                $data["total"] = Cart::total();
+                $data["total"] = Cart::instance(Auth::user()->id)->total();
                 $data["payment"] = $request->payment;
                 $bills = Bills::create($data);
 
                 $id_order = $bills->id;
                 $bill_detail = [];
 
+                $message = new MessageCenter();
+                $message->id_bill = $id_order;
+                $message->save();
+
                 $i = 0;
-                foreach (Cart::content() as $key => $cart) {
+                foreach (Cart::instance(Auth::user()->id)->content() as $key => $cart) {
                     $bill_detail["id_bill"] = $id_order;
                     $bill_detail["id_product"] = $cart->id;
                     $bill_detail["name_products"] = $cart->name;
@@ -219,7 +219,7 @@ class CartController extends Controller
                 }
 
                 Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
-                Cart::destroy();
+                Cart::instance(Auth::user()->id)->destroy();
                 return redirect()->route('home')->with('toast', 'You have successfully placed an order! We will send a mail to confirm your order today');
             } else { }
         }
@@ -256,7 +256,7 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $amount = Cart::get($id)->id;
+        $amount = Cart::instance(Auth::user()->id)->get($id)->id;
         if ($request->ajax()) {
             if (request('qty') <= 0) {
                 return response()->json(['error' => 'Minimum quantity is 1']);
@@ -265,9 +265,56 @@ class CartController extends Controller
             if (request('qty') > $product->amount) {
                 return response()->json(['error' => "Quantity of <b>$product->name</b> is less than $product->amount"]);
             }
-            Cart::update($id, request('qty'));
+            Cart::instance(Auth::user()->id)->update($id, request('qty'));
             return response()->json(['result' => 'Update quantity success']);
         }
+    }
+
+    public function saveListItemCart(Request $request, $id, $quantity)
+    {
+        $id_cart = Cart::instance(Auth::user()->id)->get($id);
+        $id_product = Products::findOrFail($id_cart->id);
+        $size_product = Size_products::where('id_size', $id_cart->options->size)->where('id_products', $id_product->id)->first();
+        $total = 0;
+        $bool = true;
+        foreach (Cart::instance(Auth::user()->id)->content() as $item) {
+            if ($item->options->size == $size_product->id_size) {
+                $total += $item->qty;
+            }
+        }
+        if ($quantity > $id_cart->qty) {
+            $total += ($quantity - $id_cart->qty);
+        } else {
+            $total += ($quantity - $id_cart->qty);
+        }
+
+        if ($total > $size_product->quantity) {
+            $bool = false;
+        }
+
+        if ($request->ajax()) {
+            if (($quantity > $size_product->quantity) || $bool == false) {
+                return response()->json([
+                    'status' => 'Wrong',
+                    'msg' => 'Error'
+                ]);
+            }
+        }
+
+        Cart::instance(Auth::user()->id)->update($id, $quantity);
+        $product = null;
+        $size_product = null;
+        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+            $check = $product[] = Products::find($cart->id);
+            $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
+        }
+        //Request coupon code in function coupon()
+        if ($request->session()->has('coupon')) {
+            $coupon = Session('coupon');
+        } else {
+            $coupon = null;
+        }
+        return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
     }
 
     /**
@@ -278,42 +325,113 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        // Cart::destroy();
-        // return redirect()->route('home')->with('You have canceled the entire product!');
+        Cart::instance(Auth::user()->id)->destroy();
+        return redirect()->route('home')->with('You have canceled the entire product in the cart !');
     }
 
+    //Add shopping cart
     public function addCart($id, Request $request)
     {
-        $qty = null;
+        if (Auth::user()) {
+            $qty = null;
+            $product = Products::findOrFail($id);
+            $bool = true;
+            $total = 0;
+            foreach (Cart::instance(Auth::user()->id)->content() as $item) {
+                if ($item->id == $product->id) {
+                    $total += $item->qty;
+                    if (($total) >= $product->amount) {
+                        $bool = false;
+                    }
+                }
+            }
+
+            if ($request->ajax()) {
+                if ($bool == false) {
+                    return response()->json([
+                        'status' => 'error',
+                        'msg' => 'Error'
+                    ]);
+                }
+            }
+
+            if (request('qty') > request('check_stock')) {
+                return redirect()->back()->with('toast_error', "You enter an amount that exceeds the allowed limit!");
+            }
+            if (request('quantity') > request('check_quantity')) {
+                return redirect()->back()->with('toast_error', "This item is sold out, we will import this product soon!");
+            }
+            if (request('qty')) {
+                $qty = request('qty');
+            } else {
+                $qty = 1;
+            }
+            if (request('size')) {
+                $size = request('size');
+            } else {
+                $size = 1;
+            }
+            if ($product->promotion_price > 0) {
+                $price = $product->promotion_price;
+            } else {
+                $price = $product->unit_price;
+            }
+            Cart::instance(Auth::user()->id)->add([
+                'id' => $id,
+                'name' => $product->name,
+                'qty' => $qty,
+                'price' => $price,
+                'weight' => 0,
+                'taxRate' => 0,
+                'options' => [
+                    'img' => $product->image1,
+                    'size' => $request->input('size')
+                ]
+            ]);
+            return view('ajax.cart');
+        } else {
+            return redirect()->route('login')->with('error', 'You mush login to add to cart');
+        }
+    }
+
+    public function addCartPost($id, $qty, $check, $size, Request $request)
+    {
+        // dd($size);
+        if ($request->ajax()) {
+            if ($size == 'abc') {
+                return response()->json([
+                    'status' => 'errorsize',
+                    'msg' => 'Error'
+                ]);
+            }
+        }
         $product = Products::findOrFail($id);
+        $bool = true;
+        $total = $qty;
+        $qty_size_check = Size_products::where('id_size', $size)->where('id_products', $id)->first();
 
-        if (request('qty') > request('check_stock')) {
-            return redirect()->back()->with('toast_error', "You enter an amount that exceeds the allowed limit!");
+        foreach (Cart::instance(Auth::user()->id)->content() as $item) {
+            if ($item->options->size == $qty_size_check->id_size) {
+                $total += $item->qty;
+                if ($total > $qty_size_check->quantity) {
+                    $bool = false;
+                }
+            }
         }
-
-        if (request('quantity') > request('check_quantity')) {
-            return redirect()->back()->with('toast_error', "This item is sold out, we will import this product soon!");
+        if ($request->ajax()) {
+            if ($qty > $qty_size_check->quantity || $bool == false) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Error'
+                ]);
+            }
         }
-
-        if (request('qty')) {
-            $qty = request('qty');
-        } else {
-            $qty = 1;
-        }
-
-        if (request('size')) {
-            $size = request('size');
-        } else {
-            $size = 1;
-        }
-
         if ($product->promotion_price > 0) {
             $price = $product->promotion_price;
         } else {
             $price = $product->unit_price;
         }
-
-        Cart::add([
+        Cart::instance(Auth::user()->id)->add([
             'id' => $id,
             'name' => $product->name,
             'qty' => $qty,
@@ -322,36 +440,92 @@ class CartController extends Controller
             'taxRate' => 0,
             'options' => [
                 'img' => $product->image1,
-                'size' => $request->input('size')
+                'size' => $size,
+                'namesize' => $qty_size_check->size->name,
             ]
         ]);
-        return redirect()->back()->with('toast', "You have successfully placed an order $product->name");
+        return view('ajax.cart');
     }
 
     public function deleteCart($id)
     {
-        $cart = Cart::get($id);
-        Cart::remove($id);
-        return redirect()->back()->with('toast', "You have successfully remove item $cart->name out of cart...");
+        Cart::instance(Auth::user()->id)->remove($id);
+        return view('ajax.cart');
     }
 
-    public function coupons(Request $request)
+    public function updateDeleteListCart()
     {
-        $this->validate($request, [
-            'code' => 'required | string | min:5 | max: 20',
-        ]);
+        return view('ajax.cart');
+    }
 
-        $coupon = Coupons::where('id_coupon', request('code'))->where('used', 0)->first();
-        $check_used_coupon = Coupons::where('id_coupon', request('code'))->where('used', 1)->first();
+    public function deleteListCart($id, Request $request)
+    {
+        Cart::instance(Auth::user()->id)->remove($id);
+        $product = null;
+        $size_product = null;
 
-        if ($coupon == true) {
-            Cart::setGlobalDiscount($coupon->discount);
-            $request->session()->put('coupon', request('code'));
-            return back()->with('success', "Success, you will receive $coupon->discount% discount on the total invoice, discount codes will be invalidated after payment!");
-        } elseif ($check_used_coupon == true) {
-            return back()->with('error', 'Coupon code have been used!');
-        } else {
-            return back()->with('error', 'The discount code you entered is incorrect!');
+        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+            $check = $product[] = Products::find($cart->id);
+            $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
         }
+
+        //Request coupon code in function coupon()
+        if ($request->session()->has('coupon')) {
+            $coupon = Session('coupon');
+        } else {
+            $coupon = null;
+        }
+        return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
+    }
+
+    public function updatedeleteCart(Request $request)
+    {
+        $product = null;
+        $size_product = null;
+        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+            $check = $product[] = Products::find($cart->id);
+            $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
+        }
+        //Request coupon code in function coupon()
+        if ($request->session()->has('coupon')) {
+            $coupon = Session('coupon');
+        } else {
+            $coupon = null;
+        }
+        return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
+    }
+
+    //Coupons
+    public function coupons($code, Request $request)
+    {
+        $coupon = Coupons::where('id_coupon', $code)->where('used', 0)->first();
+        $check_used_coupon = Coupons::where('id_coupon', $code)->where('used', 1)->first();
+
+        if ($request->ajax()) {
+            if ($check_used_coupon == true) {
+                return response()->json([
+                    'used' => 'error',
+                    'msg2' => 'This coupon code has been used'
+                ]);
+            } elseif ($coupon == false) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'The discount code you entered is incorrect'
+                ]);
+            }
+        }
+        Cart::instance(Auth::user()->id)->setGlobalDiscount($coupon->discount);
+        $request->session()->put('coupon', request('code'));
+        $product = null;
+        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+            $product[] = Products::find($cart->id);
+        }
+        //Request coupon code in function coupon()
+        if ($request->session()->has('coupon')) {
+            $coupon = Session('coupon');
+        } else {
+            $coupon = null;
+        }
+        return view('ajax.list-cart', compact('coupon', 'product'));
     }
 }

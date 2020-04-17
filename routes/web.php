@@ -8,13 +8,12 @@ Auth::routes();
 //     return view('welcome');
 // });
 
-
 Route::get('/home', 'HomeController@index');
 
 //Change password
 Route::resource('/details', 'ChangePasswordController');
-Route::get('/password', 'ChangePasswordController@index')->name('password');
 Route::get('/user/account/profile', 'ChangePasswordController@edit')->name('details');
+Route::get('/password', 'ChangePasswordController@index')->name('password');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
 
 //Change email
@@ -36,6 +35,7 @@ Route::group(['middleware' => 'locale'], function () {
 
 //Users
 Route::resource('/users', 'UserControllers');
+Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
@@ -44,9 +44,16 @@ Route::get('/shop', 'FashionControllers@shop')->name('shop');
 Route::get('/shoppingcart', 'FashionControllers@shoppingcart')->name('shoppingcart');
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
 Route::get('/faq', 'FashionControllers@faq')->name('faq');
+Route::get('/user/purchase', 'FashionControllers@your_order')->name('your.order');
+Route::post('/subscribe', 'FashionControllers@subscribe')->name('subscribe.post');
+Route::post('/contact', 'FashionControllers@contactPost')->name('contact.post');
+
+//Find bill in page your order
+Route::get('/bills/search/{id}', 'FashionControllers@find_bill')->name('find.bills');
 
 //Blogs
 Route::get('/blog', 'FashionControllers@blog')->name('blog');
+Route::get('/blog/search', 'FashionControllers@blog')->name('blog.search');
 Route::get('/blog/categories/{id}', 'FashionControllers@getCategoriesBlog')->name('categories.blog');
 Route::get('/blog/detail/{id}', 'FashionControllers@blogdetail')->name('blogdetail');
 
@@ -72,22 +79,34 @@ Route::get('/shop/kid/{id}', 'FashionControllers@getProductKid')->name('getProdu
 Route::get('/shop/detail/{id}', 'FashionControllers@getDetailProduct')->name('getDetailProductMen');
 //Ajax load more data button for database detail product
 Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
+//Search products
+Route::get('/search', 'FashionControllers@shop')->name('shop.search');
 
 //Cart
 Route::resource('/cart', 'CartController');
 Route::get('/addCart/{id}', 'CartController@addCart')->name('addCart');
-Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
+Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name('saveListItemCart');
+Route::get('/addCart/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');
 Route::get('/deleteCart/{id}', 'CartController@deleteCart')->name('deleteCart');
-Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
+Route::get('/updatedeleteCart', 'CartController@updatedeleteCart')->name('updatedeleteCart');
+Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('deleteListCart');
+Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
+// Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::post('/checkout', 'CartController@formCheckout')->name('formCheckout');
 
 //Coupons apply
-Route::post('/coupons/apply', 'CartController@coupons')->name('coupons');
+Route::get('/coupons/apply/{code}', 'CartController@coupons')->name('coupons');
 
 //Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
-Route::get('/blank', 'AdminController@blank')->name('blank');
+
+Route::get('/notifications', 'AdminController@your_notifications')->name('notifications');
+Route::get('/mark/read/{id}', 'AdminController@mark_read')->name('mark.read');
+Route::get('/mark/all/read', 'AdminController@mark_all_read')->name('mark.all.read');
+Route::get('/mark/unread/{id}', 'AdminController@mark_unread')->name('mark.unread');
+Route::get('/delete/notifications/{id}', 'AdminController@delete_notifications')->name('delete.notifications');
+
 Route::get('/button', 'AdminController@button')->name('button');
 Route::get('/card', 'AdminController@card')->name('card');
 Route::get('/chart', 'AdminController@chart')->name('chart');
@@ -99,7 +118,13 @@ Route::get('/animation', 'AdminController@animation')->name('animation');
 Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
-Route::post('/add/quantity/{id}', 'AdminController@addQuantity')->name('add.quantity');
+
+//Alert message
+Route::get('/bills/read/{id}', 'AdminController@bills_read')->name('bills.read');
+Route::get('/shop/details/{id}', 'AdminController@reviews_read')->name('reviews.read');
+
+//Dashboard warehouse add quantity
+Route::get('/add/quantity/{id}/{quantity}', 'AdminController@addQuantity')->name('add.quantity');
 
 //Product
 Route::resource('/product', 'ProductsController');
@@ -109,7 +134,11 @@ Route::get('/product-restore-all', 'ProductsController@restoreAll')->name('produ
 Route::get('/product/{id}/delete', 'ProductsController@delete')->name('product.delete');
 Route::get('/product-delete-all', 'ProductsController@deleteAll')->name('product.delete-all');
 Route::get('/highlight/{id}', 'ProductsController@highlights')->name('product.highlights');
+Route::get('/highlight/trash/{id}', 'ProductsController@highlightsTrash')->name('product.highlightsTrash');
 Route::get('/new/{id}', 'ProductsController@news')->name('product.new');
+Route::get('/new/trash/{id}', 'ProductsController@newsTrash')->name('product.newTrash');
+Route::get('/bill/product/{id}', 'ProductsController@qtySizeGet')->name('product.qtySizeGet');
+Route::post('/bill/product/{id}', 'ProductsController@qtySizePost')->name('product.qtySizePost');
 
 //Bills
 Route::resource('/bills', 'BillsController');
@@ -193,7 +222,6 @@ Route::get('/instagram-restore-all', 'InstagramsController@restoreAll')->name('i
 Route::get('/instagram/{id}/delete', 'InstagramsController@delete')->name('instagram.delete');
 Route::get('/instagram-delete-all', 'InstagramsController@deleteAll')->name('instagram.delete-all');
 
-
 // Customers
 Route::resource('/customers', 'CustomersController');
 Route::get('/trash-customers', 'CustomersController@trashed')->name('customers.trash');
@@ -205,9 +233,28 @@ Route::get('/active-customers/{id}', 'CustomersController@active')->name('custom
 
 //Coupons
 Route::resource('/coupons', 'CouponsController');
+Route::get('/create-coupons/{number}/{percent}', 'CouponsController@store')->name('coupons.store');
 Route::get('/trash-coupons', 'CouponsController@trashed')->name('coupons.trash');
 Route::get('/coupons/{id}/restore', 'CouponsController@restore')->name('coupons.restore');
 Route::get('/coupons-restore-all', 'CouponsController@restoreAll')->name('coupons.restore-all');
 Route::get('/coupons/{id}/delete', 'CouponsController@delete')->name('coupons.delete');
 Route::get('/coupons-delete-all', 'CouponsController@deleteAll')->name('coupons.delete-all');
 Route::get('/used-coupons/{id}', 'CouponsController@used')->name('coupons.used');
+Route::get('/used-coupons-trash/{id}', 'CouponsController@usedTrash')->name('coupons.usedTrash');
+
+//User management
+Route::resource('/users', 'UserControllers');
+
+//Messenger admin dashboard
+Route::resource('/messenger', 'MessengeUserController');
+Route::get('/mailbox', 'MessengeUserController@inbox')->name('mailbox');
+Route::get('/mailbox/sent', 'MessengeUserController@message_sent')->name('message.sent');
+Route::get('/message/remove/{id}', 'MessengeUserController@remove_message')->name('remove.message');
+Route::get('/mark/message/read/{id}', 'MessengeUserController@mark_read')->name('mark.read.mailbox');
+Route::get('/mark/message/all/read', 'MessengeUserController@mark_all_read')->name('mark.all.read.mailbox');
+Route::get('/mark/message/unread/{id}', 'MessengeUserController@mark_unread')->name('mark.unread.mailbox');
+Route::get('/delete/message/{id}', 'MessengeUserController@delete_message')->name('delete.message.mailbox');
+Route::post('/reply', 'MessengeUserController@reply')->name('reply.message');
+
+//Size product-quantity
+// Route::resource('/sizeProduct', 'UserController');

@@ -76,12 +76,13 @@
                                 {{ $reviews->created_at }}
                             </td>
                             <td>
-                                <form action="{{ route('reivew.destroy', $reviews->id) }}" method="POST">
+                                <form action="{{ route('reivew.destroy', $reviews->id) }}" method="POST" id="my-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         onclick="return confirm('Do you want delete reviews {{$reviews->name}} ?')"
-                                        class="btn btn-danger"><i class="fa fa-backspace"></i></button>
+                                        class="btn btn-danger" id="btn-submit" style="border: none"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>

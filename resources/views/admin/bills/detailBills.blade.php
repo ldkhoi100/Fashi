@@ -102,10 +102,14 @@
 
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:#32CD32; font-weight: bold">Complete</a></td>
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change status column of this bills detail to Uncomplete?')">Complete</a>
+                            </td>
                             @else
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:red; font-weight: bold">Uncomplete</a></td>
+                                    style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change status column of this bills detail to Complete?')">Uncomplete</a>
+                            </td>
                             @endif
 
                             <td><b style="color:purple">{{ $bills->user_updated }}</b> <br> {{ $bills->updated_at }}

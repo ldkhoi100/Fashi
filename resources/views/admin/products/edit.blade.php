@@ -38,7 +38,7 @@
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">
                         <form method="post" action="{{ route('product.update', $product->id) }}"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" id="my-form">
                             @csrf
                             @method('PUT')
 
@@ -121,15 +121,11 @@
                                 <select name="size[]" multiple id="size"
                                     class="form-control @error('size') is-invalid @enderror">
                                     @foreach ($sizes as $key => $size)
-                                    @if(count($product->size) > 0)
-                                    @foreach ($product->size as $item)
-                                    <option value="{{ $size->id }}" {{ $size->id === $item->id ? 'selected' : '' }}>
-                                        {{ $size->name }}</option>
+                                    <option value="{{ $size->id }}"
+                                        {{ $product->size->contains($size->id) ? 'selected' : '' }}>{{ $size->name }}
+                                    </option>
                                     @endforeach
-                                    @else
-                                    <option value="{{ $size->id }}">{{ $size->name }}</option>
-                                    @endif
-                                    @endforeach
+                                </select>
                                 </select>
 
                             </div>
@@ -235,8 +231,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary"
-                                onclick="return confirm('Are you sure update this product?')">Update</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit"
+                                style="border: none">Update</button>
 
                             <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Cancle
                             </button>

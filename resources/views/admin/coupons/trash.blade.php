@@ -67,14 +67,14 @@
                             <td><b style="color:blue">{{ $coupons->discount }}%</b></td>
 
                             @if($coupons->used == 1)
-                            <td><a href="{{ route('coupons.used', $coupons->id) }}"
+                            <td class="used"><a href="javascript:void(0);" data-id="{{ $coupons->id }}"
                                     style="color:#32CD32; font-weight: bold;"
-                                    onclick="return confirm('Do you want change used column of this coupons?')">Yes</a>
+                                    onclick="return confirm('Do you want change used column of this coupon to no?')">Yes</a>
                             </td>
                             @else
-                            <td><a href="{{ route('coupons.used', $coupons->id) }}"
+                            <td class="used"><a href="javascript:void(0);" data-id="{{ $coupons->id }}"
                                     style="color:red; font-weight: bold;"
-                                    onclick="return confirm('Do you want change used column of this coupons?')">No</a>
+                                    onclick="return confirm('Do you want change used column of this coupon to yes?')">No</a>
                             </td>
                             @endif
 
@@ -113,3 +113,22 @@
 <!-- /.container-fluid -->
 
 @endsection
+
+@push('show-ajax')
+
+<script>
+    //used or not use
+    $(".container-fluid").on("click", ".used a", function(){
+        console.log($(this).data("id"));
+        $.ajax({
+            url : 'used-coupons-trash/'+ $(this).data("id"),
+            type : 'GET',
+        }).done(function(response){
+            $(".container-fluid").empty();
+            $(".container-fluid").html(response);
+            $('#dataTable').DataTable();
+        });
+    });
+</script>
+
+@endpush

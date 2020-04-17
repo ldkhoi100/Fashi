@@ -34,6 +34,24 @@
     <!--  Zoom image detail product  -->
     <link rel="stylesheet" href="css/zoom-image.css" type="text/css">
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
+    <style>
+        .button-clicked {
+            background: #ffe0b3;
+        }
+
+        #select_search {
+            max-width: 23%;
+            height: 50px;
+            float: left;
+            background: transparent;
+            padding-left: 23px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            font-size: 16px;
+            color: #252525;
+            position: relative;
+        }
+    </style>
 </head>
 
 @if(session('toast'))
@@ -74,10 +92,9 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    {{-- <div id="preloder">
         <div class="loader"></div>
-    </div>
-
+    </div> --}}
     <!-- Header Section Begin -->
     <header class="header-section">
         <div class="header-top">
@@ -97,11 +114,11 @@
                     @if(Auth::user())
 
                     <a href="{{ route('logout') }}" class="login-panel"><i class="fa fa-sign-out-alt fa-lg"
-                            aria-hidden="true"></i>Log out</a>
-                    <a href="{{ route('password') }}" class="login-panel" style="padding-right: 20px"><i
-                            class="fa fa-lock fa-lg"></i> Change Password</a>
+                            aria-hidden="true"></i>Log Out</a>
+                    <a href="{{ route('your.order') }}" class="login-panel" style="padding-right: 20px"><i
+                            class="fas fa-cart-arrow-down"></i>My Order</a>
                     <a href="{{ route('details') }}" class="login-panel" style="padding-right: 20px"><i
-                            class="fa fa-user"></i> {{ Auth::user()->username }}</a>
+                            class="fa fa-user"></i>{{ Auth::user()->username }}</a>
 
                     @else
 
@@ -119,7 +136,7 @@
                                 data-title="English">
                                 English</option>
                             <option value='/change-language/vi' data-image="img/flag-3.jpg" data-imagecss="flag yu"
-                                data-title="Bangladesh" class="flag">Viet Nam</option>
+                                data-title="Bangladesh" class="flag">Vietnamese</option>
                         </select>
                     </div>
 
@@ -143,91 +160,45 @@
                             </a>
                         </div>
                     </div>
+
                     <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
-                            <button type="button" class="category-btn">All Categories</button>
-                            <div class="input-group">
-                                <input type="text" placeholder="What do you need?">
-                                <button type="button"><i class="ti-search"></i></button>
-                            </div>
+                            {{-- <button type="button" class="category-btn">All Categories</button> --}}
+                            <form action="{{ route('shop.search') }}" method="GET" style="all:unset">
+                                @csrf
+                                <select name="search_select" id="select_search" class="form-control">
+                                    <option value="1">Products</option>
+                                    {{-- <option value="2">Code bills</option> --}}
+                                </select>
+                                <div class="input-group">
+                                    <input type="text" name="search_products" placeholder="Search Products . . ."
+                                        style="width: 194%; color: black;">
+                                    <button type="submit"><i class="ti-search"></i></button>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-lg-3 text-right col-md-3">
-                        <ul class="nav-right">
-                            <li class="heart-icon">
-                                <a href="#">
-                                    <i class="icon_heart_alt"></i>
-                                    <span>1</span>
-                                </a>
-                            </li>
-                            <li class="cart-icon">
-                                <a href="#">
-                                    <i class="icon_bag_alt"></i>
-                                    <span>{{ Cart::count() }}</span>
-                                </a>
-                                @if(Cart::count() != 0)
+                </div>
 
-                                <div class="cart-hover">
-                                    <div class="select-items">
-                                        <table>
-                                            <tbody>
+                <div class="col-lg-3 text-right col-md-3">
+                    <ul class="nav-right">
+                        <li class="heart-icon">
+                            <a href="#">
+                                <i class="icon_heart_alt"></i>
+                                <span>1</span>
+                            </a>
+                        </li>
 
-                                                @foreach (Cart::content() as $row)
+                        {{-- Ajax store cart --}}
+                        <span id="change-item-cart">
 
-                                                <tr>
-                                                    <td class="si-pic">
-                                                        <a href="{{ route('getDetailProductMen', $row->id) }}"><img
-                                                                src="{{ "img/products/" . $row->options->img }}"
-                                                                alt="No image" width='80px'>
-                                                        </a>
-                                                    </td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>${{ number_format($row->price, 2) }} x {{ $row->qty }}
-                                                            </p>
-                                                            <h6><a href="{{ route('getDetailProductMen', $row->id) }}">{{ $row->name }}
-                                                                </a>
-                                                            </h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <a href="{{ route('deleteCart', $row->rowId) }}">
-                                                            <i class="ti-close"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                            @include('ajax.cart')
 
-                                                @endforeach
+                        </span>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="select-total">
-                                        <span>total:</span>
-                                        <h5>${{ Cart::total() }}</h5>
-                                    </div>
-
-                                    @endif
-
-                                    <div class="select-button">
-                                        {{--  <a href="#" class="primary-btn view-card">VIEW CARD</a>  --}}
-
-                                        @if(Cart::count() == 0)
-
-                                        @else
-                                        <a href="{{ route('cart.index') }}" class="primary-btn checkout-btn">CHECK
-                                            OUT</a>
-
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="cart-price">${{ Cart::total() }}</li>
-                            @endif
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
             </div>
+        </div>
         </div>
 
         @include('fashi.navbar')

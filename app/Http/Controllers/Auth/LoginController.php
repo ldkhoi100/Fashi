@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +46,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        // return redirect()->back()->with('toast', 'Thanks for visiting, See you again...');
-        return redirect()->route('home')->with('toast', 'Thanks for visiting, See you again...');
+        return redirect()->back()->with('toast', 'Thanks for visiting, See you again...');
+        // return redirect()->route('home')->with('toast', 'Thanks for visiting, See you again...');
     }
 
     /**
@@ -70,12 +71,20 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $user_block = User::where('block', 1)->where('username', request('username'))->first();
+        if ($user_block == true) {
+            return back()->with('delete', 'Your account has been blocked, Contact us for more details!');
+        }
+
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) {
-            return redirect(session('link'))->with('toast', "Welcome back");
+            if (session('link')) {
+                return redirect(session('link'))->with('toast', "Welcome back !");
+            } else {
+                return back()->with('toast', "Welcome back !");
+            }
         } else {
-            return redirect()->route('login')
-                ->with('error', 'Username/email address or password you entered are incorrect.');
+            return redirect()->route('login')->with('error', 'Username/email or password you entered are incorrect');
         }
     }
 }

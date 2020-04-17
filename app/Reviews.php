@@ -14,4 +14,9 @@ class Reviews extends Model
     {
         return $this->belongsTo("App\Products", 'id_products', 'id')->withTrashed();
     }
+
+    public function message()
+    {
+        return $this->hasMany("App\MessageCenter", 'id_review', 'id');
+    }
 }

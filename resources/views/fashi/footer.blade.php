@@ -1,4 +1,7 @@
+@include('modal.fashi-signin-signup')
+
 <!-- Partner Logo Section Begin -->
+
 <div class="partner-logo">
     <div class="container">
         <div class="logo-carousel owl-carousel">
@@ -59,9 +62,7 @@
                     <h5>Information</h5>
                     <ul>
                         <li><a href="{{ route('contact') }}">About Us</a></li>
-                        {{-- <li><a href="{{ route('checkout') }}">Checkout</a></li> --}}
                         <li><a href="{{ route('contact') }}">Contact</a></li>
-                        <li><a href="#">Serivius</a></li>
                     </ul>
                 </div>
             </div>
@@ -80,9 +81,15 @@
                 <div class="newslatter-item">
                     <h5>Join Our Newsletter Now</h5>
                     <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#" class="subscribe-form">
-                        <input type="text" placeholder="Enter Your Mail">
-                        <button type="button">Subscribe</button>
+                    <form action="{{ route('subscribe.post') }}" class="subscribe-form" method="POST">
+                        @csrf
+                        <input type="email" placeholder="Enter Your Mail" name="email" style="display: flex">
+                        <p>
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                            {{-- <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span> --}}
+                        </p>
+                        <button type="submit">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -124,12 +131,12 @@
 <script src="js/toastr.min.js"></script>
 <!-- Back to top button -->
 <script src="js/back-to-top.js"></script>
+@stack('clicked')
 @stack('cartjs')
 <script>
     $(document).ready(function(){
       $('.toast').toast('show');
     });
- 
 </script>
 <script>
     // Auto load data from database
@@ -152,6 +159,166 @@
         }
     });
 </script>
+
+<script>
+    //Modal sign up anh sign out
+    $('.click').on( "click", function() {
+        $('#ModalSignin').modal('show');
+        $('#ModalSignUp').modal('hide');
+    });
+    $('.click2').on( "click", function() {
+        $('#ModalSignUp').modal('show');
+        $('#ModalSignin').modal('hide');
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form3").submit(function (e) {
+            $("#btn-submit3").attr("disabled", true);
+		  $("#btn-submit3").addClass('button-clicked');
+            return true;
+        });
+        $("#my-form4").submit(function (e) {
+            $("#btn-submit4").attr("disabled", true);
+		  $("#btn-submit4").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+
+<script>
+    //Ajax add cart
+    function AddCart(id){
+        $.ajax({
+            url : 'addCart/'+id,
+            type : 'GET',
+        }).done(function(response) {
+            if(response.status == "error") {
+                Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
+            } else {
+                $("#change-item-cart").empty();
+                $("#change-item-cart").html(response);
+                Command: toastr["success"]("Added this product to the cart");
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".box").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $(".qtyavailable").hide();
+        $('.size-select1').click(function(){
+            var inputValue = $(this).attr("value");
+            console.log(inputValue);
+            var targetBox = $("." + inputValue);
+            $(".qtyavailable").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+</script>
+
+<script>
+    let size = 'abc';
+    function sizes(id){
+        size = id;
+    }
+    //Ajax add cart with add quantity on detail products
+    function AddCartPost(id){
+        let qty = document.getElementById('quantity').value;
+        let check = document.getElementById('check_stock').value;
+        $.ajax({
+            url : 'addCart/'+id+'/'+qty+'/'+check+'/'+size,
+            type : 'GET',
+        }).done(function(response) {
+            console.log(size);
+            if(response.status == "error") {
+                Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
+            } else if(response.status == "errorsize") {
+                toastr.warning("Please select size");
+            } else {
+                $("#change-item-cart").empty();
+                $("#change-item-cart").html(response);
+                Command: toastr["success"]("Added this product to the cart");
+            }
+        });
+    }
+
+    //delete in cart and update
+    $("#change-item-cart").on("click", ".si-close i", function(){
+        var ajax1 = $.ajax({
+            url : 'deleteCart/'+ $(this).data("id"),
+            type : 'GET',
+        });
+        var ajax2 = $.ajax({
+            url : 'updatedeleteCart/',
+            type : 'GET',
+        });
+        $.when(ajax1, ajax2).done(function(res1, res2){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(res1[0]);
+            $("#list-cart").empty();
+            $("#list-cart").html(res2[0]);
+            
+        });
+    });
+
+    //Delete in shoppingcart and update
+    $("#list-cart").on("click", ".close-td i", function(){
+        var ajax3 = $.ajax({
+            url : 'deleteListCart/' + $(this).data("id"),
+            type : 'GET',
+        });
+        var ajax4 = $.ajax({
+            url : 'updateDeleteListCart/',
+            type : 'GET',
+        });
+        $.when(ajax3, ajax4).done(function(res3, res4){
+            $("#list-cart").empty();
+            $("#list-cart").html(res3[0]);
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(res4[0]);    
+        });
+    });
+</script>
+<script>
+    //Save Cart
+    $("#list-cart").on("click", ".save-td .ti-save", function(){
+        var y = $(this).data("idsave");
+        var x = document.getElementById("quantityItem" + $(this).data("idsave")).value;
+        var ajax1 = $.ajax({
+            url : 'saveCart/'+ y + '/'+ x,
+            type : 'GET',
+        })
+        var ajax2 = $.ajax({
+            url : 'updateDeleteListCart/',
+            type : 'GET',
+        });
+        $.when(ajax1, ajax2).done(function(res1, res2){
+            if(res1[0].status == "Wrong") {
+                Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
+            } else {
+                Command: toastr["success"]("Updated this product");
+                $("#list-cart").empty();
+                $("#list-cart").html(res1[0]);
+                $("#change-item-cart").empty();
+                $("#change-item-cart").html(res2[0]);  
+            }  
+        });
+    });
+</script>
+
 </body>
 
 </html>

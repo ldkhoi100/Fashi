@@ -26,12 +26,17 @@
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1">
                 <div class="blog-sidebar">
                     <div class="search-form">
+
                         <h4>Search</h4>
-                        <form action="#">
-                            <input type="text" placeholder="Search . . .  ">
+                        <form action="{{ route('blog.search') }}" method="GET">
+                            @csrf
+                            <input type="text" name="search_blog" maxlength="60" placeholder="Search blog . . .  "
+                                style="color: #8B0000; font-weight: bold; font-size: 15px;">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
+
                     </div>
+
                     <div class="blog-catagory">
                         <h4>Categories</h4>
                         <ul>
@@ -74,6 +79,17 @@
                 </div>
             </div>
             <div class="col-lg-9 order-1 order-lg-2">
+
+                <div class="row" style="margin: auto; margin-bottom: 40px;">
+                    @if(session('search_post'))
+                    <p style="font-size: 28px; font-weight: bold; color: #00008B">
+                        <span style="text-decoration: underline">Search blog</span> :
+                        {{ session('search_post') }}
+                        {{ Session::forget('search_post') }}
+                    </p>
+                    @endif
+                </div>
+
                 <div class="row">
                     @foreach ($blogs as $blog)
 

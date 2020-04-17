@@ -15,12 +15,19 @@ use Illuminate\Support\Facades\URL;
 use App\Slide;
 use App\Image_large_products;
 use App\Banners;
+use App\Bill_detail;
+use App\Bills;
 use App\Categories;
 use App\Instagrams;
 use App\Products;
 use App\Reviews;
 use App\Blogs;
 use App\Blogcomments;
+use App\Contact;
+use App\Customers;
+use App\Subscribe;
+use App\MessageCenter;
+use Illuminate\Support\Facades\Crypt;
 
 class FashionControllers extends Controller
 {
@@ -62,21 +69,74 @@ class FashionControllers extends Controller
         return view('fashi.faq');
     }
 
-    public function contact()
+    public function contact(Request $request)
     {
         return view('fashi.contact');
     }
+
+    public function your_order()
+    {
+        if (Auth::user()) {
+            $order = Customers::where('username', Auth::user()->username)->first();
+            $bill_order = Bills::withTrashed()->where('id_customer', $order->id)->orderBy('created_at', 'DESC')->get();
+            $i = 0;
+            $bill_detail = null;
+            foreach ($bill_order as $item) {
+                $bill_detail[] = Bill_detail::withTrashed()->where('id_bill', $item->id)->get();
+                $i++;
+            }
+            return view('fashi.your_order', compact('bill_order', 'bill_detail', 'order'));
+        } else {
+            return abort(404);
+        }
+    }
+
+    public function subscribe(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required | email | min: 5 | max: 100 | unique:subscribe',
+            'g-recaptcha-response' => 'required | captcha',
+        ]);
+
+        $subscribe = new Subscribe();
+        $subscribe->email = request('email');
+        $subscribe->save();
+        return back()->with('toast', 'Thank you for following our website, we will send you emails when there are hot promotions...');
+    }
+
+    public function contactPost(Request $request)
+    {
+        $this->validate($request, [
+            'contact_email' => 'required | email | min: 5 | max: 100',
+            'contact_name' => 'required | string | min: 3 | max: 100',
+            'contact_message' => 'required | string | min: 3 | max: 999',
+            'g-recaptcha-response' => 'required | captcha',
+        ]);
+
+        $contact = new Contact();
+        $contact->name = request('contact_name');
+        $contact->email = request('contact_email');
+        $contact->message = request('contact_message');
+        $contact->save();
+        return back()->with('toast', 'Thank you for suggestions, we will feedback you soon...');
+    }
+
 
     public function checkout()
     {
         return view('fashi.checkout');
     }
 
-    public function blog()
+    public function blog(Request $request)
     {
+        if (request('search_blog')) {
+            $request->session()->flash('search_post', request('search_blog'));
+            $blogs = Blogs::where('id_objects', 5)->where('title', 'LIKE', '%' . request('search_blog') . '%')->paginate(800);
+        } else {
+            $blogs = Blogs::where('id_objects', 5)->paginate(8);
+        }
         $category_blog = Categories::where('id_objects', 5)->get();
         $tags_category_blog = Categories::where('id_objects', 5)->get();
-        $blogs = Blogs::where('id_objects', 5)->paginate(8);
         $new_blogs = Blogs::where('id_objects', 5)->orderBy('created_at', 'desc')->paginate(4);
         return view('fashi.blog', compact('category_blog', 'blogs', 'new_blogs', 'tags_category_blog'));
     }
@@ -131,9 +191,38 @@ class FashionControllers extends Controller
         return redirect()->back()->with('toast', 'Thanks for your comments...');
     }
 
+    public function find_bill($id)
+    {
+        $id = Crypt::decrypt($id);
+        $code_bills = Bills::withTrashed()->findOrFail($id);
+        $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+        return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+    }
+
     public function shop(Request $request)
     {
-        $product = Products::inRandomOrder('4123')->paginate(12);
+        $this->validate($request, [
+            'search_select' => 'between:1,2',
+            'search_products' => 'max:255'
+        ]);
+        if (request('search_products')) {
+            if (request('search_select') == 1) {
+                $request->session()->flash('search_products', request('search_products'));
+                $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
+            } elseif (request('search_select') == 2) {
+                $code_bills = Bills::withTrashed()->where('id', request('search_products'))->first();
+                if ($code_bills == true) {
+                    $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+                    return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+                } else {
+                    return redirect()->route('home')->with('toast', 'Code bills incorrect!');
+                }
+            } else {
+                return abort(404);
+            }
+        } else {
+            $product = Products::inRandomOrder('4123')->paginate(12);
+        }
         if ($request->ajax()) {
             return [
                 'product' => view('ajax.shop')->with(compact('product'))->render(),
@@ -141,17 +230,16 @@ class FashionControllers extends Controller
             ];
         }
         return view('fashi.shop')->with(compact('product'));
-        // return view('fashi.shop', compact('product'));
     }
 
     public function reviews(Request $request)
     {
         $this->validate($request, [
-            'comment' => 'required | min:30 | max:255 |string',
+            'comment' => 'required | min:10 | max:255 | string',
             'id_products' => 'required | numeric | min:0'
         ]);
-        $reviews = new Reviews();
 
+        $reviews = new Reviews();
         if (Auth::user()) {
             $reviews->name = Auth::user()->name;
             $reviews->email = Auth::user()->email;
@@ -166,6 +254,11 @@ class FashionControllers extends Controller
         $reviews->comment = request('comment');
         $reviews->id_products = request('id_products');
         $reviews->save();
+
+        $message = new MessageCenter();
+        $message->id_review = $reviews->id;
+        $message->save();
+
         return Redirect::to(URL::previous() . "#location")->with('toast', 'Thanks for your review...');
     }
 

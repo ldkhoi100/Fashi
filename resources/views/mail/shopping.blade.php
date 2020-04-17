@@ -125,7 +125,7 @@
                                                         @elseif($item->size == 4)
                                                         {{ " XL" }}
                                                         @else
-                                                        {{ " No size" }}
+                                                        {{ $item->size }}
                                                         @endif
                                                         - Id product: SKU00{{ $item->id }}
                                                     </td>
@@ -178,7 +178,8 @@
                                 <tr>
                                     <td colspan="2" align="center" valign="top"
                                         style="padding-top:20px;padding-bottom:20px;border-bottom:1px solid #ebebeb">
-                                        <a href="#" style="border:0px" target="_blank">
+                                        <a href="{{ route('find.bills', Crypt::encrypt($order->id)) }}"
+                                            style="border:0px" target="_blank">
                                             <img src="https://i.imgur.com/f92hL68.jpg" height="29" width="191"
                                                 alt="Order detail" style="border:0px">
                                         </a>

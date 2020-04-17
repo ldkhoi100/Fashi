@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use DateTime;
 use App\Products;
 use App\Bill_detail;
 use App\Bills;
+use App\MessageCenter;
+use App\Reviews;
+use App\Categories;
 
 class AdminController extends Controller
 {
@@ -14,7 +18,11 @@ class AdminController extends Controller
     public function dashboard()
     {
         $products = Products::all();
+
+        $reviews = Reviews::orderBy('created_at', 'DESC')->get();
+
         $products_include_sold = Bill_detail::withTrashed()->get();
+
         $bills = Bills::orderBy('created_at', 'DESC')->where('status', 0)->paginate(10);
 
         //10 Lasted bill inday
@@ -70,14 +78,16 @@ class AdminController extends Controller
         }
 
         $month = array();
+
         for ($i = 0; $i < 12; $i++) {
             $month[$i] = Bills::withTrashed()->where('status', 1)->whereMonth('date_order', $i + 1)->sum('total');
         }
 
         $day = array();
         for ($i = 0; $i < 31; $i++) {
-            $day[$i] = Bills::withTrashed()->where('status', 1)->whereDay('date_order', $i + 1)->sum('total');
+            $day[$i] = Bills::withTrashed()->where('status', 1)->whereDay('date_order', $i + 1)->whereMonth('date_order', date('m'))->sum('total');
         }
+
 
         return view('admin.dashboard', compact(
             'products',
@@ -91,19 +101,50 @@ class AdminController extends Controller
             'pending_bills',
             'number_sold_out',
             'month',
-            'day'
+            'day',
+            'reviews'
         ));
     }
 
-    public function addQuantity(Request $request, $id)
+    public function addQuantity($id, $quantity, Request $request)
     {
-        $this->validate($request, [
-            'quantity' => 'required | numeric',
-        ]);
-        $products = Products::findOrFail($id);
-        $products->amount += request('quantity');
-        $products->save();
-        return back()->with('success', "Success, quantity of products \"$products->name\" with id $products->id updated!");
+        if ($request->ajax()) {
+            if (!is_numeric($quantity) || !is_numeric($id)) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'The number you entered is not a numeric character !'
+                ]);
+            }
+        }
+
+        $products_id = Products::findOrFail($id);
+        $products_id->amount += $quantity;
+        $products_id->save();
+
+        $products = Products::all();
+        //Total sold out of each products
+        $number_sold_out = array();
+        foreach ($products as $total) {
+            $number_sold_out[] = Bill_detail::withTrashed()->where('status', 1)->where('id_product', $total->id)->sum('quantity');
+        }
+        //Number of product out of stock
+        $outOfStock = 0;
+        //Number of product 10 left quantity
+        $leftQuantity = 0;
+        foreach ($products as $item) {
+            if ($item->amount < 1) {
+                $outOfStock += 1;
+            }
+            if ($item->amount < 11) {
+                $leftQuantity += 1;
+            }
+        }
+        return view('admin.ajaxdashboard', compact(
+            'products',
+            'outOfStock',
+            'leftQuantity',
+            'number_sold_out'
+        ));
     }
 
     public function error404()
@@ -111,9 +152,9 @@ class AdminController extends Controller
         return view('admin.404');
     }
 
-    public function blank()
+    public function notifications()
     {
-        return view('admin.blank');
+        return view('admin.notifications');
     }
 
     public function button()
@@ -169,5 +210,84 @@ class AdminController extends Controller
     public function orther()
     {
         return view('admin.utilities.orther');
+    }
+
+    public function bills_read($id)
+    {
+        $message = MessageCenter::findOrFail($id);
+        $bill_detail = Bill_detail::where('id_bill', $message->id_bill)->get();
+        $message->reader = 1;
+        $message->save();
+
+        $total_price = 0;
+        foreach ($bill_detail as $bill) {
+            $total_price += $bill->total_price;
+        }
+
+        $id_bill_detail = Bill_detail::withTrashed()->where('id_bill', $message->id_bill)->first();
+        if ($id_bill_detail) {
+            $bills = Bills::withTrashed()->where('id', $id_bill_detail->id_bill)->first();
+        } else {
+            $bills = null;
+        }
+
+        return view('admin.bills.detailBills', compact('bill_detail', 'id_bill_detail', 'bills', 'total_price'));
+    }
+
+    public function reviews_read($id)
+    {
+        $message_reviews = MessageCenter::findOrFail($id);
+        $message_reviews->reader = 1;
+        $message_reviews->save();
+
+        $product = Products::find($message_reviews->reivews->id_products);
+        $id_product = Products::find($message_reviews->reivews->id_products);
+        $related_products = Products::where('id_categories', $product->id_categories)->where('amount', '<>', 0)->where('id', '<>', $product->id)->inRandomOrder()->paginate(8);
+        $categories = Categories::where('id_objects', $product->id_objects)->get();
+        // $id_categories = Categories::find($id);
+        $reviews = Reviews::where('id_products', $product->id)->get();
+        $avgRating = DB::table('reviews')->where('id_products', $product->id)->avg('rating');
+        $countRating = Reviews::where('id_products', $product->id)->where('rating', '>', 0)->get();
+        return view('fashi.detail_product', compact('categories', 'product', 'related_products', 'reviews', 'avgRating', 'countRating', 'id_product'));
+    }
+
+    public function your_notifications(Request $request)
+    {
+        $your_notifications = MessageCenter::orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin.notifications', compact('your_notifications'));
+    }
+
+    public function mark_read($id)
+    {
+        $mark_read = MessageCenter::findOrFail($id);
+        $mark_read->reader = 1;
+        $mark_read->save();
+        return back();
+    }
+
+    public function mark_all_read()
+    {
+        $mark_read = MessageCenter::all();
+        foreach ($mark_read as $mark) {
+            $find = MessageCenter::findOrFail($mark->id);
+            $find->reader = 1;
+            $find->save();
+        }
+        return back();
+    }
+
+    public function mark_unread($id)
+    {
+        $mark_read = MessageCenter::findOrFail($id);
+        $mark_read->reader = 0;
+        $mark_read->save();
+        return back();
+    }
+
+    public function delete_notifications($id)
+    {
+        $mark_read = MessageCenter::findOrFail($id);
+        $mark_read->delete();
+        return back();
     }
 }

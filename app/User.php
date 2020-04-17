@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'phone', 'address'
+        'name', 'email', 'password', 'username', 'phone', 'address', 'block', 'image'
     ];
 
     /**
@@ -37,16 +37,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // public function posts()
-    // {
-    //     return $this->hasMany("App\Posts", 'user_id_created', 'id');
-    // }
-
-    // public function categories()
-    // {
-    //     return $this->hasMany("App\Categories");
-    // }
 
     //Relationship many-to-many to table roles
     public function roles()
@@ -86,5 +76,15 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function messenge1()
+    {
+        return $this->hasMany("App\MessengeUser", 'from_user', 'id')->withTrashed();
+    }
+
+    public function messenge2()
+    {
+        return $this->hasMany("App\MessengeUser", 'to_user', 'id');
     }
 }

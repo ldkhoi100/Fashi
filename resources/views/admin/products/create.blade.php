@@ -29,7 +29,8 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">
-                        <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data"
+                            id="my-form">
                             @csrf
                             @include('partials.message')
 
@@ -218,7 +219,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit"
+                                style="border: none">Create</button>
 
                             <button class="btn btn-secondary"
                                 onclick="window.history.go(-1); return false;">Cancle</button>

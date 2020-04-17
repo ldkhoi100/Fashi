@@ -13,6 +13,7 @@ use App\Categories;
 use App\Objects;
 use App\Reviews;
 use App\Size;
+use App\Size_products;
 
 class ProductsController extends Controller
 {
@@ -342,7 +343,17 @@ class ProductsController extends Controller
         $product = Products::withTrashed()->findOrFail($id);
         $product->highlight = !$product->highlight;
         $product->save();
-        return redirect()->back()->with('success', "Product $product->name changed column highlight");
+        $products = Products::all();
+        return view('admin.products.ajax.list', compact('products'));
+    }
+
+    public function highlightsTrash($id)
+    {
+        $product = Products::withTrashed()->findOrFail($id);
+        $product->highlight = !$product->highlight;
+        $product->save();
+        $products = Products::onlyTrashed()->get();
+        return view('admin.products.ajax.trash', compact('products'));
     }
 
     public function news($id)
@@ -350,7 +361,17 @@ class ProductsController extends Controller
         $product = Products::withTrashed()->findOrFail($id);
         $product->new = !$product->new;
         $product->save();
-        return redirect()->back()->with('success', "Product $product->name changed column new");
+        $products = Products::all();
+        return view('admin.products.ajax.list', compact('products'));
+    }
+
+    public function newsTrash($id)
+    {
+        $product = Products::withTrashed()->findOrFail($id);
+        $product->new = !$product->new;
+        $product->save();
+        $products = Products::onlyTrashed()->get();
+        return view('admin.products.ajax.trash', compact('products'));
     }
 
     public function addQuantity(Request $request, $id)
@@ -362,5 +383,28 @@ class ProductsController extends Controller
         $products->amount += request('amount');
         $products->save();
         return redirect()->back()->with('success', "Product $products->name updated quantity to $products->amount !");
+    }
+
+    public function qtySizeGet($id)
+    {
+        $id_product = Products::where('id', $id)->first();
+        $size_product = Size_products::where('id_products', $id)->get();
+        return view('admin.size_product.edit', compact('size_product', 'id_product'));
+    }
+
+    public function qtySizePost(Request $request, $id)
+    {
+        $this->validate($request, [
+            'changeqty.*' => 'required | numeric | min: 0'
+        ]);
+        $size_product = Size_products::where('id_products', $id)->get();
+        $i = 0;
+        foreach ($size_product as $quantity) {
+            $qty = Size_products::findOrFail($quantity->id);
+            $qty->quantity = request("changeqty" . $i);
+            $qty->save();
+            $i++;
+        }
+        return back()->with('success', 'Change success');
     }
 }

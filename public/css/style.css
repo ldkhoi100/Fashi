@@ -41,6 +41,7 @@ body {
     font-family: "Muli", sans-serif;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    /* overflow: auto; */
 }
 
 h1,
@@ -232,8 +233,8 @@ ol {
     margin-top: -13px;
     margin-left: -13px;
     border-radius: 60px;
-    animation: loader 0.8s linear infinite;
-    -webkit-animation: loader 0.8s linear infinite;
+    animation: loader 1s linear infinite;
+    -webkit-animation: loader 1s linear infinite;
 }
 
 @keyframes loader {
@@ -3926,7 +3927,8 @@ ol {
 
 @media only screen and (min-width: 1200px) and (max-width: 1920px) {
     .inner-header .advanced-search .input-group button {
-        right: -14px;
+        right: -47px;
+        bottom: 0px;
     }
     .product-item .pi-pic ul li a {
         padding: 16px 12px 12px 11px;

@@ -90,12 +90,13 @@
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('slide.destroy', $slide->id) }}" method="POST">
+                                <form action="{{ route('slide.destroy', $slide->id) }}" method="POST" id="my-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         onclick="return confirm('Do you want delete slide {{$slide->name}} ?')"
-                                        class="btn btn-danger"><i class="fa fa-backspace"></i></button>
+                                        class="btn btn-danger" id="btn-submit" style="border: none"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>
