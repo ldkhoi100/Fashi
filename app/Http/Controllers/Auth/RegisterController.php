@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -51,8 +52,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:5', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'min:5', 'max:255', 'unique:users', 'regex:/^[a-zA-Z0-9]{5,}$/'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'unique:users', 'min:11'],
             'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:1', 'confirmed'],

@@ -69,7 +69,6 @@ class ProductsController extends Controller
         $product->highlight = request('highlight');
         $product->new = request('new');
         $product->id_categories = request('id_categories');
-        $product->amount = request('amount');
 
         if (request('promotion_price')) {
             $product->promotion_price = request('promotion_price');
@@ -179,7 +178,6 @@ class ProductsController extends Controller
         $product->new = request('new');
         $product->id_categories = request('id_categories');
         $product->id_objects = request('id_objects');
-        $product->amount = request('amount');
 
         if (request('promotion_price')) {
             $product->promotion_price = request('promotion_price');
@@ -387,7 +385,7 @@ class ProductsController extends Controller
 
     public function qtySizeGet($id)
     {
-        $id_product = Products::where('id', $id)->first();
+        $id_product = Products::withTrashed()->where('id', $id)->first();
         $size_product = Size_products::where('id_products', $id)->get();
         return view('admin.size_product.edit', compact('size_product', 'id_product'));
     }

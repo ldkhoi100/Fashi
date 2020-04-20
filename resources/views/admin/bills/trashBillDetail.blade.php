@@ -68,28 +68,29 @@
 
                         @foreach ($bill_detail as $key => $bills)
 
-                        <tr>
+                        <tr style="font-weight: bold;">
                             <td>{{ ++$key }}</td>
 
                             <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->id_product }}</a></td>
+                                    target="_blank">{{ $bills->id_product }}</a>
+                            </td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->products->name }}</a></td>
+                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}" target="_blank"
+                                    style="color: #8B0000;">{{ $bills->products->name }}</a> <br>
+                                @if($bills->cancle == 1)
+                                <span
+                                    style="color: white; border-radius: 3px; padding: 3px 7px; background: #ff4d4d;">Cancelled</span>
+                                @endif
+                            </td>
 
-                            @if($bills->size == 1)
-                            <td>S</td>
-                            @elseif($bills->size == 2)
-                            <td>M</td>
-                            @elseif($bills->size == 3)
-                            <td>L</td>
-                            @elseif($bills->size == 4)
-                            <td>XL</td>
-                            @else
                             <td>{{ $bills->size }}</td>
-                            @endif
+
                             <td>{{ $bills->quantity }}</td>
-                            <td>${{ number_format($bills->unit_price, 2) }}</td>
+                            <td><span
+                                    style="color: white; border-radius: 3px; padding: 3px 5px; background: #3385ff; font-weight: bold; font-size: 13.5px;">
+                                    ${{ number_format($bills->unit_price, 2) }}
+                                </span>
+                            </td>
 
                             @if($bills->discount > 0)
                             <td>{{ $bills->discount }}%</td>
@@ -97,7 +98,11 @@
                             <td>0%</td>
                             @endif
 
-                            <td>${{ number_format($bills->total_price, 2) }}</td>
+                            <td><span
+                                    style="color: white; border-radius: 3px; padding: 3px 5px; background: #ff9900; font-weight: bold; font-size: 13.5px;">
+                                    ${{ number_format($bills->total_price, 2) }}
+                                </span>
+                            </td>
 
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"

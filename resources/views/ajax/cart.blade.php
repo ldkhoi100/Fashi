@@ -30,7 +30,7 @@
                                 <p>${{ number_format($row->price, 2) }} x {{ $row->qty }}
                                 </p>
                                 <h6><a href="{{ route('getDetailProductMen', $row->id) }}">{{ $row->name }} -
-                                        size: {{ $row->options->namesize }}
+                                        size: <b>{{ $row->options->namesize }}</b>
                                     </a>
                                 </h6>
                             </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="select-total">
             <span>total:</span>
-            <h5>${{ Cart::instance(Auth::user()->id)->total() }}</h5>
+            <h5><b>${{ number_format(Cart::instance(Auth::user()->id)->total(), 2, ".", ",") }}</b></h5>
         </div>
 
         @endif
@@ -67,5 +67,5 @@
 
     </div>
 </li>
-<li class="cart-price">${{ Cart::instance(Auth::user()->id)->total() }}</li>
+<li class="cart-price">${{ number_format(Cart::instance(Auth::user()->id)->total(), 2, ".", ",") }}</li>
 @endif

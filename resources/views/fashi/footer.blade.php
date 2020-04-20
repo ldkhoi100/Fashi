@@ -50,7 +50,8 @@
                         <li>Email: ldkhoi100@gmail.com</li>
                     </ul>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/demon977"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/demon977"><i class="fab fa-facebook fa-lg"
+                                style="margin-top: 12px;"></i></a>
                         {{-- <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-pinterest"></i></a> --}}
@@ -81,15 +82,16 @@
                 <div class="newslatter-item">
                     <h5>Join Our Newsletter Now</h5>
                     <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="{{ route('subscribe.post') }}" class="subscribe-form" method="POST">
+                    <form action="{{ route('subscribe.post') }}" class="subscribe-form" method="POST"
+                        id="form-subscribe">
                         @csrf
-                        <input type="email" placeholder="Enter Your Mail" name="email" style="display: flex">
+                        <input type="email" placeholder="Enter Your Mail" name="email" style="display: flex" required>
                         <p>
                             {!! NoCaptcha::renderJs() !!}
                             {!! NoCaptcha::display() !!}
                             {{-- <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span> --}}
                         </p>
-                        <button type="submit">Subscribe</button>
+                        <button type="submit" id="btn-subscribe" style="border: none">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -131,32 +133,13 @@
 <script src="js/toastr.min.js"></script>
 <!-- Back to top button -->
 <script src="js/back-to-top.js"></script>
+
 @stack('clicked')
 @stack('cartjs')
+@stack('scroll_endless')
 <script>
     $(document).ready(function(){
       $('.toast').toast('show');
-    });
-</script>
-<script>
-    // Auto load data from database
-    $(document).ready(function() {
-        $(window).scroll(fetchProducts);
-        function fetchProducts() {
-            var page = $('.endless-pagination').data('next-page');
-            if(page !== null) {
-                clearTimeout( $.data( this, "scrollCheck" ) );
-                $.data( this, "scrollCheck", setTimeout(function() {
-                    var scroll_position_for_products_load = $(window).height() + $(window).scrollTop() + 800;
-                    if(scroll_position_for_products_load >= $(document).height()) {
-                        $.get(page, function(data){
-                            $('.scroll').append(data.product);
-                            $('.endless-pagination').data('next-page', data.next_page);
-                        });
-                    }
-                }, 100))
-            }
-        }
     });
 </script>
 
@@ -182,6 +165,11 @@
         $("#my-form4").submit(function (e) {
             $("#btn-submit4").attr("disabled", true);
 		  $("#btn-submit4").addClass('button-clicked');
+            return true;
+        });
+        $("#form-subscribe").submit(function (e) {
+            $("#btn-subscribe").attr("disabled", true);
+		  $("#btn-subscribe").css('background', "#ffe0b3").css("color", "white");
             return true;
         });
     });
@@ -221,7 +209,6 @@
         $(".qtyavailable").hide();
         $('.size-select1').click(function(){
             var inputValue = $(this).attr("value");
-            console.log(inputValue);
             var targetBox = $("." + inputValue);
             $(".qtyavailable").not(targetBox).hide();
             $(targetBox).show();
@@ -242,7 +229,6 @@
             url : 'addCart/'+id+'/'+qty+'/'+check+'/'+size,
             type : 'GET',
         }).done(function(response) {
-            console.log(size);
             if(response.status == "error") {
                 Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
             } else if(response.status == "errorsize") {
@@ -313,7 +299,7 @@
                 $("#list-cart").empty();
                 $("#list-cart").html(res1[0]);
                 $("#change-item-cart").empty();
-                $("#change-item-cart").html(res2[0]);  
+                $("#change-item-cart").html(res2[0]);
             }  
         });
     });

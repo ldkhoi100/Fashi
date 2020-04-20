@@ -28,17 +28,20 @@
                     <h2>Login</h2>
                     <form action="{{ route('login') }}" method="POST" id="my-form">
                         @csrf
-                        <div class="group-input has-error has-feedback">
+                        <div class="group-input usernamediv @error('username') has-error has-feedback @enderror">
                             <label for="username">Username or email address</label>
-                            <input type="username" class="form-control @if(session('error')) is-invalid @enderror"
-                                name="username" value="{{ old('username') }}" required autocomplete="username"
-                                autofocus>
+                            <input type="text" onchange="duplicateUsername(this)"
+                                class="form-control usernameinput @if(session('error')) is-invalid @enderror"
+                                name="username" value="{{ old('username') }}" required autocomplete="username">
 
                             @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                            <span class="invalid-feedback checkusername" role="alert">
+                                <strong class="textusername"></strong>
+                            </span>
                         </div>
 
                         <div class="group-input has-error has-feedback">
@@ -93,5 +96,7 @@
         });
     });
 </script>
+<meta name="csrf-token" content="{{ csrf_token() }}">​
+<script src="js/login.js"></script>
 
 @endpush

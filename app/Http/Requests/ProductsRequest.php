@@ -28,7 +28,6 @@ class ProductsRequest extends FormRequest
             'description' => 'required | min:3 | string',
             'unit_price' => 'required | numeric | min:0 | not_in:0',
             'promotion_price' => 'numeric | min:0',
-            'amount' => 'numeric',
             'id_categories' => 'required | numeric',
             'image1' => 'image | mimes:png,jpg,jpeg',
             'image2' => 'image | mimes:png,jpg,jpeg',

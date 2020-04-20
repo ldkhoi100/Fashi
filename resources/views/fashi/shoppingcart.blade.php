@@ -199,7 +199,8 @@
                         <div class="proceed-checkout">
                             <ul>
                                 <li class="subtotal">Current price:
-                                    <span>${{ Cart::instance(Auth::user()->id)->priceTotal() }}</span></li>
+                                    <span>${{ number_format(Cart::instance(Auth::user()->id)->priceTotal(), 2, ".", ",") }}</span>
+                                </li>
 
                                 <li class="subtotal" style="margin-top: 10px;">
                                     Discount amount: <span>-
@@ -207,7 +208,7 @@
 
                                 </li>
                                 <li class="cart-total" style="font-size: 20px;">Total price:
-                                    <span>${{ Cart::instance(Auth::user()->id)->total() }}</span>
+                                    <span>${{ number_format(Cart::instance(Auth::user()->id)->total(), 2, ".", ",") }}</span>
 
                                 </li>
                             </ul>

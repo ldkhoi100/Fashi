@@ -34,15 +34,15 @@
                         <tr>
                             <th>#</th>
                             <th>Id bill</th>
-                            <th>Customer</th>
-                            <th>Detail Customer</th>
-                            <th width='10%'>Date order</th>
+                            <th width='13%'>Customer</th>
+                            <th width='1%'>Detail</th>
+                            <th width='10%'>Date Order</th>
                             <th>Total</th>
-                            <th>Payment</th>
-                            <th width='7%'>Pay money</th>
+                            <th width='10%'>Payment</th>
+                            <th width='7%'>Pay Money</th>
                             <th>Status</th>
                             <th>Bill detail</th>
-                            <th>User deleted</th>
+                            <th width='10%'>User Deleted</th>
                             <th>Edit</th>
                             <th>Restore</th>
                             <th>Destroy</th>
@@ -51,16 +51,16 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Id bill</th>
-                            <th>Customer</th>
-                            <th>Detail Customer</th>
-                            <th width='10%'>Date order</th>
+                            <th>Id Bill</th>
+                            <th width='13%'>Customer</th>
+                            <th width='1%'>Detail</th>
+                            <th width='10%'>Date Order</th>
                             <th>Total</th>
-                            <th>Payment</th>
-                            <th width='7%'>Pay money</th>
+                            <th width='10%'>Payment</th>
+                            <th width='7%'>Pay Money</th>
                             <th>Status</th>
-                            <th>Bill detail</th>
-                            <th>User deleted</th>
+                            <th>Bill Detail</th>
+                            <th width='10%'>User Deleted</th>
                             <th>Edit</th>
                             <th>Restore</th>
                             <th>Destroy</th>
@@ -72,15 +72,30 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $bills->id }}</td>
-                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }}</td>
+
+                            <td @if($bills->cancle == 1) style="text-decoration: line-through;" @endif>{{ $bills->id }}
+                            </td>
+
+                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }} <br>
+                                @if($bills->cancle == 1)
+                                <b
+                                    style="color: white; border-radius: 3px; padding: 3px 7px; background: #ff4d4d;">Cancelled</b>
+                                @endif
+                            </td>
+
                             <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
+
                             <td>{{ $bills->date_order }}</td>
-                            <td>${{ number_format($bills->total, 2) }}</td>
+
+                            <td><span
+                                    style="color: white; border-radius: 3px; padding: 3px 5px; background: #ff9900; font-weight: bold; font-size: 13.5px;">
+                                    ${{ number_format($bills->total, 2) }}
+                                </span>
+                            </td>
+
                             <td>{{ $bills->payment }}</td>
-                            {{-- <td><a href="{{ route('bills.show', $bills->id) }}">Details</a></td> --}}
 
                             @if($bills->pay_money == 1)
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"

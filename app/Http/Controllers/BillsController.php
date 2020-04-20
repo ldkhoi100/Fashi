@@ -67,7 +67,6 @@ class BillsController extends Controller
     {
         $bill = Bills::withTrashed()->findOrFail($id);
         $customer = Customers::withTrashed()->findOrFail($bill->id_customer);
-        // return view('admin.products.show', compact('product'));
         return response()->json(['data' => $customer, 'name' => 'Khôi'], 200); // 200 là mã lỗi
     }
 
@@ -136,14 +135,12 @@ class BillsController extends Controller
         $bill->bill_detail()->delete();
         Bills::find($id)->update(['user_deleted' => Auth::user()->username]);
         $bill->delete();
-
         return redirect()->route('bills.index')->with('delete', "Bills $bill->id moved to trash!");
     }
 
     public function trashed(Request $request)
     {
-        $bills = Bills::onlyTrashed()->get();
-        // dd($bills);
+        $bills = Bills::onlyTrashed()->orderBy('created_at', 'DESC')->get();
         return view('admin.bills.trash', compact('bills'));
     }
 
@@ -152,7 +149,6 @@ class BillsController extends Controller
         $bill = Bills::onlyTrashed()->findOrFail($id);
         $bill->bill_detail()->restore();
         $bill->restore();
-
         return redirect()->route('bills.trash')->with('success', "Bills $bill->id restored!");
     }
 
@@ -182,8 +178,6 @@ class BillsController extends Controller
     public function deleteAll()
     {
         $bill = Bills::onlyTrashed()->get();
-
-
         if (count($bill) == 0) {
             return redirect()->route('bills.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
@@ -218,14 +212,12 @@ class BillsController extends Controller
         foreach ($bill_detail as $bill) {
             $total_price += $bill->total_price;
         }
-
         $id_bill_detail = Bill_detail::withTrashed()->where('id_bill', $id)->first();
         if ($id_bill_detail) {
             $bills = Bills::withTrashed()->where('id', $id_bill_detail->id_bill)->first();
         } else {
             $bills = null;
         }
-
         return view('admin.bills.detailBills', compact('bill_detail', 'id_bill_detail', 'bills', 'total_price'));
     }
 

@@ -12,7 +12,7 @@ class Bills extends Model
     protected $table = 'bills';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id_customer', 'date_order', 'total', 'payment', 'status', 'user_deleted'];
+    protected $fillable = ['id_customer', 'date_order', 'total', 'payment', 'status', 'user_deleted', 'cancle'];
 
     protected $dates = ['deleted_at'];
 

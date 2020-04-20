@@ -11,6 +11,7 @@ use App\Bills;
 use App\MessageCenter;
 use App\Reviews;
 use App\Categories;
+use App\Size_products;
 
 class AdminController extends Controller
 {
@@ -23,45 +24,33 @@ class AdminController extends Controller
 
         $products_include_sold = Bill_detail::withTrashed()->get();
 
-        $bills = Bills::orderBy('created_at', 'DESC')->where('status', 0)->paginate(10);
+        $bills = Bills::orderBy('created_at', 'DESC')->where('status', 0)->where('cancle', 0)->paginate(10);
 
         //10 Lasted bill inday
-        $todayBills = Bills::whereDate('date_order', '=', date('Y-m-d'))->get();
+        $todayBills = Bills::whereDate('date_order', '=', date('Y-m-d'))->where('cancle', 0)->get();
 
         //Earning all bills with status = 1
-        $bill_earnings = Bills::withTrashed()->where('status', 1)->get();
+        $earnings = Bills::withTrashed()->where('status', 1)->where('cancle', 0)->sum('total');
 
         // Get Bill detail each status = 1
-        $bill_detail = Bill_detail::withTrashed()->where('status', 1)->get();
+        $bill_detail = Bill_detail::withTrashed()->where('status', 1)->where('cancle', 0)->get();
 
         //Bill pending uncomplete
-        $pending_bills = Bills::where('status', 0)->get();
+        $pending_bills = Bills::where('status', 0)->where('cancle', 0)->get();
 
         //Total number products input to warehouse, include bills completed
-        $total_products_input = 0;
+        $total_products_input = Size_products::sum('quantity');
+        $total_products_input += Bill_detail::withTrashed()->where('cancle', 0)->sum('quantity');
 
         //Total number products sold
-        $products_sold = 0;
+        $products_sold = Bill_detail::withTrashed()->where('status', 1)->where('cancle', 0)->sum('quantity');
 
         //Total sold out of each products
+        // $number_sold_out = Bill_detail::withTrashed()->where('status', 1)->sum('quantity');
         $number_sold_out = array();
 
         foreach ($products as $total) {
-            $total_products_input += $total->amount;
-            $number_sold_out[] = Bill_detail::withTrashed()->where('status', 1)->where('id_product', $total->id)->sum('quantity');
-        }
-
-        foreach ($products_include_sold as $total) {
-            $total_products_input += $total->quantity;
-        }
-
-        foreach ($bill_detail as $total) {
-            $products_sold += $total->quantity;
-        }
-
-        $earnings = 0;
-        foreach ($bill_earnings as $item) {
-            $earnings += $item->total;
+            $number_sold_out[] = Bill_detail::withTrashed()->where('status', 1)->where('id_product', $total->id)->where('cancle', 0)->sum('quantity');
         }
 
         //Number of product out of stock
@@ -69,10 +58,11 @@ class AdminController extends Controller
         //Number of product 10 left quantity
         $leftQuantity = 0;
         foreach ($products as $item) {
-            if ($item->amount < 1) {
+            $check_outOfStock = Size_products::where('id_products', $item->id)->sum('quantity');
+            if ($check_outOfStock < 1) {
                 $outOfStock += 1;
             }
-            if ($item->amount < 11) {
+            if ($check_outOfStock < 11 && $check_outOfStock > 0) {
                 $leftQuantity += 1;
             }
         }
@@ -80,12 +70,12 @@ class AdminController extends Controller
         $month = array();
 
         for ($i = 0; $i < 12; $i++) {
-            $month[$i] = Bills::withTrashed()->where('status', 1)->whereMonth('date_order', $i + 1)->sum('total');
+            $month[$i] = Bills::withTrashed()->where('status', 1)->whereMonth('date_order', $i + 1)->where('cancle', 0)->sum('total');
         }
 
         $day = array();
         for ($i = 0; $i < 31; $i++) {
-            $day[$i] = Bills::withTrashed()->where('status', 1)->whereDay('date_order', $i + 1)->whereMonth('date_order', date('m'))->sum('total');
+            $day[$i] = Bills::withTrashed()->where('status', 1)->whereDay('date_order', $i + 1)->whereMonth('date_order', date('m'))->where('cancle', 0)->sum('total');
         }
 
 
@@ -230,7 +220,6 @@ class AdminController extends Controller
         } else {
             $bills = null;
         }
-
         return view('admin.bills.detailBills', compact('bill_detail', 'id_bill_detail', 'bills', 'total_price'));
     }
 

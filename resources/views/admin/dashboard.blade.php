@@ -160,7 +160,7 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Product warehouse</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Product Warehouse</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -192,7 +192,7 @@
                                     <th>Quantity</th>
                                     @if(!Auth::check())
                                     @elseif(Auth::user()->username == "ldkhoi97")
-                                    <th>Update(+/-)</th>
+                                    {{-- <th>Update(+/-)</th> --}}
                                     <th>Edit</th>
                                     @endif
                                 </tr>
@@ -210,34 +210,44 @@
                                                 style="color: #b2b2b2; font-size: 11px; float: right">{{ $products->categories->name }}
                                                 - {{ $products->objects->name }}</span></b>
                                     </td>
+
                                     <td align="center"><b
                                             style="color: white; border-radius: 3px; padding: 3px 7px; background: #40E0D0">{{ $products->view_count }}</b>
                                     </td>
+
                                     <td align="center"><b
                                             style="color: white; border-radius: 3px; padding: 3px 7px; background: #f6c23e">{{ $number_sold_out[$i] }}</b>
                                     </td>
+
                                     <td align="center">
-                                        @if($products->amount < 1) <b
+                                        @if($products->size_product->sum('quantity') < 1) <b
                                             style="color: white; border-radius: 3px; padding: 3px 7px; background: #DC143C">
-                                            {{ $products->amount }}</b>
-                                            @elseif($products->amount < 11) <b
+                                            {{ $products->size_product->sum('quantity') }}</b>
+                                            @elseif($products->size_product->sum('quantity') < 11) <b
                                                 style="color: white; border-radius: 3px; padding: 3px 7px; background: #FF7F50">
-                                                {{ $products->amount }}</b>
+                                                {{ $products->size_product->sum('quantity') }}</b>
                                                 @else
                                                 <b
-                                                    style="color: white; border-radius: 3px; padding: 3px 7px ; background: #6495ED">{{ $products->amount }}</b>
+                                                    style="color: white; border-radius: 3px; padding: 3px 7px ; background: #6495ED">{{ $products->size_product->sum('quantity') }}</b>
                                                 @endif
                                     </td>
 
                                     @if(!Auth::check())
                                     @elseif(Auth::user()->username == "ldkhoi97")
 
-                                    <td><input type="number" class="form-control" max="99999"
+                                    {{-- <td><input type="number" class="form-control" max="99999"
                                             id="quantity{{ $products->id }}" name="quantity" placeholder="Qty"></td>
 
                                     <td class="addquantity">
                                         <a href="javascript:void(0);" class="btn btn-info btn-circle btn-sm">
                                             <i class="fas fa-plus-circle fa-lg" data-id="{{ $products->id }}"></i>
+                                        </a>
+                                    </td> --}}
+
+                                    <td class="addquantity">
+                                        <a href="{{ route('product.qtySizeGet', $products->id) }}"
+                                            class="btn btn-info btn-circle btn-sm">
+                                            <i class="fas fa-plus-circle fa-lg"></i>
                                         </a>
                                     </td>
 
@@ -257,10 +267,10 @@
 
             <!-- Pie Chart -->
             <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4" style="height: 1071px">
+                <div class="card shadow mb-4" style="height: 978px">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">10 Latest invoice</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">10 Latest Invoice Uncomplete</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -283,11 +293,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Id Bill</th>
+                                        <th width='1%'>Id</th>
                                         <th>Customer</th>
                                         <th>Date order</th>
                                         <th>Total</th>
-                                        <th width='19%'>Bill detail</th>
+                                        <th width='5%'>Bills</th>
                                     </tr>
                                 </thead>
 
@@ -297,13 +307,15 @@
 
                                     <tr>
                                         <td>{{ ++$key }}</td>
-                                        <td>{{ $bills->id }}</td>
+                                        <td><b style="color: #d0011b;">{{ $bills->id }}</b></td>
                                         <td>{{ $bills->customers->name }}</td>
-                                        <td>{{ $bills->date_order }} <br>
+                                        <td>{{ date("d-m-y", strtotime($bills->date_order)) }} <br>
                                             <span
                                                 style="color: #b2b2b2; font-size: 10px; font-weight: bold; float: right">{{ time_elapsed_string($bills->date_order) }}</span>
                                         </td>
-                                        <td>${{ number_format($bills->total, 2) }}</td>
+                                        <td><span
+                                                style="color: white; border-radius: 3px; padding: 3px 5px; background: #ff9900; font-weight: bold; font-size: 13.5px;">${{ number_format($bills->total, 2) }}</span>
+                                        </td>
                                         <td align="center"><a href="{{ route('bills.details', $bills->id) }}"
                                                 style="color: white; border-radius: 3px; padding: 3px 7px; background: #7B68EE; font-weight: bold; font-size: 16px">{{ count($bills->bill_detail) }}</a>
                                         </td>

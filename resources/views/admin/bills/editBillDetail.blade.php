@@ -64,7 +64,7 @@
 
                                     <option value="{{ $size->size->name }}" @if($bills->size == $size->size->name)
                                         {{ "selected" }}
-                                        @endif>{{ $size->size->name }}</option>
+                                        @endif>{{ $size->size->name }} &nbsp;- Stock: {{ $size->quantity }}</option>
 
                                     @endforeach
                                 </select>
@@ -76,7 +76,7 @@
 
                                 <label>Quantity</label>
 
-                                <input type="number" min="1" max='{{ $bills->products->amount }}'
+                                <input type="number" min="1"
                                     class="form-control @error('quantity') is-invalid @enderror" name="quantity"
                                     value="{{ $bills->quantity }}">
 

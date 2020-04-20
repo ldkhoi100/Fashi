@@ -39,6 +39,21 @@
     input {
         display: none;
     }
+
+    .size-block {
+        font-size: 16px;
+        color: rgba(0, 0, 0, .2);
+        font-weight: 700;
+        height: 40px;
+        width: 47px;
+        border: 1px solid #ebebeb;
+        text-align: center;
+        line-height: 40px;
+        text-transform: uppercase;
+        cursor: not-allowed;
+        background: white;
+        display: inline-block;
+    }
 </style>
 
 <!-- Breadcrumb Section Begin -->
@@ -96,7 +111,7 @@
                     <div class="col-lg-6">
                         <div class="product-thumbs">
                             <img class="product-big-img" src={{ "img/products/" . $product->image1 }} alt="" id="myImg"
-                                @if($product->amount <= 0) style='filter: blur(2px);
+                                @if($product->size_product->sum('quantity') <= 0) style='filter: blur(2px);
                                         -webkit-filter: blur(2px); min-width: 100%;' @else style="min-width: 100%"
                                 @endif>
                                 <!-- Zoom image  -->
@@ -126,18 +141,20 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
                         <span class="close">&times;</span>
                         <img class="modal-content" id="img01">
                         <div id="caption"></div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="product-details">
                             <div class="pd-title">
                                 <span>{{ $product->categories->name }}</span>
                                 <h3>
-                                    @if($product->amount
+                                    @if($product->size_product->sum('quantity')
                                     <= 0) <br />
                                     <span
                                         style='color: white; font-size: 25px; font-weight: bold; border: solid red; max-width: 230px; text-align: center; background: red;'>
@@ -217,7 +234,8 @@
                                                                         {{ $product->view_count }}</span>
                             </div>
                             <div class="pd-desc" style="margin-top: 30px">
-                                @if($product->amount <= 0) <h4 style='text-decoration: line-through; color: grey'>
+                                @if($product->size_product->sum('quantity') <= 0) <h4
+                                    style='text-decoration: line-through; color: grey'>
                                     ${{ number_format($product->unit_price, 2) }}</h4>
 
                                     @elseif($product->promotion_price > 0)
@@ -230,13 +248,13 @@
                                         </span>
                                         <span
                                             style="text-decoration: none; color: grey; font: 13px 'Open Sans';">Includes
-                                            all taxes</span>
+                                            All taxes</span>
                                     </h4>
                                     @else
                                     <h4>${{ number_format($product->unit_price, 2) }}
                                         <span
                                             style="text-decoration: none; color: grey; font: 13px 'Open Sans';">Includes
-                                            all taxes</span>
+                                            All taxes</span>
                                     </h4>
                                     @endif
                             </div>
@@ -258,30 +276,35 @@
                                 </div>
                             </div>  --}}
                             {{-- Form add cart method post --}}
-                            {{-- <form action="{{ route('addCartPost', $product->id) }}" method="POST" id="my-form">
-                            --}}
-                            {{-- @csrf --}}
 
-                            <div class="pd-size-choose" style="margin-top: 160px">
+                            <div class="pd-size-choose" style="margin-top: 65px">
                                 <div class="sc-item">
                                     <input type="radio" id="size" name="size12" value="2" height="50" width="50"
-                                        style="display: flex">Size
+                                        style="display: flex">Size &nbsp;
                                 </div>
 
                                 {{-- Size --}}
                                 <?php $i=0; ?>
                                 @foreach ($product->size_product as $size)
                                 <div class="sc-item" id="size-select">
-                                    <input type="radio" name="size" value="{{ $size->size->name }}">
-                                    <label for="sm-size" class="size-select1" onclick="sizes({{ $size->size->id }})"
-                                        value="{{ $size->size->name }}" aria-disabled="true">
+
+                                    @if($size->quantity < 1) <span for="sm-size" aria-disabled="true"
+                                        class="size-block">
                                         {{ $size->size->name }}
-                                    </label>
+                                        </span>
+
+                                        @else
+                                        <input type="radio" name="size" value="{{ $size->size->name }}">
+                                        <label for="sm-size" class="size-select1" onclick="sizes({{ $size->size->id }})"
+                                            value="{{ $size->size->name }}" aria-disabled="true">
+                                            {{ $size->size->name }}
+                                        </label>
+                                        @endif
                                 </div>
                                 <?php $i++; ?>
                                 @endforeach
 
-                                <br>
+                                <br><br>
 
                                 <?php $y=0; ?>
                                 @foreach ($product->size_product as $size)
@@ -298,33 +321,26 @@
                             <div class="quantity">
                                 <div class="pro-qty">
                                     <input type="hidden" id="check_stock" name="check_stock"
-                                        value="{{ $product->amount }}" style="display: flex">
-                                    <input type="number" value="1" min="1" max="{{ $product->amount }}"
+                                        value="{{ $product->size_product->sum('quantity') }}" style="display: flex">
+                                    <input type="number" value="1" min="1" max="100000"
                                         style="display: flex; width: -webkit-fill-available; font-size: 19px" name="qty"
                                         id="quantity">
                                 </div>
                                 @if(!Auth::user())
-                                <a href="javascript:void(0);" class="click primary-btn pd-cart" style="border: none">
+                                <a href="javascript:void(0);" class="click primary-btn pd-cart" style="border: none;">
                                     Add To Cart</a>
-                                @else
-                                @if($product->amount > 0)
+                                @elseif($product->size_product->sum('quantity') > 0)
                                 <a onclick="AddCartPost({{ $product->id }})" class="primary-btn pd-cart"
-                                    style="border: none" href="javascript:">Add To Cart</a>
-
-                                {{-- <button type="submit" class="primary-btn pd-cart" id="btn-submit"
-                                        style="border: none">Add To Cart
-                                    </button> --}}
+                                    style="border: none;" href="javascript:">Add To Cart</a>
                                 @else
                                 <a href="javascript:window.location.href=window.location.href"
-                                    class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To Cart</a>
-                                @endif
+                                    class="btn primary-btn pd-cart disabled" aria-disabled="true"
+                                    style="cursor: not-allowed;">Add To Cart</a>
                                 @endif
                             </div>
 
-                            {{-- </form> --}}
-
                             <ul class="pd-tags">
-                                <li><span>AVAILABILITY</span>: {{ $product->amount }}</li>
+                                <li><span>AVAILABILITY</span>: {{ $product->size_product->sum('quantity') }}</li>
                                 <li><span>CATEGORIES</span>: {{ $product->categories->name }}</li>
                                 <li><span>TAGS</span>: {{ $product->categories->name }},
                                     {{ $product->objects->name }}
@@ -333,11 +349,11 @@
 
                             <div class="pd-share">
                                 <div class="p-code">Sku : 00{{ $product->id }}</div>
-                                <div class="pd-social">
-                                    <a href="#"><i class="ti-facebook"></i></a>
+                                {{-- <div class="pd-social">
+                                    <a href="https://www.facebook.com/demon977"><i class="ti-facebook"></i></a>
                                     <a href="#"><i class="ti-twitter-alt"></i></a>
                                     <a href="#"><i class="ti-linkedin"></i></a>
-                                </div>
+                                </div> --}}
                             </div>
 
                         </div>
@@ -379,6 +395,7 @@
                                 </div>
                             </div>
 
+                            {{-- Customer Rating --}}
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
                                 <div class="specification-table">
                                     <table>
@@ -482,22 +499,17 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="p-catagory">Add To Cart</td>
-                                            <td>
-                                                <div class="cart-add">+ add to cart</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td class="p-catagory">Availability</td>
                                             <td>
-                                                <div class="p-stock">{{ $product->amount }} in stock</div>
+                                                <div class="p-stock">{{ $product->size_product->sum('quantity') }} in
+                                                    stock</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="p-catagory">Size</td>
                                             <td>
-                                                <div class="p-size">@foreach ($product->size as $size)
-                                                    {{ $size->name }},
+                                                <div class="p-size"> @foreach ($product->size_product as $size)
+                                                    {{ $size->size->name }} &nbsp;
                                                     @endforeach</div>
                                             </td>
                                         </tr>
@@ -510,6 +522,7 @@
                                     </table>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 <div class="customer-review-option">
 
@@ -661,14 +674,16 @@
 
             @foreach ($related_products as $product)
 
+            @if($product->size_product->sum('quantity') > 0)
             <div class="col-lg-3 col-sm-6">
                 <div class="product-item">
                     <div class="pi-pic">
-                        <img src={{ "img/products/" . $product->image1 }} alt="" @if($product->amount <= 0) style='filter: blur(2px);
+                        <img src={{ "img/products/" . $product->image1 }} alt=""
+                            @if($product->size_product->sum('quantity') <= 0) style='filter: blur(2px);
                                         -webkit-filter: blur(2px);' @endif>
 
-                            @if($product->amount <= 0) <div style='color:white; background: red; font-weight: bold'
-                                class="sale pp-sale">
+                            @if($product->size_product->sum('quantity') <= 0) <div
+                                style='color:white; background: red; font-weight: bold' class="sale pp-sale">
                                 Sold out
                     </div>
                     {{--  @else  --}}
@@ -688,8 +703,9 @@
                         <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                 <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                         @else
-                        <li class="w-icon active"><a onclick="AddCart({{ $product->id }})" href="javascript:"><i
-                                    class="fas fa-cart-arrow-down"></i></a></li>
+                        <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
+                                    class="fas fa-cart-arrow-down"></i></a>
+                        </li>
                         @endif
                         <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+ Quick
                                 View</a></li>
@@ -701,7 +717,7 @@
                     <a href="{{ route('getDetailProductMen', $product->id) }}">
                         <h5>{{ $product->name }}</h5>
                     </a>
-                    @if($product->amount <= 0) <div class="product-price"
+                    @if($product->size_product->sum('quantity') <= 0) <div class="product-price"
                         style='text-decoration: line-through; color: grey'>
                         ${{ number_format($product->unit_price, 2) }}
                 </div>
@@ -723,6 +739,7 @@
         </div>
     </div>
 
+    @endif
     @endforeach
 
 </div>

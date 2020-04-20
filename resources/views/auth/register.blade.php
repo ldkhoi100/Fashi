@@ -29,78 +29,97 @@
                     <form action="{{ route('register') }}" method="post" class="beta-form-checkout" id="my-form">
                         @csrf
 
-                        <div class="form-input @error('username') has-error has-feedback @enderror">
+                        <div class="form-input usernamediv @error('username') has-error has-feedback @enderror">
                             <label for="username">Username</label>
-                            <input type="text" name="username"
-                                class="form-control @error('username') is-invalid @enderror"
-                                value="{{ old('username') }}" required autocomplete="username" autofocus>
+                            <input type="text" name="username" id="username" onblur="duplicateUsername(this)"
+                                class="form-control usernameinput @error('username') is-invalid @enderror"
+                                value="{{ old('username') }}" autocomplete="username" required>
                             @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                            <span class="invalid-feedback checkusername" role="alert">
+                                <strong class="textusername"></strong>
+                            </span>
+                        </div> <br>
 
-                        <div class="form-input @error('email') has-error has-feedback @enderror">
+                        <div class="form-input emaildiv @error('email') has-error has-feedback @enderror">
                             <label for="email">Email address</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" required autocomplete="email">
+                            <input type="email" name="email" onblur="duplicateEmail(this)"
+                                class="form-control emailinput @error('email') is-invalid @enderror"
+                                value="{{ old('email') }}" autocomplete="email" required>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                            <span class="invalid-feedback checkemail" role="alert">
+                                <strong class="textemail"></strong>
+                            </span>
+                        </div> <br>
 
-                        <div class="form-input @error('name') has-error has-feedback @enderror">
+                        <div class="form-input namediv @error('name') has-error has-feedback @enderror">
                             <label for="name">Full name</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input type="text" onblur="duplicateName(this)" name="name"
+                                class="form-control nameinput @error('name') is-invalid @enderror"
+                                value="{{ old('name') }}" autocomplete="name" required>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                            <span class="invalid-feedback checkname" role="alert">
+                                <strong class="textname"></strong>
+                            </span>
+                        </div> <br>
 
-                        <div class="form-input @error('address') has-error has-feedback @enderror">
-                            <label for="adress">Address</label>
-                            <textarea type="text" name="address"
-                                class="form-control @error('address') is-invalid @enderror">{{ old('address') }}</textarea>
+                        <div class="form-input addressdiv @error('address') has-error has-feedback @enderror">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" onblur="duplicateAddress(this)"
+                                class="form-control addressinput @error('address') is-invalid @enderror"
+                                value="{{ old('address') }}" required>
                             @error('address')
-                            <span class="invalid-feedback" role="alert">
+                            <span class=" invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                            <span class="invalid-feedback checkaddress" role="alert">
+                                <strong class="textaddress"></strong>
+                            </span>
+                        </div> <br>
 
-                        <div class="form-input @error('phone') has-error has-feedback @enderror">
+                        <div class="form-input phonediv @error('phone') has-error has-feedback @enderror">
                             <label for="phone">Phone</label>
-                            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
-                                value="{{ old('phone') }}" required autocomplete="phone">
+                            <input type="tel" name="phone" onblur="duplicatePhone(this)"
+                                class="form-control phoneinput @error('phone') is-invalid @enderror"
+                                value="{{ old('phone') }}" autocomplete="phone" required>
                             @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                            <span class="invalid-feedback checkphone" role="alert">
+                                <strong class="textphone"></strong>
+                            </span>
+                        </div> <br>
 
                         <div class="form-input @error('password') has-error has-feedback @enderror">
                             <label for="password">Password</label>
                             <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" required
-                                autocomplete="new-password">
+                                class="form-control @error('password') is-invalid @enderror" autocomplete="new-password"
+                                required>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                        </div> <br>
 
                         <div class="form-input @error('password_confirm') has-error has-feedback @enderror">
                             <label for="password_confirm">Confirm password</label>
-                            <input type="password" name="password_confirmation" class="form-control" required
-                                autocomplete="new-password">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                autocomplete="new-password" required>
                             @error('password_confirm')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -134,11 +153,12 @@
     $(document).ready(function () {
         $("#my-form").submit(function (e) {
             $("#btn-submit").attr("disabled", true);
-		  $("#btn-submit").addClass('button-clicked');
+		    $("#btn-submit").addClass('button-clicked');
             return true;
         });
     });
 </script>
-
+<meta name="csrf-token" content="{{ csrf_token() }}">​
+<script src="js/register.js"></script>
 
 @endpush

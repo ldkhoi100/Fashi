@@ -23,56 +23,68 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                    style="font-size: 13.5px;">
+                    style="font-size: 14px;">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Id bill</th>
-                            <th>Customer</th>
-                            <th>Detail Customer</th>
-                            <th width='8.5%'>Date order</th>
+                            <th>Id Bill</th>
+                            <th width='13%'>Customer</th>
+                            <th>Detail</th>
+                            <th width='10%'>Date Order</th>
                             <th>Total</th>
-                            <th width='8.5%'>Payment</th>
-                            <th>Pay money</th>
-                            <th width='8%'>Status</th>
-                            <th width='7%'>Bill detail</th>
-                            <th width='10%'>User updated</th>
-                            <th width='4%'>Edit</th>
-                            <th width='5%'>Delete</th>
+                            <th width='10%'>Payment</th>
+                            <th>Pay Money</th>
+                            <th width='1%'>Status</th>
+                            <th width='1%'>Bill Detail</th>
+                            <th width='10%'>User Updated</th>
+                            <th width='1%'>Edit</th>
+                            <th width='1%'>Delete</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Id bill</th>
-                            <th>Customer</th>
-                            <th>Detail Customer</th>
-                            <th width='8.5%'>Date order</th>
+                            <th>Id Bill</th>
+                            <th width='13%'>Customer</th>
+                            <th>Detail</th>
+                            <th width='10%'>Date Order</th>
                             <th>Total</th>
-                            <th width='8.5%'>Payment</th>
-                            <th>Pay money</th>
-                            <th width='8%'>Status</th>
-                            <th width='7%'>Bill detail</th>
-                            <th width='10%'>User updated</th>
-                            <th width='4%'>Edit</th>
-                            <th width='5%'>Delete</th>
+                            <th width='10%'>Payment</th>
+                            <th>Pay Money</th>
+                            <th width='1%'>Status</th>
+                            <th width='1%'>Bill Detail</th>
+                            <th width='10%'>User Updated</th>
+                            <th width='1%'>Edit</th>
+                            <th width='1%'>Delete</th>
                         </tr>
                     </tfoot>
                     <tbody>
 
                         @foreach ($bills as $key => $bills)
-
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $bills->id }}</td>
-                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }}</td>
+                            <td @if($bills->cancle == 1) style="text-decoration: line-through;" @endif>{{ $bills->id }}
+                            </td>
+
+                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }} <br>
+                                @if($bills->cancle == 1)
+                                <b
+                                    style="color: white; border-radius: 3px; padding: 3px 7px; background: #ff4d4d;">Cancelled</b>
+                                @endif
+                            </td>
+
                             <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
                             <td>{{ $bills->date_order }}</td>
-                            <td>${{ number_format($bills->total, 2) }}</td>
+
+                            <td><span
+                                    style="color: white; border-radius: 3px; padding: 3px 5px; background: #ff9900; font-weight: bold; font-size: 13.5px;">
+                                    ${{ number_format($bills->total, 2) }}
+                                </span>
+                            </td>
+
                             <td>{{ $bills->payment }}</td>
-                            {{-- <td><a href="{{ route('bills.show', $bills->id) }}">Details</a></td> --}}
 
                             @if($bills->pay_money == 1)
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"

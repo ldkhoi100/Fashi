@@ -130,7 +130,7 @@
 
                                 <label>Total payment ($)</label>
 
-                                <input type="text" class="form-control @error('total') is-invalid @enderror"
+                                <input type="number" class="form-control @error('total') is-invalid @enderror"
                                     name="total" value="{{ $bills->total }}">
 
                             </div>

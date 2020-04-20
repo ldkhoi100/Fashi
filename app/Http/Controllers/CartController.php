@@ -69,82 +69,74 @@ class CartController extends Controller
         ]);
         $oderdetail = array();
 
-        if (request('qty') > request('check_availability')) {
-            return redirect()->back()->with('error', 'The quantity of products you entered is incorrect');
-        } else {
-            if (Auth::user()) {
-                $check_customer = Customers::where('username', Auth::user()->username)->first();
+        if (Auth::user()) {
+            $check_customer = Customers::where('username', Auth::user()->username)->first();
+            // Check if user current have made a previous purchase
+            if ($check_customer == true) {
+                $customer = Customers::findOrFail($check_customer->id);
+                $customer->name = Auth::user()->name;
+                $customer->email = Auth::user()->email;
+                $customer->address = Auth::user()->address;
+                $customer->phone = Auth::user()->phone;
+                $customer->save();
+            } else {
+                $customer = new Customers();
+                $customer->username = Auth::user()->username;
+                $customer->name = Auth::user()->name;
+                $customer->email = Auth::user()->email;
+                $customer->address = Auth::user()->address;
+                $customer->phone = Auth::user()->phone;
+                $customer->save();
+            }
 
-                // Check if user current have made a previous purchase
-                if ($check_customer == true) {
-                    $id_customer = $check_customer->id;
-                    $customer = Customers::findOrFail($check_customer->id);
-                    $customer->name = Auth::user()->name;
-                    $customer->email = Auth::user()->email;
-                    $customer->address = Auth::user()->address;
-                    $customer->phone = Auth::user()->phone;
-                    $customer->save();
-                } else {
-                    $customer = new Customers();
-                    $customer->username = Auth::user()->username;
-                    $customer->name = Auth::user()->name;
-                    $customer->email = Auth::user()->email;
-                    $customer->address = Auth::user()->address;
-                    $customer->phone = Auth::user()->phone;
-                    $customer->save();
-                }
+            $data = $request->all();
+            $data["id_customer"] = $customer->id;
+            $data["date_order"] = date('Y-m-d H:i:s');
+            $data["total"] = Cart::instance(Auth::user()->id)->total();
+            $data["payment"] = $request->payment;
+            $bills = Bills::create($data);
+            $id_order = $bills->id;
+            $bill_detail = [];
 
-                $data = $request->all();
-                $data["id_customer"] = $customer->id;
+            $message = new MessageCenter();
+            $message->id_bill = $id_order;
+            $message->save();
 
-                $data["date_order"] = date('Y-m-d H:i:s');
-                $data["total"] = Cart::instance(Auth::user()->id)->total();
-                $data["payment"] = $request->payment;
-                $bills = Bills::create($data);
-                $id_order = $bills->id;
-                $bill_detail = [];
-
-                $message = new MessageCenter();
-                $message->id_bill = $id_order;
-                $message->save();
-
-                $i = 0;
-                foreach (Cart::instance(Auth::user()->id)->content() as $key => $cart) {
-                    $bill_detail["id_bill"] = $id_order;
-                    $bill_detail["id_product"] = $cart->id;
-                    $bill_detail["name_products"] = $cart->name;
-                    $bill_detail["size"] = request("size" . $i++);
-                    $bill_detail["quantity"] = $cart->qty;
-                    $bill_detail["unit_price"] = $cart->price;
-
-                    if (!empty(request('code'))) {
-                        $bill_detail["discount"] = number_format(100 - ($cart->total * 100 / ($cart->price * $cart->qty)), 0);
-                    }
-
-                    $bill_detail["total_price"] = $cart->total;
-                    $oderdetail[$key] = Bill_detail::create($bill_detail);
-
-                    $product = Products::findOrFail($cart->id);
-                    $product->amount -= $cart->qty;
-                    $product->save();
-                }
+            foreach (Cart::instance(Auth::user()->id)->content() as $key => $cart) {
+                $bill_detail["id_bill"] = $id_order;
+                $bill_detail["id_product"] = $cart->id;
+                $bill_detail["name_products"] = $cart->name;
+                $bill_detail["size"] = $cart->options->namesize;
+                $bill_detail["quantity"] = $cart->qty;
+                $bill_detail["unit_price"] = $cart->price;
 
                 if (!empty(request('code'))) {
-                    $coupon = Coupons::where('id_coupon', request('code'))->first();
-                    if ($coupon == true) {
-                        $coupon->used = 1;
-                        $coupon->user_used = Auth::user()->username;
-                        $coupon->save();
-                    }
+                    $bill_detail["discount"] = number_format(100 - ($cart->total * 100 / ($cart->price * $cart->qty)), 0);
                 }
 
-                Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
+                $bill_detail["total_price"] = $cart->total;
+                $oderdetail[$key] = Bill_detail::create($bill_detail);
 
-                Cart::instance(Auth::user()->id)->destroy();
-                return redirect()->route('home')->with('toast', 'You have successfully placed an order! We will send a mail to confirm your order today');
-            } else {
-                return redirect()->route('login');
+                $size_product = Size_products::where('id_size', $cart->options->size)->where('id_products', $cart->id)->first();
+                $size_product->quantity -= $cart->qty;
+                $size_product->save();
             }
+
+            if (!empty(request('code'))) {
+                $coupon = Coupons::where('id_coupon', request('code'))->first();
+                if ($coupon == true) {
+                    $coupon->used = 1;
+                    $coupon->user_used = Auth::user()->username;
+                    $coupon->save();
+                }
+            }
+
+            // Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
+
+            Cart::instance(Auth::user()->id)->destroy();
+            return redirect()->route('home')->with('toast', 'You have successfully placed an order! We will send a mail to confirm your order today');
+        } else {
+            return redirect()->route('login');
         }
     }
 
@@ -419,7 +411,7 @@ class CartController extends Controller
             }
         }
         if ($request->ajax()) {
-            if ($qty > $qty_size_check->quantity || $bool == false) {
+            if ($qty > $qty_size_check->quantity || $bool == false || $qty < 1) {
                 return response()->json([
                     'status' => 'error',
                     'msg' => 'Error'

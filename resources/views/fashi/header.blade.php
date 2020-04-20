@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <!--  Button back to top  -->
     <link rel="stylesheet" href="css/back-to-top.css" type="text/css">
-    <!--  Zoom image detail product  -->
+    <!--  Zoom image detail product and toastr  -->
     <link rel="stylesheet" href="css/zoom-image.css" type="text/css">
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
     <style>

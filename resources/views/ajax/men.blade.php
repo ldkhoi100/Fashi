@@ -3,11 +3,12 @@
 <div class="col-lg-4 col-sm-6">
     <div class="product-item">
         <div class="pi-pic">
-            <img src={{ "img/products/" . $product->image1 }} alt="" @if($product->amount <= 0) style='filter: blur(2px);
+            <img src={{ "img/products/" . $product->image1 }} alt="" @if($product->size_product->sum('quantity') <= 0)
+                style='filter: blur(2px);
                 -webkit-filter: blur(2px);' @endif>
 
-                @if($product->amount <= 0) <div style='color:white; background: red; font-weight: bold'
-                    class="sale pp-sale">
+                @if($product->size_product->sum('quantity') <= 0) <div
+                    style='color:white; background: red; font-weight: bold' class="sale pp-sale">
                     Sold out
         </div>
         {{--  @else  --}}
@@ -26,8 +27,8 @@
             <li class="w-icon active"><a href="{{ route('login') }}"><i class="fas fa-cart-arrow-down"></i></a>
             </li>
             @else
-            @if($product->amount > 0)
-            <li class="w-icon active"><a onclick="AddCart({{ $product->id }})" href="javascript:"><i
+            @if($product->size_product->sum('quantity') > 0)
+            <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
                         class="fas fa-cart-arrow-down"></i></a>
             </li>
             @endif
@@ -35,7 +36,7 @@
             <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                     Quick View</a>
             </li>
-            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+            <li class="w-icon"><a href="#"><i class="fas fa-heart" style="color: #D2691E"></i></a></li>
         </ul>
     </div>
     <div class="pi-text">
@@ -44,7 +45,8 @@
             <h5>{{ $product->name }}</h5>
         </a>
 
-        @if($product->amount <= 0) <div class="product-price" style='text-decoration: line-through; color: grey'>
+        @if($product->size_product->sum('quantity') <= 0) <div class="product-price"
+            style='text-decoration: line-through; color: grey'>
             ${{ number_format($product->unit_price, 2) }}
     </div>
 

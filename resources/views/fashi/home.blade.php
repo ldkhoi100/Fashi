@@ -4,7 +4,7 @@
 
 @section('content')
 
-<!-- Hero Section Begin -->
+<!-- Hero Section Begin, Slide -->
 <section class="hero-section">
     <div class="hero-items owl-carousel">
         @foreach ($slide as $value)
@@ -75,7 +75,7 @@
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Best - selling product</li>
+                        <li class="active">New Product</li>
                         {{-- <li>HandBag</li>
                         <li>Shoes</li>
                         <li>Accessories</li> --}}
@@ -84,6 +84,7 @@
                 <div class="product-slider owl-carousel">
 
                     @foreach ($women as $product)
+                    @if($product->size_product->sum('quantity') > 0)
 
                     <div class="product-item">
                         <div class="pi-pic">
@@ -101,12 +102,14 @@
                                 <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                         <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                                 @else
-                                <li class="w-icon active"><a onclick="AddCart({{ $product->id }})" href="javascript:"><i
-                                            class="fas fa-cart-arrow-down"></i></a></li>
+                                <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
+                                            class="fas fa-cart-arrow-down"></i></a>
+                                </li>
                                 @endif
                                 <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                                         Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                <li class="w-icon"><a href="#"><i class="fas fa-heart" style="color: #D2691E"></i></a>
+                                </li>
                             </ul>
                         </div>
                         <div class="pi-text">
@@ -132,6 +135,7 @@
                         </div>
                     </div>
 
+                    @endif
                     @endforeach
                 </div>
             </div>
@@ -184,7 +188,7 @@
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Best - selling product</li>
+                        <li class="active">New Product</li>
                         {{-- <li>HandBag</li>
                         <li>Shoes</li>
                         <li>Accessories</li> --}}
@@ -193,6 +197,7 @@
                 <div class="product-slider owl-carousel">
 
                     @foreach ($men as $product)
+                    @if($product->size_product->sum('quantity') > 0)
 
                     <div class="product-item">
                         <div class="pi-pic">
@@ -210,13 +215,14 @@
                                 <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                         <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                                 @else
-                                <li class="w-icon active"><a onclick="AddCart({{ $product->id }})" href="javascript:"><i
+                                <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
                                             class="fas fa-cart-arrow-down"></i></a>
                                 </li>
                                 @endif
                                 <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
                                         Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                <li class="w-icon"><a href="#"><i class="fas fa-heart" style="color: #D2691E"></i></a>
+                                </li>
                             </ul>
                         </div>
                         <div class="pi-text">
@@ -242,6 +248,7 @@
                         </div>
                     </div>
 
+                    @endif
                     @endforeach
 
                 </div>

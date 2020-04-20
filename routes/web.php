@@ -40,13 +40,20 @@ Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
 Route::get('/products', 'FashionControllers@product')->name('product');
+
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
-Route::get('/shoppingcart', 'FashionControllers@shoppingcart')->name('shoppingcart');
+Route::get('/shop/sort/low&to&high', 'FashionControllers@shopSortMinToMax')->name('shop');
+
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
 Route::get('/faq', 'FashionControllers@faq')->name('faq');
-Route::get('/user/purchase', 'FashionControllers@your_order')->name('your.order');
 Route::post('/subscribe', 'FashionControllers@subscribe')->name('subscribe.post');
 Route::post('/contact', 'FashionControllers@contactPost')->name('contact.post');
+
+//Your order
+Route::get('/user/purchase', 'FashionControllers@your_order')->name('your.order');
+
+//Cancle order
+Route::get('/order/cancle/{id}', 'FashionControllers@cancleOrder')->name('cancle.order');
 
 //Find bill in page your order
 Route::get('/bills/search/{id}', 'FashionControllers@find_bill')->name('find.bills');
@@ -256,5 +263,12 @@ Route::get('/mark/message/unread/{id}', 'MessengeUserController@mark_unread')->n
 Route::get('/delete/message/{id}', 'MessengeUserController@delete_message')->name('delete.message.mailbox');
 Route::post('/reply', 'MessengeUserController@reply')->name('reply.message');
 
-//Size product-quantity
-// Route::resource('/sizeProduct', 'UserController');
+//Ajax check
+Route::post('/checkemail', 'CheckAjaxController@checkEmail');
+Route::post('/checkusername', 'CheckAjaxController@checkUsername');
+Route::post('/checkname', 'CheckAjaxController@checkFullname');
+Route::post('/checkaddress', 'CheckAjaxController@checkAddress');
+Route::post('/checkphone', 'CheckAjaxController@checkPhone');
+Route::post('/checkpassword', 'CheckAjaxController@checkPassword');
+Route::post('/passwordconfirm', 'CheckAjaxController@checkOldPassword');
+Route::post('/loginusername', 'CheckAjaxController@loginUsername');

@@ -26,6 +26,8 @@
     <!-- Custom styles for this template-->
     <link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
+    <!--  Button back to top  -->
+    <link rel="stylesheet" href="css/back-to-top.css" type="text/css">
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
@@ -34,6 +36,10 @@
     <style>
         .button-clicked {
             background: #ffd9b3;
+        }
+
+        #button::after {
+            content: "⮙";
         }
     </style>
 
@@ -227,3 +233,5 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
+
+        <a id="button"></a>

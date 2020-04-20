@@ -18,7 +18,7 @@ class Customers extends Model
 
     public function bills()
     {
-        return $this->hasMany("App\Bills", 'id_customer', 'id');
+        return $this->hasMany("App\Bills", 'id_customer', 'id')->withTrashed();
     }
 
     public function bills_trash()

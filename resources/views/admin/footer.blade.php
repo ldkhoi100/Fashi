@@ -17,11 +17,6 @@
 </div>
 <!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -60,6 +55,8 @@
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
 <script src="js/toastr.min.js"></script>
+<!-- Back to top button -->
+<script src="js/back-to-top.js"></script>
 
 @stack('ckeditor-js')
 @stack('chart-js')

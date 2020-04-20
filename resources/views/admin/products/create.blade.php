@@ -136,16 +136,6 @@
 
                             </div>
 
-                            <div class="form-group @error('amount') has-error has-feedback @enderror">
-
-                                <label>Amount</label>
-
-                                <input type="number" class="form-control @error('amount') is-invalid @enderror"
-                                    name="amount" @if(old('amount')) value="{{ old('amount') }}" @else value="10" @endif
-                                    placeholder="Amount in stock" required>
-
-                            </div>
-
                             <div class="form-group @error('highlight') has-error has-feedback @enderror">
 
                                 <label>Highlight</label>

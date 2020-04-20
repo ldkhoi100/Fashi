@@ -81,7 +81,7 @@ class BillDetailController extends Controller
         $this->validate($request, [
             'size' => 'required | string | min:0',
             'quantity' => 'required | numeric | min:0',
-            'status' => 'required | numeric | between:0,1',
+            'status' => 'required | numeric | boolean',
             'discount' => 'required | numeric | between:0,100',
         ]);
 
@@ -89,10 +89,16 @@ class BillDetailController extends Controller
         $product = Products::withTrashed()->where('id', $bill->id_product)->first();
         $size_product = Size_products::where('id_products', $bill->id_product)->get();
         $code_bill = Bills::withTrashed()->findOrFail($bill->id_bill);
+        $size_check = Size_products::where('id_products', $product->id)->get();
 
-        if (request('quantity') > $product->amount) {
-            return back()->with('error', "Error, $product->name Exceeded quantity in stock! Maximum is $product->amount!");
+        foreach ($size_check as $check_size) {
+            if ($check_size->size->name == request('size')) {
+                if (request('quantity') > $check_size->quantity) {
+                    return back()->with('error', "Error, \"$product->name\" Exceeded quantity in stock! Maximum is $check_size->quantity !");
+                }
+            }
         }
+
         if ($product->promotion_price > 0) {
             $price = $product->promotion_price;
         } else {

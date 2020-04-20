@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use DateTime;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +26,8 @@ use App\Contact;
 use App\Customers;
 use App\Subscribe;
 use App\MessageCenter;
+use App\Size;
+use App\Size_products;
 use Illuminate\Support\Facades\Crypt;
 
 class FashionControllers extends Controller
@@ -38,30 +39,10 @@ class FashionControllers extends Controller
         $large_image2 = Image_large_products::take(1)->orderBy('id', 'desc')->get();
         $banners = Banners::where('position', '>', 0)->orderBy('position', 'asc')->take(3)->get();
         $instagram = Instagrams::take(6)->get();
-        $men = Products::where('id_objects', 2)->where('amount', '>', 0)->inRandomOrder('4231')->get();
-        $women = Products::where('id_objects', 3)->where('amount', '>', 0)->inRandomOrder('4231')->get();
+        $men = Products::where('id_objects', 2)->inRandomOrder('4231')->get();
+        $women = Products::where('id_objects', 3)->inRandomOrder('4231')->get();
         $blogs = Blogs::orderBy('view_count', 'DESC')->paginate(3);
         return view('fashi.home', compact('slide', 'large_image1', 'large_image2', 'banners', 'instagram', 'men', 'women', 'blogs'));
-    }
-
-    public function product()
-    {
-        return view('fashi.product');
-    }
-
-    public function shoppingcart()
-    {
-        return view('fashi.shoppingcart');
-    }
-
-    public function register()
-    {
-        return view('fashi.register');
-    }
-
-    public function login()
-    {
-        return view('fashi.login');
     }
 
     public function faq()
@@ -69,25 +50,29 @@ class FashionControllers extends Controller
         return view('fashi.faq');
     }
 
-    public function contact(Request $request)
+    public function contact()
     {
         return view('fashi.contact');
     }
 
-    public function your_order()
+    public function your_order(Request $request)
     {
         if (Auth::user()) {
             $order = Customers::where('username', Auth::user()->username)->first();
-            $bill_order = Bills::withTrashed()->where('id_customer', $order->id)->orderBy('created_at', 'DESC')->get();
-            $i = 0;
-            $bill_detail = null;
-            foreach ($bill_order as $item) {
-                $bill_detail[] = Bill_detail::withTrashed()->where('id_bill', $item->id)->get();
-                $i++;
+            if ($order != null) {
+                $bill_order = Bills::withTrashed()->where('id_customer', $order->id)->orderBy('created_at', 'DESC')->paginate(5);
+            } else {
+                $bill_order = [];
             }
-            return view('fashi.your_order', compact('bill_order', 'bill_detail', 'order'));
+            if ($request->ajax()) {
+                return [
+                    'bill_order' => view('ajax.yourOrder')->with(compact('bill_order'))->render(),
+                    'next_page' => $bill_order->nextPageUrl()
+                ];
+            }
+            return view('fashi.your_order', compact('bill_order'));
         } else {
-            return abort(404);
+            return redirect()->route('home')->with('toast_error', "You must log in to see your order !");
         }
     }
 
@@ -195,8 +180,14 @@ class FashionControllers extends Controller
     {
         $id = Crypt::decrypt($id);
         $code_bills = Bills::withTrashed()->findOrFail($id);
-        $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
-        return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+        if (!Auth::user()) {
+            return redirect()->route('home')->with('toast_error', 'You must log in to see your order !');
+        } elseif ((Auth::user()->username == $code_bills->customers->username) || Auth::check()) {
+            $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+            return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+        } else {
+            return redirect()->route('home')->with('toast_error', 'Invoice code or account is incorrect');
+        }
     }
 
     public function shop(Request $request)
@@ -223,6 +214,18 @@ class FashionControllers extends Controller
         } else {
             $product = Products::inRandomOrder('4123')->paginate(12);
         }
+        if ($request->ajax()) {
+            return [
+                'product' => view('ajax.shop')->with(compact('product'))->render(),
+                'next_page' => $product->nextPageUrl()
+            ];
+        }
+        return view('fashi.shop')->with(compact('product'));
+    }
+
+    public function shopSortMinToMax(Request $request)
+    {
+        $product = Products::orderBy('unit_price', 'ASC')->paginate(12);
         if ($request->ajax()) {
             return [
                 'product' => view('ajax.shop')->with(compact('product'))->render(),
@@ -355,22 +358,48 @@ class FashionControllers extends Controller
     public function getDetailProduct($id)
     {
         $productKey = 'product_' . $id;
-
         // Kiểm tra Session của sản phẩm có tồn tại hay không.
         // Nếu không tồn tại, sẽ tự động tăng trường view_count lên 1 đồng thời tạo session lưu trữ key sản phẩm.
         if (!Session::has($productKey)) {
             Products::where('id', $id)->increment('view_count');
             Session::put($productKey, 1);
         }
-
         $product = Products::find($id);
         $id_product = Products::find($id);
-        $related_products = Products::where('id_categories', $product->id_categories)->where('amount', '<>', 0)->where('id', '<>', $product->id)->inRandomOrder()->paginate(8);
+        $related_products = Products::where('id_categories', $product->id_categories)->where('id', '<>', $product->id)->inRandomOrder()->paginate(8);
         $categories = Categories::where('id_objects', $product->id_objects)->get();
         $id_categories = Categories::find($id);
         $reviews = Reviews::where('id_products', $product->id)->get();
         $avgRating = DB::table('reviews')->where('id_products', $product->id)->avg('rating');
         $countRating = Reviews::where('id_products', $product->id)->where('rating', '>', 0)->get();
         return view('fashi.detail_product', compact('categories', 'product', 'id_categories', 'related_products', 'reviews', 'avgRating', 'countRating', 'id_product'));
+    }
+
+    public function cancleOrder($id)
+    {
+        $bill = Bills::withTrashed()->findOrFail($id);
+        if ((strtotime("now") - strtotime($bill->created_at)) < 86400 && $bill->cancle == 0 && $bill->status == 0) {
+            $bill->cancle = 1;
+            $bill->save();
+
+            $notification = MessageCenter::where('id_bill', $id)->first();
+            $notification->reader = 0;
+            $notification->save();
+
+            $bill_detail = Bill_detail::withTrashed()->where('id_bill', $bill->id)->get();
+            foreach ($bill_detail as $item) {
+                $cancle_bill_detail = Bill_detail::withTrashed()->findOrFail($item->id);
+                $cancle_bill_detail->cancle = 1;
+                $cancle_bill_detail->save();
+
+                $size_name = Size::where('name', $cancle_bill_detail->size)->first();
+                $product_restore = Size_products::where('id_products', $cancle_bill_detail->id_product)->where('id_size', $size_name->id)->first();
+                $product_restore->quantity += $cancle_bill_detail->quantity;
+                $product_restore->save();
+            }
+            return back()->with('toast', "You have successfully canceled this order !");
+        } else {
+            return back()->with('toast', "There was an error canceling this order !");
+        }
     }
 }

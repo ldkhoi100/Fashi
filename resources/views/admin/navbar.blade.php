@@ -79,8 +79,8 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
             </div>
         </li>
 
-        <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
+        <!-- Nav Item - Notifications -->
+        <li class="nav-item dropdown no-arrow mx-1" id="notifications">
 
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -94,12 +94,12 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                     @endif
             </a>
 
-            <!-- Dropdown - Alerts -->
+            <!-- Dropdown - Notifications -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown">
 
                 <h6 class="dropdown-header">
-                    Alerts Center
+                    Notifications
                     <span style="float: right">
                         <a href="{{ route('mark.all.read') }}" style="color: white; font-size: 10px;">
                             Mark All as Read <i class="far fa-check-circle"></i>
@@ -117,11 +117,19 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                     </div>
                     <div>
                         <div class="small text-gray-500">{{ time_elapsed_string1($alert->created_at) }}</div>
-                        <span style="font-size:13.5px" @if($alert->reader == 0)
+                        <span style="font-size:13px" @if($alert->reader == 0)
                             class="font-weight-bold"
-                            @endif >New invoice: {{ $alert->bills->id }}, total money:
-                            ${{ number_format($alert->bills->total, 2) }}, customer:
-                            {{ $alert->bills->customers->name }}</span>
+                            @endif >
+                            @if($alert->bills->cancle == 1)
+                            <span style="color: #ee4d2d;">The Invoice Has Been Canceled:</span> {{ $alert->bills->id }}
+                            <br>
+                            Total Money: ${{ number_format($alert->bills->total, 2) }} <br>
+                            Customer: {{ $alert->bills->customers->name }}</span>
+                        @else
+                        New invoice: {{ $alert->bills->id }} <br>
+                        total money: ${{ number_format($alert->bills->total, 2) }} <br>
+                        Customer: {{ $alert->bills->customers->name }}</span>
+                        @endif
                     </div>
                 </a>
                 @elseif(!empty($alert->id_review) && empty($alert->id_bill))
