@@ -40,10 +40,7 @@ Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
 Route::get('/products', 'FashionControllers@product')->name('product');
-
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
-Route::get('/shop/sort/low&to&high', 'FashionControllers@shopSortMinToMax')->name('shop');
-
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
 Route::get('/faq', 'FashionControllers@faq')->name('faq');
 Route::post('/subscribe', 'FashionControllers@subscribe')->name('subscribe.post');
@@ -89,6 +86,20 @@ Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product
 //Search products
 Route::get('/search', 'FashionControllers@shop')->name('shop.search');
 
+//Sort
+Route::get('/shop/sort/low&to&high', 'SortFashionController@shopSortLowToHigh')->name('shopSortLowToHigh');
+Route::get('/shop/sort/high&to&low', 'SortFashionController@shopSortHighToLow')->name('shopSortHighToLow');
+Route::get('/shop/sort/price', 'SortFashionController@shopSortPrice')->name('shopSortPrice');
+Route::get('/men/sort/low&to&high', 'SortFashionController@menSortLowToHigh')->name('menSortLowToHigh');
+Route::get('/men/sort/high&to&low', 'SortFashionController@menSortHighToLow')->name('menSortHighToLow');
+Route::get('/men/sort/price', 'SortFashionController@menSortPrice')->name('menSortPrice');
+Route::get('/women/sort/low&to&high', 'SortFashionController@womenSortLowToHigh')->name('womenSortLowToHigh');
+Route::get('/women/sort/high&to&low', 'SortFashionController@womenSortHighToLow')->name('womenSortHighToLow');
+Route::get('/women/sort/price', 'SortFashionController@womenSortPrice')->name('womenSortPrice');
+Route::get('/kid/sort/low&to&high', 'SortFashionController@kidSortLowToHigh')->name('kidSortLowToHigh');
+Route::get('/kid/sort/high&to&low', 'SortFashionController@kidSortHighToLow')->name('kidSortHighToLow');
+Route::get('/kid/sort/price', 'SortFashionController@kidSortPrice')->name('kidSortPrice');
+
 //Cart
 Route::resource('/cart', 'CartController');
 Route::get('/addCart/{id}', 'CartController@addCart')->name('addCart');
@@ -100,6 +111,10 @@ Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('delet
 Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
 // Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::post('/checkout', 'CartController@formCheckout')->name('formCheckout');
+
+//Wish List
+// Route::get('/wishList', 'WishListController@wishList')->name('wishList');
+// Route::get('/addWishList/{id}', 'WishListController@addWishList')->name('addWishList');
 
 //Coupons apply
 Route::get('/coupons/apply/{code}', 'CartController@coupons')->name('coupons');
@@ -187,7 +202,9 @@ Route::get('/blogs/{id}/delete', 'BlogsController@delete')->name('blogs.delete')
 Route::get('/blogs-delete-all', 'BlogsController@deleteAll')->name('blogs.delete-all');
 
 // Comment blogs
-Route::resource('/comment', 'BlogCommentsController');
+// Route::resource('/comment', 'BlogCommentsController');
+Route::get('/comment/{id}', 'BlogCommentsController@show')->name('comment.show');
+Route::get('/comment/delete/{id}', 'BlogCommentsController@destroy')->name('comment.destroy');
 
 //Categories blogs
 Route::resource('/categories-blogs', 'BlogCategoriesController');
@@ -237,6 +254,16 @@ Route::get('/customers-restore-all', 'CustomersController@restoreAll')->name('cu
 Route::get('/customers/{id}/delete', 'CustomersController@delete')->name('customers.delete');
 Route::get('/customers-delete-all', 'CustomersController@deleteAll')->name('customers.delete-all');
 Route::get('/active-customers/{id}', 'CustomersController@active')->name('customers.active');
+
+//Contact managerment
+Route::resource('contacts', 'ContactController');
+// Route::get('/reply-contacts', 'ContactController@reply')->name('contacts.reply');
+Route::post('/reply-contacts/{id}', 'ContactController@update')->name('contacts.reply.post');
+Route::get('/trash-contacts', 'ContactController@trashed')->name('contacts.trash');
+Route::get('/contacts/{id}/restore', 'ContactController@restore')->name('contacts.restore');
+Route::get('/contacts-restore-all', 'ContactController@restoreAll')->name('contacts.restore-all');
+Route::get('/contacts/{id}/delete', 'ContactController@delete')->name('contacts.delete');
+Route::get('/contacts-delete-all', 'ContactController@deleteAll')->name('contacts.delete-all');
 
 //Coupons
 Route::resource('/coupons', 'CouponsController');

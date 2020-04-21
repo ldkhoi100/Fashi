@@ -200,19 +200,23 @@ class FashionControllers extends Controller
             if (request('search_select') == 1) {
                 $request->session()->flash('search_products', request('search_products'));
                 $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
-            } elseif (request('search_select') == 2) {
-                $code_bills = Bills::withTrashed()->where('id', request('search_products'))->first();
-                if ($code_bills == true) {
-                    $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
-                    return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
-                } else {
-                    return redirect()->route('home')->with('toast', 'Code bills incorrect!');
-                }
-            } else {
+                $count_product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->count();
+            }
+            // elseif (request('search_select') == 2) {
+            //     $code_bills = Bills::withTrashed()->where('id', request('search_products'))->first();
+            //     if ($code_bills == true) {
+            //         $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+            //         return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+            //     } else {
+            //         return redirect()->route('home')->with('toast', 'Code bills incorrect!');
+            //     }
+            // } 
+            else {
                 return abort(404);
             }
         } else {
-            $product = Products::inRandomOrder('4123')->paginate(12);
+            $product = Products::inRandomOrder('1234')->paginate(12);
+            $count_product = Products::count();
         }
         if ($request->ajax()) {
             return [
@@ -220,19 +224,8 @@ class FashionControllers extends Controller
                 'next_page' => $product->nextPageUrl()
             ];
         }
-        return view('fashi.shop')->with(compact('product'));
-    }
 
-    public function shopSortMinToMax(Request $request)
-    {
-        $product = Products::orderBy('unit_price', 'ASC')->paginate(12);
-        if ($request->ajax()) {
-            return [
-                'product' => view('ajax.shop')->with(compact('product'))->render(),
-                'next_page' => $product->nextPageUrl()
-            ];
-        }
-        return view('fashi.shop')->with(compact('product'));
+        return view('fashi.shop')->with(compact('product', 'count_product'));
     }
 
     public function reviews(Request $request)

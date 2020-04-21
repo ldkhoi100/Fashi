@@ -333,7 +333,7 @@
 
         <div class="row">
 
-            <div class="col-lg-12 mb-4">
+            <div class="col-lg-7 mb-4">
                 <!-- Illustrations -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -352,7 +352,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 mb-4">
+            <div class="col-lg-5 mb-4">
                 <!-- Chart -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">

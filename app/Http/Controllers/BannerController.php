@@ -51,7 +51,6 @@ class BannerController extends Controller
     public function store(ImageRequest $request)
     {
         $banner = Banners::where('position', request('position'))->update(['position' => "0"]);
-
         $banner = new Banners();
         $banner->link = request('name');
         $banner->position = request('position');

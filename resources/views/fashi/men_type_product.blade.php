@@ -52,13 +52,13 @@
             </div>
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="product-show-option">
-                    <div class="row">
+                    <div class="row" style="margin: auto">
                         <h2>{{ $id_categories->name }} <span
                                 style="color: #999; font-size: 15px;">({{ count($id_categories->products) }}
                                 ITEMS)</span></h2>
                     </div><br>
                     <div class="row">
-                        <div class="col-lg-7 col-md-7">
+                        {{-- <div class="col-lg-7 col-md-7">
                             <div class="select-option">
                                 <select class="sorting">
                                     <option value="">Default Sorting</option>
@@ -67,7 +67,7 @@
                                     <option value="">Show:</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-5 col-md-5 text-right">
                             {{-- <p>{{ count($id_categories->products) }} Products</p> --}}
                         </div>

@@ -181,12 +181,12 @@
 
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
-                        <li class="heart-icon">
+                        {{-- <li class="heart-icon">
                             <a href="#">
                                 <i class="icon_heart_alt"></i>
                                 <span>1</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         {{-- Ajax store cart --}}
                         <span id="change-item-cart">

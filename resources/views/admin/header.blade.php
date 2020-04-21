@@ -205,6 +205,12 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('contacts.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Contact</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable3" aria-expanded="true"
             aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-table"></i>

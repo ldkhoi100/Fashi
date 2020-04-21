@@ -43,6 +43,6 @@ class Blogs extends Model
 
     public function blogcomments()
     {
-        return $this->hasMany("App\BlogComments", 'id_blogs', 'id');
+        return $this->hasMany(Comment::class, 'commentable_id', 'id');
     }
 }

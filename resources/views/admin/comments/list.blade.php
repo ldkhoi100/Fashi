@@ -50,21 +50,17 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $reviews->name }}</td>
-                            <td>{{ $reviews->email }}</td>
+                            <td>{{ $reviews->user->name }}</td>
+                            <td>{{ $reviews->user->email }}</td>
                             <td>{{ $reviews->comment }}</td>
 
-                            <td><b style="color:orange">{{ $reviews->user_created }}</b> <br>
+                            <td>
                                 {{ $reviews->created_at }}
                             </td>
                             <td>
-                                <form action="{{ route('comment.destroy', $reviews->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Do you want delete reviews {{$reviews->name}} ?')"
-                                        class="btn btn-danger"><i class="fa fa-backspace"></i></button>
-                                </form>
+                                <a class="btn btn-danger" href="{{ route('comment.destroy', $reviews->id) }}">
+                                    <i class="fa fa-backspace"></i>
+                                </a>
                             </td>
                         </tr>
 

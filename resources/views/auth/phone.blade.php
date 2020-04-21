@@ -43,7 +43,9 @@
                             <tr>
                                 <td><label for="">Phone number: &nbsp;</label> </td>
                                 <td>
-                                    +84 {{ $user->phone }}
+                                    <span
+                                        style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">+84
+                                        {{ $user->phone }}</span>
                                 </td>
                             </tr>
                         </table><br>

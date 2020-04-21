@@ -28,7 +28,7 @@
                 width="600" height="610" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
                 tabindex="0"></iframe>
             <div class="icon">
-                <i class="fa fa-map-marker"></i>
+                {{-- <i class="fa fa-map-marker"></i> --}}
             </div>
         </div>
     </div>

@@ -41,9 +41,10 @@
 
                         <table>
                             <tr>
-                                <td><label for="">Email address: &nbsp;</label> </td>
+                                <td><label for="" style="">Email address: &nbsp;</label> </td>
                                 <td>
-                                    {{ $user->email }}
+                                    <span
+                                        style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ $user->email }}</span>
                                 </td>
                             </tr>
                         </table><br>

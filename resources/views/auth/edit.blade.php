@@ -43,14 +43,17 @@
 
                             <tr>
                                 <td><label for="email">Username: &nbsp;</label> </td>
-                                <td><span>{{ Auth::user()->username }}</span></td>
+                                <td><span
+                                        style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ Auth::user()->username }}</span>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td><label for="email">Email address: &nbsp;</label> </td>
                                 <td>
                                     <span>
-                                        {{ substr($user->email, 0, 2) . '****' . substr($user->email, strpos($user->email, '@') + 1) }}
+                                        <label for=""
+                                            style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ substr($user->email, 0, 2) . '****' . substr($user->email, strpos($user->email, '@') + 1) }}</label>
                                         <a href="{{ route('email') }}"
                                             style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
                                             Change</a>
@@ -61,7 +64,9 @@
                             <tr>
                                 <td><label for="phone">Phone: &nbsp;</label></td>
                                 <td>
-                                    <span>{{ str_repeat("*", strlen($user->phone) - 2) . substr($user->phone, -2) }}
+                                    <span><label for=""
+                                            style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ str_repeat("*", strlen($user->phone) - 2) . substr($user->phone, -2) }}
+                                        </label>
                                         <a href="{{ route('phoneNumber') }}"
                                             style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
                                             Change</a>
@@ -72,7 +77,8 @@
                             <tr>
                                 <td><label for="phone">Password: &nbsp;</label></td>
                                 <td>
-                                    <span>*********
+                                    <span><label for=""
+                                            style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">*********</label>
                                         <a href="{{ route('password') }}"
                                             style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
                                             Change</a>

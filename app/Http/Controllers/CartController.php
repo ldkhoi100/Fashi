@@ -67,8 +67,8 @@ class CartController extends Controller
             'payment' => "required",
             "size.*" => "required | string | min:0"
         ]);
-        $oderdetail = array();
 
+        $oderdetail = array();
         if (Auth::user()) {
             $check_customer = Customers::where('username', Auth::user()->username)->first();
             // Check if user current have made a previous purchase
@@ -499,7 +499,8 @@ class CartController extends Controller
                     'used' => 'error',
                     'msg2' => 'This coupon code has been used'
                 ]);
-            } elseif ($coupon == false) {
+            }
+            if ($coupon == false) {
                 return response()->json([
                     'status' => 'error',
                     'msg' => 'The discount code you entered is incorrect'
@@ -518,6 +519,12 @@ class CartController extends Controller
         } else {
             $coupon = null;
         }
-        return view('ajax.list-cart', compact('coupon', 'product'));
+
+        $size_product = null;
+        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+            $check = $product[] = Products::find($cart->id);
+            $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
+        }
+        return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
     }
 }

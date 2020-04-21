@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Blogcomments;
+use App\Comment;
 
 use DateTime;
 use http\Env\Response;
@@ -17,16 +17,14 @@ class BlogCommentsController extends Controller
 {
     public function show($id)
     {
-        $reviews = Blogcomments::where('id_blogs', $id)->get();
-        // $product = Blogcomments::where('id_blogs', $id)->take(1);
+        $reviews = Comment::where('commentable_id', $id)->get();
         return view('admin.comments.list', compact('reviews'));
     }
 
     public function destroy($id)
     {
-        $comments = Blogcomments::findOrFail($id);
+        $comments = Comment::findOrFail($id);
         $comments->delete();
-
-        return redirect()->back()->with('delete', "Comments of $comments->name deleted!");
+        return redirect()->back()->with('delete', "Comments of $comments->guest_name deleted!");
     }
 }

@@ -316,42 +316,6 @@
 
 @push('cartjs')
 
-{{-- <meta name="csrf-token" content="{{ csrf_token() }}">​ --}}
-<script>
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-    // $(document).ready(function(){
-    //     $('.qty').blur(function(){
-    //         let rowid = $(this).data('id');
-    //         $.ajax({
-    //             url : 'cart/'+rowid,
-    //             type : 'put',
-    //             dataType : 'json',
-    //             data : {
-    //                 qty : $(this).val(),
-    //             },
-    //             success : function(data){
-    //                 if(data.error){
-    //                     toastr.error(data.error, 'Error!', {timeOut: 5000});
-    //                 }
-    //                 else{
-    //                     location.reload();
-    //                     Command: toastr["success"]("You updated success", "Update success")
-    //                     toastr.options = {
-    //                     "closeButton": true, "debug": false, "newestOnTop": false, "progressBar": true, "positionClass": "toast-top-right",
-    //                     "preventDuplicates": false, "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
-    //                     "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear", "showMethod": "fadeIn", "hideMethod": "fadeOut"
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     });
-    // });
-</script>
-
 <script>
     //apply coupons
     function coupons(){
