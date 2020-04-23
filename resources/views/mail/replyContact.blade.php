@@ -39,7 +39,7 @@
                                             src="https://thenypost.files.wordpress.com/2018/06/men-shopping-masculine.jpg?quality=80&strip=all"
                                             class="CToWUd"></center>
                                 </a><br><b>Dear {{ $contact->name }} </b> <br>
-                                {!! $mess !!}
+                                <span>{!! $mess !!}</span>
                                 <b>
                                     <ul>
                                         <li>Start Something New on <a href="{{ route('home') }}" target="_blank"
@@ -50,11 +50,13 @@
                                         <li>FashionStore.com: Shop Anytime, Anywhere!</li>
                                     </ul>
                                 </b>
-                                <center><a
-                                        style="border-radius:6px;font-size:15px;color:white;text-decoration:none;padding:14px 7px 14px 7px;width:210px;max-width:210px;font-family:proxima_nova,'Open Sans','lucida grande','Segoe UI',arial,verdana,'lucida sans unicode',tahoma,sans-serif;margin:6px auto;display:block;background-color:#007ee5;text-align:center"
+                                <center>
+                                    <a style="border-radius:6px;font-size:15px;color:white;text-decoration:none;padding:14px 7px 14px 7px;width:210px;max-width:210px;font-family:proxima_nova,'Open Sans','lucida grande','Segoe UI',arial,verdana,'lucida sans unicode',tahoma,sans-serif;margin:6px auto;display:block;background-color:#007ee5;text-align:center"
                                         href="{{ route('home') }}" target="_blank"
-                                        data-saferedirecturl="https://www.google.com/url?q=https://www.dropbox.com/l/AAD0jV57hHC-FpQTUfSWZ5gKqK8n6aE6HSo/downloading&amp;source=gmail&amp;ust=1587539229204000&amp;usg=AFQjCNHCtE4RxUkLp_mfedhATaRtAIQ2Zg">Go
-                                        To Shop Now</a></center>
+                                        data-saferedirecturl="https://www.google.com/url?q=https://www.dropbox.com/l/AAD0jV57hHC-FpQTUfSWZ5gKqK8n6aE6HSo/downloading&amp;source=gmail&amp;ust=1587539229204000&amp;usg=AFQjCNHCtE4RxUkLp_mfedhATaRtAIQ2Zg">
+                                        Go To Shop Now
+                                    </a>
+                                </center>
                             </td>
                             <td width="36"></td>
                         </tr>
