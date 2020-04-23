@@ -13,8 +13,12 @@
                     <p style="text-align: center">Have account? Sign in</p>
                     <div>
                         <p>
-                            <input type="username" class="form-control" name="username" placeholder="Email or Username"
-                                value="{{ old('username') }}" required autocomplete="username" autofocus>
+                            <input type="username" class="form-control usernameinputlogin"
+                                onkeyup="duplicateUsernamelogin(this)" name="username" placeholder="Email or Username"
+                                value="{{ old('username') }}" required>
+                            <span class="invalid-feedback checkusernamelogin" role="alert">
+                                <strong class="textusernamelogin"></strong>
+                            </span>
                         </p>
                         <p>
                             <input type="password" class="form-control" name="password" placeholder="Password" required
@@ -22,7 +26,7 @@
                         </p>
                     </div>
                     <p>
-                        <button type="submit" class="site-btn login-btn" id="btn-submit3"
+                        <button type="submit" class="site-btn login-btn" id="btn-submitlogin"
                             style="border: none; width: 100%">Sign In
                         </button>
                     </p>
@@ -64,24 +68,43 @@
                             Create your account on Fashion Shop
                         </p>
                         <p>
-                            <input type="text" name="name" placeholder="First Name & Last Name*" class="form-control"
+                            <input type="text" onkeyup="duplicateName(this)" name="name"
+                                placeholder="First Name & Last Name*" class="form-control nameinput"
                                 value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <span class="invalid-feedback checkname" role="alert">
+                                <strong class="textname"></strong>
+                            </span>
                         </p>
                         <p>
-                            <input type="text" name="username" class="form-control" value="{{ old('username') }}"
-                                placeholder="Username*" required autocomplete="username" autofocus>
+                            <input type="text" onkeyup="duplicateUsername(this)" name="username"
+                                class="form-control usernameinput" value="{{ old('username') }}" placeholder="Username*"
+                                required autocomplete="username" autofocus>
+                            <span class="invalid-feedback checkusername" role="alert">
+                                <strong class="textusername"></strong>
+                            </span>
                         </p>
                         <p>
-                            <input type="email" name="email" placeholder="Email*" class="form-control"
-                                value="{{ old('email') }}" required autocomplete="email">
+                            <input type="email" name="email" placeholder="Email*" onkeyup="duplicateEmail(this)"
+                                class="form-control emailinput" value="{{ old('email') }}" required
+                                autocomplete="email">
+                            <span class="invalid-feedback checkemail" role="alert">
+                                <strong class="textemail"></strong>
+                            </span>
                         </p>
                         <p>
-                            <input type="text" name="address" class="form-control" value="{{ old('address') }}"
-                                placeholder="Address*">
+                            <input type="text" name="address" class="form-control addressinput"
+                                onkeyup="duplicateAddress(this)" value="{{ old('address') }}" placeholder="Address*">
+                            <span class="invalid-feedback checkaddress" role="alert">
+                                <strong class="textaddress"></strong>
+                            </span>
                         </p>
                         <p>
-                            <input type="tel" name="phone" class="form-control" min="0" value="{{ old('phone') }}"
-                                required autocomplete="phone" placeholder="Mobile Number (11 digits)*">
+                            <input type="tel" name="phone" class="form-control phoneinput" min="0"
+                                onkeyup="duplicatePhone(this)" value="{{ old('phone') }}" required autocomplete="phone"
+                                placeholder="Mobile Number (11 digits)*">
+                            <span class="invalid-feedback checkphone" role="alert">
+                                <strong class="textphone"></strong>
+                            </span>
                         </p>
                         <p>
                             <input type="password" name="password" class="form-control" required
@@ -98,7 +121,7 @@
                         </p>
                     </div>
                     <p>
-                        <button type="submit" class="site-btn login-btn" id="btn-submit4"
+                        <button type="submit" class="site-btn login-btn" id="btn-submit"
                             style="border: none; width: 100%">Sign Up
                         </button>
                     </p>

@@ -11,11 +11,9 @@
     <p class="mb-4">
         <a href="{{ route('product.index') }}" class="btn btn-primary">Home page products</a>
 
-        <a href="{{ route('product.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+        <a href="javascript:void(0);" class="btn btn-danger float-right" onclick="destroyall()">Delete all</a>
 
-        <a href="{{ route('product.restore-all') }}" class="btn btn-warning float-right mr-2"
-            onclick="return confirm('Do you want restore all data?')">Restore all</a>
+        <a href="javascript:void(0);" class="btn btn-warning float-right mr-2" onclick="restoreall()">Restore all</a>
     </p>
 
     <!-- DataTales Example -->
@@ -156,14 +154,14 @@
                                         class="fa fa-edit" aria-hidden="true" title="Edit"></i></a>
                             </td>
 
-                            <td><a href="{{ route('product.restore', $product->id) }}" class="btn btn-warning btn-sm"
-                                    onclick="return confirm('Do you want restore product {{ $product->name }}?')">
+                            <td><a href="javascript:void(0);" class="btn btn-warning btn-sm"
+                                    onclick="restoreProducts({{ $product->id }})">
                                     <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i></a>
                             </td>
 
                             <td>
-                                <a href="{{ route('product.delete', $product->id) }}" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Do you want destroy product {{ $product->name }}?')">
+                                <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+                                    onclick="deleteProducts({{ $product->id }})">
                                     <i class="fa fa-minus-circle" title="Destroy"></i>
                                 </a>
                             </td>
@@ -300,4 +298,173 @@
         })
     });
 </script>
+
+<script>
+    function destroyall() {
+        var conf = confirm("Do you want destroy all product?");
+        $.ajax({
+            url : 'product-delete-all',
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.warning('All product destroyed !');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    function restoreall() {
+        var conf = confirm("Do you want restore all product?");
+        $.ajax({
+            url : 'product-restore-all',
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.success('All product restored !');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    function restoreProducts(id) {
+        var conf = confirm("Do you want restore this product?");
+        $.ajax({
+            url : 'product/restore/'+id,
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.success('This product restore success');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    function deleteProducts(id) {
+        var conf = confirm("Do you want destroy this product?");
+        $.ajax({
+            url : 'product/delete/'+id,
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.warning('This product destroyed');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
 @endpush

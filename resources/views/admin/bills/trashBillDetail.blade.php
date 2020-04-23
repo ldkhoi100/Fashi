@@ -26,7 +26,7 @@
 
         <div class="col-sm-12">@include('partials.message')</div>
 
-        <div class="card-body">
+        <div class="card-body" id="tableProducts">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
                     style="font-size: 13.5px;">
@@ -105,14 +105,12 @@
                             </td>
 
                             @if($bills->status == 1)
-                            <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change status column of this bills detail to Uncomplete?')">Complete</a>
+                            <td><a href="javascript:void(0);" onclick="changeStatus({{ $bills->id }})"
+                                    style="color:#32CD32; font-weight: bold">Complete</a>
                             </td>
                             @else
-                            <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change status column of this bills detail to Complete?')">Uncomplete</a>
+                            <td><a href="javascript:void(0);" onclick="changeStatus({{ $bills->id }})"
+                                    style="color:red; font-weight: bold">Uncomplete</a>
                             </td>
                             @endif
 
@@ -125,16 +123,14 @@
                                 </a>
                             </td>
 
-                            <td>
-                                <a href="{{ route('billDetail.restore', $bills->id) }}" class="btn btn-warning btn-sm"
-                                    onclick="return confirm('Do you want restore bills {{ $bills->id }}?')">
-                                    <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i>
-                                </a>
+                            <td><a href="javascript:void(0);" class="btn btn-warning btn-sm"
+                                    onclick="restoreProducts({{ $bills->id }})">
+                                    <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i></a>
                             </td>
 
                             <td>
-                                <a href="{{ route('billDetail.delete', $bills->id) }}" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Do you want destroy bills {{ $bills->name }}?')">
+                                <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+                                    onclick="deleteProducts({{ $bills->id }})">
                                     <i class="fa fa-minus-circle" title="Destroy"></i>
                                 </a>
                             </td>
@@ -151,3 +147,58 @@
 </div>
 <!-- /.container-fluid -->
 @endsection
+
+@push('show-ajax')
+
+<script>
+    function restoreProducts(id) {
+        var conf = confirm("Do you want restore this bill detail?");
+        $.ajax({
+            url : 'billDetail/restore/'+id,
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.success('This product restore bill detail');
+                $("#dataTable").dataTable();
+            }
+        });
+    }
+
+    function deleteProducts(id) {
+        var conf = confirm("Do you want delete this bills detail?");
+        $.ajax({
+            url : 'billDetail/delete/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.warning("This bills detail destroy");
+            }
+        })
+    }
+    
+    function changeStatus(id) {
+        var conf = confirm("Do you want change status of this bills detail?");
+        $.ajax({
+            url : 'bills/detail/status/trash/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true){
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change status of this bills detail success");
+            }
+        });
+    }
+</script>
+
+@endpush

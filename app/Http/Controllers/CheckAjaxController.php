@@ -12,7 +12,7 @@ class CheckAjaxController extends Controller
         $email = request('email');
         if (empty($email)) {
             return response()->json(array("empty" => true));
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (!preg_match('/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', $email)) {
             return response()->json(array("filter" => true));
         }
         $isExists = User::where('email', $email)->first();
@@ -64,7 +64,7 @@ class CheckAjaxController extends Controller
         $phone = request('phone');
         if (empty($phone)) {
             return response()->json(array("empty" => true));
-        } elseif (!filter_var($phone, FILTER_SANITIZE_NUMBER_INT) || strlen($phone) > 12) {
+        } elseif (!filter_var($phone, FILTER_SANITIZE_NUMBER_INT) || strlen($phone) < 9) {
             return response()->json(array("filter" => true));
         }
         $isExists = User::where('phone', $phone)->first();

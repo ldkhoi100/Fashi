@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-lg-12 save-cart" id="list-cart">
                 <div class="cart-table">
-                    <form action="{{ route('cart.store') }}" method="POST" id="my-form">
+                    <form action="{{ route('cart.store') }}" method="POST" id="my-form5">
                         @csrf
                         {{-- Check coupon code --}}
                         <input type="hidden" value="{{ $coupon }}" name="code" hidden>
@@ -113,9 +113,9 @@
 
                                     <td class="qua-col first-row">
                                         <div style="width: 100px; margin: 0 auto;">
-                                            <input type="number" min="1" max="{{ $size_product[$i]->quantity }}"
-                                                name="qty" class="form-control" value="{{ $value->qty }}"
-                                                id="quantityItem{{ $value->rowId }}" style='text-align: center;'>
+                                            <input type="number" min="1" name="qty" class="form-control"
+                                                value="{{ $value->qty }}" id="quantityItem{{ $value->rowId }}"
+                                                style='text-align: center;'>
                                         </div>
                                     </td>
 
@@ -214,12 +214,12 @@
                             </ul>
 
                             <button type="button" class="btn btn-primary proceed-btn" style="width: 100%"
-                                data-toggle="modal" data-target="#exampleModal">
+                                data-toggle="modal" data-target="#exampleModal5">
                                 PROCEED TO CHECK OUT
                             </button>
 
                             <!-- Modal PROCEED TO CHECK OUT -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -237,8 +237,8 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Close</button>
-                                            <input type="submit" class="btn btn-primary" value="Confirm" id="btn-submit"
-                                                style="border: none">
+                                            <input type="submit" class="btn btn-primary" value="Confirm"
+                                                id="btn-submit5" style="border: none">
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +287,7 @@
 <!-- Modal address -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <form action="{{ route('change_address') }}" method="POST" id="my-form3">
+        <form action="{{ route('change_address') }}" method="POST" id="my-form6">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -363,9 +363,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form").submit(function (e) {
-            $("#btn-submit").attr("disabled", true);
-            $("#btn-submit").addClass('button-clicked');
+        $("#my-form5").submit(function (e) {
+            $("#btn-submit5").attr("disabled", true);
+            $("#btn-submit5").addClass('button-clicked');
             return true;
         });
         $("#my-form2").submit(function (e) {
@@ -373,7 +373,7 @@
             $("#btn-submit2").addClass('button-clicked');
             return true;
         });
-        $("#my-form3").submit(function (e) {
+        $("#my-form6").submit(function (e) {
             $("#btn-submit3").attr("disabled", true);
             $("#btn-submit3").addClass('button-clicked');
             return true;

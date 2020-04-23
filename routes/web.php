@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Auth::routes(['verify' => true]);
 Auth::routes();
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');
 
 Route::get('/home', 'HomeController@index');
 
@@ -39,6 +43,7 @@ Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
+//->middleware('verified')
 Route::get('/products', 'FashionControllers@product')->name('product');
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
@@ -150,10 +155,11 @@ Route::get('/add/quantity/{id}/{quantity}', 'AdminController@addQuantity')->name
 
 //Product
 Route::resource('/product', 'ProductsController');
+Route::get('/product/destroy/{id}', 'ProductsController@destroy');
 Route::get('/trash-product', 'ProductsController@trashed')->name('product.trash');
-Route::get('/product/{id}/restore', 'ProductsController@restore')->name('product.restore');
+Route::get('/product/restore/{id}', 'ProductsController@restore')->name('product.restore');
 Route::get('/product-restore-all', 'ProductsController@restoreAll')->name('product.restore-all');
-Route::get('/product/{id}/delete', 'ProductsController@delete')->name('product.delete');
+Route::get('/product/delete/{id}', 'ProductsController@delete')->name('product.delete');
 Route::get('/product-delete-all', 'ProductsController@deleteAll')->name('product.delete-all');
 Route::get('/highlight/{id}', 'ProductsController@highlights')->name('product.highlights');
 Route::get('/highlight/trash/{id}', 'ProductsController@highlightsTrash')->name('product.highlightsTrash');
@@ -164,18 +170,23 @@ Route::post('/bill/product/{id}', 'ProductsController@qtySizePost')->name('produ
 
 //Bills
 Route::resource('/bills', 'BillsController');
+Route::get('/bills/delete/{id}', 'BillsController@destroy');
 Route::get('/trash-bills', 'BillsController@trashed')->name('bills.trash');
-Route::get('/bills/{id}/restore', 'BillsController@restore')->name('bills.restore');
 Route::get('/bills-restore-all', 'BillsController@restoreAll')->name('bills.restore-all');
-Route::get('/bills/{id}/delete', 'BillsController@delete')->name('bills.delete');
+Route::get('/bills/destroy/{id}', 'BillsController@delete')->name('bills.delete');
+Route::get('/bills/restore/{id}', 'BillsController@restore')->name('bills.restore');
 Route::get('/bills-delete-all', 'BillsController@deleteAll')->name('bills.delete-all');
 Route::get('/bills/paymoney/{id}', 'BillsController@pay_money')->name('bills.pay_money');
+Route::get('/bills/paymoney/trash/{id}', 'BillsController@pay_money_trash')->name('bills.pay_money.trash');
 Route::get('/bills/status/{id}', 'BillsController@status')->name('bills.status');
+Route::get('/bills/status/trash/{id}', 'BillsController@status_trash')->name('bills.status.trash');
 Route::get('/bills/detail/status/{id}', 'BillsController@statusDetailBills')->name('bills.statusDetailBills');
+Route::get('/bills/detail/status/trash/{id}', 'BillsController@statusDetailBillsTrash')->name('bills.statusDetailBills.trash');
 Route::get('/bills/detail/{id}', 'BillsController@detailBills')->name('bills.details');
 
 //Bill detail
 Route::resource('/billDetail', 'BillDetailController');
+Route::get('/billDetail/destroy/{id}', 'BillDetailController@destroy');
 Route::get('/trash/billDetail/{id}', 'BillDetailController@trashed')->name('billDetail.trash');
 Route::get('/billDetail/restore/{id}', 'BillDetailController@restore')->name('billDetail.restore');
 Route::get('/billDetail-restore-all', 'BillDetailController@restoreAll')->name('billDetail.restore-all');
@@ -257,7 +268,6 @@ Route::get('/active-customers/{id}', 'CustomersController@active')->name('custom
 
 //Contact managerment
 Route::resource('contacts', 'ContactController');
-// Route::get('/reply-contacts', 'ContactController@reply')->name('contacts.reply');
 Route::post('/reply-contacts/{id}', 'ContactController@update')->name('contacts.reply.post');
 Route::get('/trash-contacts', 'ContactController@trashed')->name('contacts.trash');
 Route::get('/contacts/{id}/restore', 'ContactController@restore')->name('contacts.restore');

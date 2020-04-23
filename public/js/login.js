@@ -4,9 +4,9 @@ $.ajaxSetup({
     }
 });
 
-$(".checkusername").hide();
+$(".checkusernamelogin").hide();
 
-function duplicateUsername(element) {
+function duplicateUsernamelogin(element) {
     var username = $(element).val();
     $.ajax({
         type: "POST",
@@ -17,27 +17,27 @@ function duplicateUsername(element) {
         dataType: "json",
         success: function(res) {
             if (res.empty) {
-                $(".checkusername").show();
-                $(".textusername").html('The username field is required.');
-                $(".usernameinput").addClass('is-invalid');
-                $(".usernamediv").addClass('has-error has-feedback');
-                $("#btn-submit").attr("disabled", true);
-                $("#btn-submit").addClass('button-clicked');
+                $(".checkusernamelogin").show();
+                $(".textusernamelogin").html('The username field is required.');
+                $(".usernameinputlogin").addClass('is-invalid');
+                $(".usernamedivlogin").addClass('has-error has-feedback');
+                $("#btn-submitlogin").attr("disabled", true);
+                $("#btn-submitlogin").addClass('button-clicked');
             } else if (res.exists) {
-                $(".checkusername").show();
-                $(".textusername").html('The username does not match.');
-                $(".usernameinput").addClass('is-invalid');
-                $(".usernamediv").addClass('has-error has-feedback');
-                $("#btn-submit").attr("disabled", true);
-                $("#btn-submit").addClass('button-clicked');
+                $(".checkusernamelogin").show();
+                $(".textusernamelogin").html('The username does not match.');
+                $(".usernameinputlogin").addClass('is-invalid');
+                $(".usernamedivlogin").addClass('has-error has-feedback');
+                $("#btn-submitlogin").attr("disabled", true);
+                $("#btn-submitlogin").addClass('button-clicked');
             } else {
-                $(".checkusername").hide();
-                $(".usernameinput").removeClass('is-invalid');
-                $(".usernameinput").addClass('is-valid');
-                $(".usernamediv").removeClass('has-error has-feedback');
-                $(".usernamediv").addClass('has-success has-feedback');
-                $("#btn-submit").attr("disabled", false);
-                $("#btn-submit").removeClass('button-clicked');
+                $(".checkusernamelogin").hide();
+                $(".usernameinputlogin").removeClass('is-invalid');
+                $(".usernameinputlogin").addClass('is-valid');
+                $(".usernamedivlogin").removeClass('has-error has-feedback');
+                $(".usernamedivlogin").addClass('has-success has-feedback');
+                $("#btn-submitlogin").attr("disabled", false);
+                $("#btn-submitlogin").removeClass('button-clicked');
             }
         },
         error: function(jqXHR, exception) {

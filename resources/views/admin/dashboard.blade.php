@@ -445,6 +445,13 @@
             align: 'right',
             verticalAlign: 'middle'
         },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +'<td style="padding:0"><b>${point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
         plotOptions: {
             series: {
                 label: {
@@ -454,7 +461,7 @@
             }
         },
         series: [{
-            name: 'Earn money $',
+            name: 'Earn money ',
             data: [ x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10], x[11] ]
         },
         ],
@@ -529,6 +536,13 @@
             align: 'right',
             verticalAlign: 'middle'
         },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +'<td style="padding:0"><b>${point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
         plotOptions: {
             series: {
                 label: {
@@ -538,7 +552,7 @@
             }
         },
         series: [{
-            name: 'Earn money $',
+            name: 'Earn money ',
             data: [ y[0], y[1], y[2], y[3], y[4], y[5], y[6], y[7], y[8], y[9], y[10], y[11], y[12], y[13], y[14], y[15], y[16], y[17], y[18], y[19], y[20], y[21], y[22], y[23], y[24], y[25], y[26], y[27], y[28], y[29], y[30]]
         }],
         responsive: {

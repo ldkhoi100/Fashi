@@ -38,8 +38,8 @@
                                     <center><img width="100%" style="max-width:300px"
                                             src="https://thenypost.files.wordpress.com/2018/06/men-shopping-masculine.jpg?quality=80&strip=all"
                                             class="CToWUd"></center>
-                                </a><br><b>Dear {{ $contact->name }} </b>. Thanks for your feedback. <br>
-                                {{ $mess }}
+                                </a><br><b>Dear {{ $contact->name }} </b> <br>
+                                {!! $mess !!}
                                 <b>
                                     <ul>
                                         <li>Start Something New on <a href="{{ route('home') }}" target="_blank"

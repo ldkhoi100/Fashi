@@ -68,6 +68,18 @@ class CartController extends Controller
             "size.*" => "required | string | min:0"
         ]);
 
+        $bool = true;
+        foreach (Cart::instance(Auth::user()->id)->content() as $key => $item) {
+            $size_check = Size_products::where('id_size', $item->options->size)->where('id_products', $item->id)->first();
+            if ($item->qty > $size_check->quantity) {
+                Cart::instance(Auth::user()->id)->update($item->rowId, $size_check->quantity);
+                $bool = false;
+            }
+        }
+        if ($bool == false) {
+            return back()->with('toast_error', 'The number of products you have entered exceeds the allowed level !');
+        }
+
         $oderdetail = array();
         if (Auth::user()) {
             $check_customer = Customers::where('username', Auth::user()->username)->first();
@@ -388,7 +400,6 @@ class CartController extends Controller
 
     public function addCartPost($id, $qty, $check, $size, Request $request)
     {
-        // dd($size);
         if ($request->ajax()) {
             if ($size == 'abc') {
                 return response()->json([

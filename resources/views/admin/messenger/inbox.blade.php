@@ -39,7 +39,11 @@
 
                             <td align="right" width='6%'>
                                 <label class="icon-circle bg-warning">
-                                    @if(!empty($box->user1->image))
+
+                                    @if(!empty($box->user1->provider))
+                                    <img src="{{ $box->user1->image }}" alt="image" class="img-profile rounded-circle"
+                                        style="width: 2.5rem; height: 2.5rem">
+                                    @elseif(!empty($box->user1->image))
                                     <img src="img/user/{{ $box->user1->image }}" alt="image"
                                         class="img-profile rounded-circle" style="width: 2.5rem; height: 2.5rem">
                                     @else

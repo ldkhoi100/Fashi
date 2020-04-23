@@ -33,12 +33,22 @@
                 <div class="register-form">
                     <h2>My Profile</h2>
                     <form action="{{ route('details.update', $user->id) }}" method="POST" class="beta-form-checkout"
-                        id="my-form" enctype="multipart/form-data">
+                        id="my-form10" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
+                        @if(!empty(Auth::user()->provider))
+
+                        <img id="zoom" src="{{ $user->image }}" alt="No Image" srcset="" width="150"
+                            style="float: right; border: 1px solid #d9d9d9;" class="img-thumbnail">
+
+                        @else
+
                         <img id="zoom" src="img/user/{{ $user->image }}" alt="No Image" srcset="" width="150"
                             style="float: right; border: 1px solid #d9d9d9;" class="img-thumbnail">
+
+                        @endif
+
                         <table>
 
                             <tr>
@@ -64,6 +74,7 @@
                             <tr>
                                 <td><label for="phone">Phone: &nbsp;</label></td>
                                 <td>
+                                    @if(!empty(Auth::user()->phone))
                                     <span><label for=""
                                             style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ str_repeat("*", strlen($user->phone) - 2) . substr($user->phone, -2) }}
                                         </label>
@@ -71,6 +82,11 @@
                                             style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
                                             Change</a>
                                     </span>
+                                    @else
+                                    <span><label for="">No phone</label> <a href="{{ route('phoneNumber') }}"
+                                            style="padding-left: 15px; font-size:14px; color:blue; text-decoration: underline;">
+                                            Change</a></span>
+                                    @endif
                                 </td>
                             </tr>
 
@@ -113,7 +129,8 @@
                         <div class="form-input @error('address') has-error has-feedback @enderror">
                             <label for="adress">Address</label>
                             <textarea type="text" id="address" name="address"
-                                class="form-control @error('address') is-invalid @enderror">{{ $user->address }}</textarea>
+                                class="form-control @error('address') is-invalid @enderror" autofocus
+                                autocomplete="address">{{ $user->address }}</textarea>
                             @error('address')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -134,7 +151,7 @@
                         </div>
                         <br><br>
 
-                        <button type="submit" class="site-btn register-btn" id="btn-submit"
+                        <button type="submit" class="site-btn register-btn" id="btn-submit10"
                             style="border: none">Update</button>
                     </form>
 
@@ -154,9 +171,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form").submit(function (e) {
-            $("#btn-submit").attr("disabled", true);
-		  $("#btn-submit").addClass('button-clicked');
+        $("#my-form10").submit(function (e) {
+            $("#btn-submit10").attr("disabled", true);
+		    $("#btn-submit10").addClass('button-clicked');
             return true;
         });
     });

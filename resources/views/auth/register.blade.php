@@ -31,9 +31,9 @@
 
                         <div class="form-input usernamediv @error('username') has-error has-feedback @enderror">
                             <label for="username">Username</label>
-                            <input type="text" name="username" id="username" onblur="duplicateUsername(this)"
+                            <input type="text" name="username" id="username" onkeyup="duplicateUsername(this)"
                                 class="form-control usernameinput @error('username') is-invalid @enderror"
-                                value="{{ old('username') }}" autocomplete="username" required>
+                                value="{{ old('username') }}" required>
                             @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
 
                         <div class="form-input emaildiv @error('email') has-error has-feedback @enderror">
                             <label for="email">Email address</label>
-                            <input type="email" name="email" onblur="duplicateEmail(this)"
+                            <input type="email" name="email" onkeyup="duplicateEmail(this)"
                                 class="form-control emailinput @error('email') is-invalid @enderror"
                                 value="{{ old('email') }}" autocomplete="email" required>
                             @error('email')
@@ -61,7 +61,7 @@
 
                         <div class="form-input namediv @error('name') has-error has-feedback @enderror">
                             <label for="name">Full name</label>
-                            <input type="text" onblur="duplicateName(this)" name="name"
+                            <input type="text" onkeyup="duplicateName(this)" name="name"
                                 class="form-control nameinput @error('name') is-invalid @enderror"
                                 value="{{ old('name') }}" autocomplete="name" required>
                             @error('name')
@@ -76,7 +76,7 @@
 
                         <div class="form-input addressdiv @error('address') has-error has-feedback @enderror">
                             <label for="address">Address</label>
-                            <input type="text" name="address" onblur="duplicateAddress(this)"
+                            <input type="text" name="address" onkeyup="duplicateAddress(this)"
                                 class="form-control addressinput @error('address') is-invalid @enderror"
                                 value="{{ old('address') }}" required>
                             @error('address')
@@ -91,7 +91,7 @@
 
                         <div class="form-input phonediv @error('phone') has-error has-feedback @enderror">
                             <label for="phone">Phone</label>
-                            <input type="tel" name="phone" onblur="duplicatePhone(this)"
+                            <input type="tel" name="phone" min="0" onkeyup="duplicatePhone(this)"
                                 class="form-control phoneinput @error('phone') is-invalid @enderror"
                                 value="{{ old('phone') }}" autocomplete="phone" required>
                             @error('phone')
@@ -158,7 +158,5 @@
         });
     });
 </script>
-<meta name="csrf-token" content="{{ csrf_token() }}">​
-<script src="js/register.js"></script>
 
 @endpush

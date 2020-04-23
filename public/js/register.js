@@ -76,7 +76,7 @@ function duplicateUsername(element) {
                 $("#btn-submit").addClass('button-clicked');
             } else if (res.filter) {
                 $(".checkusername").show();
-                $(".textusername").html('The username include only characters and numbers.');
+                $(".textusername").html('The username include only characters and numbers and more than 5 characters.');
                 $(".usernameinput").addClass('is-invalid');
                 $(".usernamediv").addClass('has-error has-feedback');
                 $("#btn-submit").attr("disabled", true);
@@ -195,14 +195,14 @@ function duplicatePhone(element) {
                 $("#btn-submit").addClass('button-clicked');
             } else if (res.filter) {
                 $(".checkphone").show();
-                $(".textphone").html("The phone must be a valid phone.");
+                $(".textphone").html("The phone must be a valid phone and less than 9 number.");
                 $(".phoneinput").addClass('is-invalid');
                 $(".phonediv").addClass('has-error has-feedback');
                 $("#btn-submit").attr("disabled", true);
                 $("#btn-submit").addClass('button-clicked');
             } else if (res.exists) {
                 $(".checkphone").show();
-                $(".textphone").html("The phone has already been taken");
+                $(".textphone").html("The phone has already been taken.");
                 $(".phoneinput").addClass('is-invalid');
                 $(".phonediv").addClass('has-error has-feedback');
                 $("#btn-submit").attr("disabled", true);

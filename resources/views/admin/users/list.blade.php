@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <a href="" class="btn btn-primary">Home</a>
+        <a href="{{ route('dashboard') }}" class="btn btn-primary">Home</a>
     </p>
 
     <!-- DataTales Example -->

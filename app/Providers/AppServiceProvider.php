@@ -9,6 +9,7 @@ use Hashids\Hashids;
 use App\MessageCenter;
 use App\MessengeUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {

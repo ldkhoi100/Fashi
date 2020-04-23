@@ -78,8 +78,7 @@
 
                 <td><b style="color: #ee4d2d">${{ number_format($product->promotion_price, 2) }}</b></td>
 
-                <td style="padding: 1px; padding-bottom: 1px"><img src="img/products/{{ $product->image1 }}" alt=""
-                        srcset="" width="70px">
+                <td style="padding: 5px;"><img src="img/products/{{ $product->image1 }}" alt="" srcset="" width="70px">
                 </td>
 
                 @if($product->highlight == 1)
@@ -129,14 +128,16 @@
                         <i class="fa fa-edit" title="Edit"></i></a>
                 </td>
                 <td>
-                    <form action="{{ route('product.destroy', $product->id) }}" method="POST" id="my-form">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            onclick="return confirm('Do you want delete product {{$product->name}} ?')"
-                            class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
-                                class="fa fa-backspace"></i></button>
-                    </form>
+                    {{-- <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                    id="my-form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Do you want delete product {{$product->name}} ?')"
+                        class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
+                            class="fa fa-backspace"></i></button>
+                    </form> --}}
+                    <a href="javascript:void(0);" id="btn-submit" onclick="deleteProduct({{ $product->id }})" class="btn
+                        btn-danger btn-sm"><i class="fa fa-backspace"></i></a>
                 </td>
             </tr>
 

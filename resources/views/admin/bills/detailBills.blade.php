@@ -27,7 +27,7 @@
 
         <div class="col-sm-12">@include('partials.message')</div>
 
-        <div class="card-body">
+        <div class="card-body" id="tableProducts">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
                     style="font-size: 13.5px;">
@@ -103,14 +103,12 @@
                             </td>
 
                             @if($bills->status == 1)
-                            <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change status column of this bills detail to Uncomplete?')">Complete</a>
+                            <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold"
+                                    onclick="changeStatus({{ $bills->id }})">Complete</a>
                             </td>
                             @else
-                            <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"
-                                    style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change status column of this bills detail to Complete?')">Uncomplete</a>
+                            <td><a href="javascript:void(0);" style="color:red; font-weight: bold"
+                                    onclick="changeStatus({{ $bills->id }})">Uncomplete</a>
                             </td>
                             @endif
 
@@ -120,13 +118,8 @@
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('billDetail.destroy', $bills->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Do you want delete bills {{$bills->name}} ?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
-                                </form>
+                                <a href="javascript:void(0);" id="btn-submit" onclick="deletebills({{ $bills->id }})"
+                                    class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></a>
                             </td>
                         </tr>
 
@@ -141,3 +134,43 @@
 </div>
 <!-- /.container-fluid -->
 @endsection
+
+@push('show-ajax')
+
+<script>
+    function deletebills(id) {
+        var conf = confirm("Do you want delete this bills detail?");
+        $.ajax({
+            url : 'billDetail/destroy/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.warning("This bills detail deleted");
+            }
+        })
+    }
+
+    function changeStatus(id) {
+        var conf = confirm("Do you want change status of this bills detail?");
+        $.ajax({
+            url : 'bills/detail/status/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true){
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change status of this bills detail success");
+            }
+        });
+    }
+</script>
+
+@endpush

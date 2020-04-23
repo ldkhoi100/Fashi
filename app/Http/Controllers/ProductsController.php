@@ -259,8 +259,9 @@ class ProductsController extends Controller
         $product = Products::findOrFail($id);
         Products::find($id)->update(['user_deleted' => Auth::user()->username]);
         $product->delete();
-
-        return redirect()->route('product.index')->with('delete', "Product $product->name moved to trash!");
+        $products = Products::all();
+        return view('admin.products.ajax.list', compact('products'));
+        // return redirect()->route('product.index')->with('delete', "Product $product->name moved to trash!");
     }
 
     public function trashed(Request $request)
@@ -273,18 +274,23 @@ class ProductsController extends Controller
     {
         $product = Products::onlyTrashed()->findOrFail($id);
         $product->restore();
-
-        return redirect()->route('product.trash')->with('success', "Product $product->name restored!");
+        $products = Products::onlyTrashed()->get();
+        return view('admin.products.ajax.trash', compact('products'));
+        // return redirect()->route('product.trash')->with('success', "Product $product->name restored!");
     }
 
     public function restoreAll()
     {
         $product = Products::onlyTrashed()->get();
         if (count($product) == 0) {
-            return redirect()->route('product.trash')->with('success', "Clean trash, nothing to restore!");
+            $products = Products::onlyTrashed()->get();
+            return view('admin.products.ajax.trash', compact('products'));
+            // return redirect()->route('product.trash')->with('success', "Clean trash, nothing to restore!");
         } else {
             Products::onlyTrashed()->restore();
-            return redirect()->route('product.trash')->with('success', "All data restored!");
+            $products = Products::onlyTrashed()->get();
+            return view('admin.products.ajax.trash', compact('products'));
+            // return redirect()->route('product.trash')->with('success', "All data restored!");
         }
     }
 
@@ -306,7 +312,9 @@ class ProductsController extends Controller
 
         $product->size()->detach();
         $product->forceDelete();
-        return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
+        $products = Products::onlyTrashed()->get();
+        return view('admin.products.ajax.trash', compact('products'));
+        // return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
     }
 
     public function deleteAll()
@@ -329,10 +337,14 @@ class ProductsController extends Controller
         }
 
         if (count($product) == 0) {
-            return redirect()->route('product.trash')->with('delete', "Clean trash, nothing to delete!");
+            $products = Products::onlyTrashed()->get();
+            return view('admin.products.ajax.trash', compact('products'));
+            // return redirect()->route('product.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
             Products::onlyTrashed()->forceDelete();
-            return redirect()->route('product.trash')->with('delete', "All data destroyed!");
+            $products = Products::onlyTrashed()->get();
+            return view('admin.products.ajax.trash', compact('products'));
+            // return redirect()->route('product.trash')->with('delete', "All data destroyed!");
         }
     }
 

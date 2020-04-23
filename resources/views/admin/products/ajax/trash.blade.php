@@ -130,8 +130,8 @@
                 </td>
 
                 <td>
-                    <a href="{{ route('product.delete', $product->id) }}" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Do you want destroy product {{ $product->name }}?')">
+                    <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+                        onclick="deleteProducts({{ $product->id }})">
                         <i class="fa fa-minus-circle" title="Destroy"></i>
                     </a>
                 </td>

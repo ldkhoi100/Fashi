@@ -208,13 +208,17 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                     href="{{ route('messenger.show', Crypt::encrypt($messenger_sent->id)) }}">
 
                     <div class="dropdown-list-image mr-3">
-                        @if(!empty($messenger_sent->user1->image))
+
+                        @if(!empty($messenger_sent->user1->provider))
+                        <img src="{{ $messenger_sent->user1->image }}" alt="image" width="60px" class="rounded-circle">
+                        @elseif(!empty($messenger_sent->user1->image))
                         <img src="img/user/{{ $messenger_sent->user1->image }}" alt="image" width="60px"
                             class="rounded-circle">
                         @else
                         <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
                         @endif
                         <div class="status-indicator bg-success"></div>
+
                     </div>
 
                     <div>
@@ -245,11 +249,15 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                 @if(Auth::check())
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><b>{{ Auth::user()->username }}</b></span>
                 @endif
-                @if(!empty(Auth::user()->image))
+
+                @if(!empty(Auth::user()->provider))
+                <img src="{{ Auth::user()->image }}" alt="image" class="img-profile rounded-circle">
+                @elseif(!empty(Auth::user()->image))
                 <img src="img/user/{{ Auth::user()->image }}" alt="image" class="img-profile rounded-circle">
                 @else
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/daily/60x60">
                 @endif
+
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

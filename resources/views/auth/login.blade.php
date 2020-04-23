@@ -28,10 +28,10 @@
                     <h2>Login</h2>
                     <form action="{{ route('login') }}" method="POST" id="my-form">
                         @csrf
-                        <div class="group-input usernamediv @error('username') has-error has-feedback @enderror">
+                        <div class="group-input usernamedivlogin @error('username') has-error has-feedback @enderror">
                             <label for="username">Username or email address</label>
-                            <input type="text" onchange="duplicateUsername(this)"
-                                class="form-control usernameinput @if(session('error')) is-invalid @enderror"
+                            <input type="text" onkeyup="duplicateUsernamelogin(this)"
+                                class="form-control usernameinputlogin @if(session('error')) is-invalid @enderror"
                                 name="username" value="{{ old('username') }}" required autocomplete="username">
 
                             @error('username')
@@ -39,8 +39,8 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                            <span class="invalid-feedback checkusername" role="alert">
-                                <strong class="textusername"></strong>
+                            <span class="invalid-feedback checkusernamelogin" role="alert">
+                                <strong class="textusernamelogin"></strong>
                             </span>
                         </div>
 
@@ -68,9 +68,15 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="site-btn login-btn" id="btn-submit" style="border: none">Sign
+                        <button type="submit" class="site-btn login-btn" id="btn-submitlogin" style="border: none">Sign
                             In</button>
                     </form>
+
+                    <div>
+                        <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary"><i
+                                class="fa fa-google"></i> Google
+                        </a>
+                    </div>
 
                     <div class="switch-login">
                         <a href="{{ route('register') }}" class="or-login">Or Create An Account</a>
@@ -96,7 +102,5 @@
         });
     });
 </script>
-<meta name="csrf-token" content="{{ csrf_token() }}">​
-<script src="js/login.js"></script>
 
 @endpush

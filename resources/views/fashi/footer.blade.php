@@ -137,6 +137,9 @@
 @stack('clicked')
 @stack('cartjs')
 @stack('scroll_endless')
+<meta name="csrf-token" content="{{ csrf_token() }}">​
+<script src="js/login.js"></script>
+<script src="js/register.js"></script>
 <script>
     $(document).ready(function(){
       $('.toast').toast('show');
@@ -158,24 +161,25 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#my-form3").submit(function (e) {
-            $("#btn-submit3").attr("disabled", true);
-		  $("#btn-submit3").addClass('button-clicked');
+            $("#btn-submitlogin").attr("disabled", true);
+		    $("#btn-submitlogin").addClass('button-clicked');
             return true;
         });
         $("#my-form4").submit(function (e) {
-            $("#btn-submit4").attr("disabled", true);
-		  $("#btn-submit4").addClass('button-clicked');
+            $("#btn-submit").attr("disabled", true);
+		    $("#btn-submit").addClass('button-clicked');
             return true;
         });
         $("#form-subscribe").submit(function (e) {
             $("#btn-subscribe").attr("disabled", true);
-		  $("#btn-subscribe").css('background', "#ffe0b3").css("color", "white");
+		    $("#btn-subscribe").css('background', "#ffe0b3").css("color", "white");
             return true;
         });
     });
 </script>
 
 <script>
+    $(".selectsize").hide();
     //Ajax add cart
     function AddCart(id){
         $.ajax({
@@ -205,26 +209,41 @@
 </script>
 
 <script>
-    $(document).ready(function(){
-        $(".qtyavailable").hide();
-        $('.size-select1').click(function(){
-            var inputValue = $(this).attr("value");
-            var targetBox = $("." + inputValue);
-            $(".qtyavailable").not(targetBox).hide();
-            $(targetBox).show();
-        });
-    });
+
 </script>
 
 <script>
     let size = 'abc';
     function sizes(id){
         size = id;
+        $(".pd-size-choose").css("background", "white");
+        $(".selectsize").hide();
     }
+
+    $(document).ready(function(){
+        $(".qtyavailable").hide();
+        $(".equipCatValidation").hide(); //
+        $('.size-select1').click(function(){
+        var inputValue = $(this).attr("value");
+        var targetBox = $("." + inputValue);
+        $(".qtyavailable").not(targetBox).hide();
+        $(".equipCatValidation").not(targetBox).hide(); //
+        $(".qtyexample").hide();
+        $(targetBox).show();
+        $(targetBox).val(1); //
+        });
+    });
+    
     //Ajax add cart with add quantity on detail products
     function AddCartPost(id){
-        let qty = document.getElementById('quantity').value;
         let check = document.getElementById('check_stock').value;
+        let qty = 1;
+        if(size == 'abc'){
+            qty = 1;
+        } else {
+            qty = document.getElementById(size).value;
+        }
+
         $.ajax({
             url : 'addCart/'+id+'/'+qty+'/'+check+'/'+size,
             type : 'GET',
@@ -232,8 +251,12 @@
             if(response.status == "error") {
                 Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
             } else if(response.status == "errorsize") {
-                toastr.warning("Please select size");
+                $(".pd-size-choose").css("background", "#fff5f5");
+                $(".selectsize").show();
+                // toastr.warning("Please select size");
             } else {
+                $(".pd-size-choose").css("background", "white");
+                $(".selectsize").hide();
                 $("#change-item-cart").empty();
                 $("#change-item-cart").html(response);
                 Command: toastr["success"]("Added this product to the cart");

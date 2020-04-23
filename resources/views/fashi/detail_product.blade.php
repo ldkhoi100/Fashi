@@ -277,55 +277,78 @@
                             </div>  --}}
                             {{-- Form add cart method post --}}
 
-                            <div class="pd-size-choose" style="margin-top: 65px">
-                                <div class="sc-item">
-                                    <input type="radio" id="size" name="size12" value="2" height="50" width="50"
-                                        style="display: flex">Size &nbsp;
-                                </div>
+                            <div class="pd-size-choose"
+                                style="padding-top: 20px; padding-left: 10px; margin-bottom: 10px; height: 120px;">
 
-                                {{-- Size --}}
-                                <?php $i=0; ?>
-                                @foreach ($product->size_product as $size)
-                                <div class="sc-item" id="size-select">
+                                <div>
+                                    <div class="sc-item">
+                                        <input type="radio" id="size" name="size12" value="2" height="50" width="50"
+                                            style="display: flex;"><span
+                                            style="color: #757575; font-weight: 500;">Size</span> &nbsp;
+                                    </div>
 
-                                    @if($size->quantity < 1) <span for="sm-size" aria-disabled="true"
-                                        class="size-block">
-                                        {{ $size->size->name }}
-                                        </span>
+                                    {{-- Size --}}
+                                    <?php $i=0; ?>
+                                    @foreach ($product->size_product as $size)
+                                    <div class="sc-item" id="size-select">
 
-                                        @else
-                                        <input type="radio" name="size" value="{{ $size->size->name }}">
-                                        <label for="sm-size" class="size-select1" onclick="sizes({{ $size->size->id }})"
-                                            value="{{ $size->size->name }}" aria-disabled="true">
+                                        @if($size->quantity < 1) <span for="sm-size" aria-disabled="true"
+                                            class="size-block">
                                             {{ $size->size->name }}
-                                        </label>
-                                        @endif
+                                            </span>
+
+                                            @else
+                                            <input type="radio" name="size" value="{{ $size->size->name }}">
+                                            <label for="sm-size" class="size-select1"
+                                                onclick="sizes({{ $size->size->id }})" value="{{ $size->size->name }}"
+                                                aria-disabled="true">
+                                                {{ $size->size->name }}
+                                            </label>
+                                            @endif
+
+                                    </div>
+                                    <?php $i++; ?>
+                                    @endforeach
+
+                                    <p style="color:#ff424f; font-weight: 500; margin-left: 47px" class="selectsize">
+                                        Please select size</p>
+
+                                    <br><br>
+                                    <?php $y=0; ?>
+                                    @foreach ($product->size_product as $size)
+                                    <div style="font-weight: bold; margin-left: 0px; color: #757575; left:0px">
+                                        <span class="{{ $size->size->name }} qtyavailable">{{ $size->quantity . " products
+                                        available" }}</span>
+                                    </div>
+                                    <?php $y++; ?>
+                                    @endforeach
                                 </div>
-                                <?php $i++; ?>
-                                @endforeach
 
                                 <br><br>
 
-                                <?php $y=0; ?>
-                                @foreach ($product->size_product as $size)
-                                <div class="sc-item"
-                                    style="float: left; font-weight: bold; margin-left: 0px; color: #757575">
-                                    <span class="{{ $size->size->name }} qtyavailable">{{ $size->quantity . " products
-                                        available" }}</span>
-                                </div>
-                                <?php $y++; ?>
-                                @endforeach
+
 
                             </div>
 
                             <div class="quantity">
+
                                 <div class="pro-qty">
                                     <input type="hidden" id="check_stock" name="check_stock"
                                         value="{{ $product->size_product->sum('quantity') }}" style="display: flex">
-                                    <input type="number" value="1" min="1" max="100000"
+
+                                    <input type="text" class="qtyexample"
+                                        data-id="{{ $product->size_product->sum('quantity') }}" value="1" min="0"
+                                        style="display: flex; width: -webkit-fill-available; font-size: 19px">
+
+                                    @foreach ($product->size_product as $key => $size)
+
+                                    <input type="text" value="1" class="equipCatValidation {{ $size->size->name }}"
                                         style="display: flex; width: -webkit-fill-available; font-size: 19px" name="qty"
-                                        id="quantity">
+                                        id="{{ $size->size->id }}" data-id{{ $key }}="{{ $size->quantity }}">
+
+                                    @endforeach
                                 </div>
+
                                 @if(!Auth::user())
                                 <a href="javascript:void(0);" class="click primary-btn pd-cart" style="border: none;">
                                     Add To Cart</a>
@@ -750,6 +773,35 @@
 
 @include('fashi.footer')
 <script src="js/zoom-image.js"></script>
+<script>
+    $('.equipCatValidation').on('keyup keydown', function(e){
+        for(i = 0; i < 100; i++) {
+            var availability = $(this).data("id"+i);
+            var KeysPressedTrue = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 8, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 9, 16, 17, 18, 91, 36, 35, 37, 38, 39, 40].indexOf(e.which) > -1;
+            if(!KeysPressedTrue) {
+                return false;
+            }
+            if ($(this).val() > availability) {
+                e.preventDefault();
+                $(this).val(availability);
+            }
+        }
+    });
+
+    $('.qtyexample').on('keyup keydown', function(e){
+        var totalqty = $(this).data("id");
+        var KeysPressedTrue = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 8, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 9, 16, 17, 18, 91, 36, 35, 37, 38, 39, 40].indexOf(e.which) > -1;
+        if(!KeysPressedTrue || $(this).val() == 0) {
+            return false;
+        }
+        if ($(this).val() > totalqty) {
+            e.preventDefault();  
+            $(this).val(totalqty);
+        }
+    });
+
+</script>
+
 <script>
     // Load data reivews
     $(document).ready(function(){

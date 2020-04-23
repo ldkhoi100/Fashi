@@ -22,7 +22,11 @@
         <div class="col-sm-10">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    @if(empty($messenger->user1->image))
+
+                    @if(!empty($messenger->user1->provider))
+                    <img src="{{ $messenger->user1->image }}" alt="image" class="img-profile rounded-circle"
+                        style="width: 2.5rem; height: 2.5rem; float: left; margin-right: 15px">
+                    @elseif(empty($messenger->user1->image))
                     <img src="img/user/{{ $messenger->user1->image }}" alt="image" class="img-profile rounded-circle"
                         style="width: 2.5rem; height: 2.5rem; float: left; margin-right: 15px">
                     @else
@@ -31,6 +35,7 @@
                     </label>
                     @endif
                     <h6 class="m-0 font-weight-bold text-primary" style="float: left">{{ $messenger->title }}</h6>
+
                 </div>
                 <div class="card-body">
                     <div class="chart-area" style="height: auto">

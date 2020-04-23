@@ -142,11 +142,10 @@ class BillDetailController extends Controller
     {
         $bill = Bill_detail::findOrFail($id);
         Bill_detail::find($id)->update(['user_deleted' => Auth::user()->username]);
-
         $code_bill = Bills::withTrashed()->findOrFail($bill->id_bill);
         $bill->delete();
         $total = 0;
-        $amountBill = Bill_detail::where('id_bill', $bill->id_bill)->get();
+        $amountBill = Bill_detail::withTrashed()->where('id_bill', $bill->id_bill)->get();
 
         foreach ($amountBill as $price) {
             $total += $price->total_price;
@@ -155,7 +154,8 @@ class BillDetailController extends Controller
         $code_bill->total = $total;
         $code_bill->save();
 
-        return back()->with('success', "Bills $bill->id moved to trash!");
+        $bill_detail = Bill_detail::where('id_bill', $bill->id_bill)->get();
+        return view('admin.bills.ajax.detail_list', compact('bill_detail'));
     }
 
     public function trashed(Request $request, $id)
@@ -170,19 +170,17 @@ class BillDetailController extends Controller
     {
         $bill = Bill_detail::withTrashed()->findOrFail($id);
         $bill->restore();
-
         $code_bill = Bills::withTrashed()->findOrFail($bill->id_bill);
         $total = 0;
         $amountBill = Bill_detail::withTrashed()->where('id_bill', $bill->id_bill)->get();
-
         foreach ($amountBill as $price) {
             $total += $price->total_price;
         }
-
         $code_bill->total = $total;
         $code_bill->save();
 
-        return back()->with('success', "Bills $bill->id restored!");
+        $bill_detail = Bill_detail::onlyTrashed()->where('id_bill', $id)->get();
+        return view('admin.bills.ajax.detail_trash', compact('bill_detail'));
     }
 
     public function restoreAll()
@@ -212,7 +210,8 @@ class BillDetailController extends Controller
     {
         $bill_detail = Bill_detail::onlyTrashed()->findOrFail($id);
         $bill_detail->forceDelete();
-        return redirect()->route('bills.trash')->with('delete', "Bills $bill_detail->id destroyed!");
+        $bill_detail = Bill_detail::onlyTrashed()->where('id_bill', $id)->get();
+        return view('admin.bills.ajax.detail_trash', compact('bill_detail'));
     }
 
     public function deleteAll()

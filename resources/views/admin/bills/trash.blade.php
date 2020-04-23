@@ -11,11 +11,9 @@
     <p class="mb-4">
         <a href="{{ route('bills.index') }}" class="btn btn-primary">Home page bills</a>
 
-        <a href="{{ route('bills.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+        <a href="javascript:void(0);" class="btn btn-danger float-right" onclick="destroyall()">Delete all</a>
 
-        <a href="{{ route('bills.restore-all') }}" class="btn btn-warning float-right mr-2"
-            onclick="return confirm('Do you want restore all data?')">Restore all</a>
+        <a href="javascript:void(0);" class="btn btn-warning float-right mr-2" onclick="restoreall()">Restore all</a>
     </p>
 
     <!-- DataTales Example -->
@@ -26,127 +24,8 @@
 
         <div class="col-sm-12">@include('partials.message')</div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                    style="font-size: 14px;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Id bill</th>
-                            <th width='13%'>Customer</th>
-                            <th width='1%'>Detail</th>
-                            <th width='10%'>Date Order</th>
-                            <th>Total</th>
-                            <th width='10%'>Payment</th>
-                            <th width='7%'>Pay Money</th>
-                            <th>Status</th>
-                            <th>Bill detail</th>
-                            <th width='10%'>User Deleted</th>
-                            <th>Edit</th>
-                            <th>Restore</th>
-                            <th>Destroy</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>Id Bill</th>
-                            <th width='13%'>Customer</th>
-                            <th width='1%'>Detail</th>
-                            <th width='10%'>Date Order</th>
-                            <th>Total</th>
-                            <th width='10%'>Payment</th>
-                            <th width='7%'>Pay Money</th>
-                            <th>Status</th>
-                            <th>Bill Detail</th>
-                            <th width='10%'>User Deleted</th>
-                            <th>Edit</th>
-                            <th>Restore</th>
-                            <th>Destroy</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-
-                        @foreach ($bills as $key => $bills)
-
-                        <tr>
-                            <td>{{ ++$key }}</td>
-
-                            <td @if($bills->cancle == 1) style="text-decoration: line-through;" @endif>{{ $bills->id }}
-                            </td>
-
-                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }} <br>
-                                @if($bills->cancle == 1)
-                                <b
-                                    style="color: white; border-radius: 3px; padding: 3px 7px; background: #ff4d4d;">Cancelled</b>
-                                @endif
-                            </td>
-
-                            <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
-                                    data-target="#showbills" data-toggle="modal"
-                                    class="btn btn-info btn-show btn-sm">Detail</button></td>
-
-                            <td>{{ $bills->date_order }}</td>
-
-                            <td><span
-                                    style="color: white; border-radius: 3px; padding: 3px 5px; background: #ff9900; font-weight: bold; font-size: 13.5px;">
-                                    ${{ number_format($bills->total, 2) }}
-                                </span>
-                            </td>
-
-                            <td>{{ $bills->payment }}</td>
-
-                            @if($bills->pay_money == 1)
-                            <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change pay money column of this bills to not paid?')">Paid</a>
-                            </td>
-                            @else
-                            <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"
-                                    style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change pay money column of this bills to paid?')">Not
-                                    paid</a>
-                            </td>
-                            @endif
-                            @if($bills->status == 1)
-                            <td><a href="{{ route('bills.status', $bills->id) }}"
-                                    style="color:#32CD32; font-weight: bold"
-                                    onclick="return confirm('Do you want change status column of this bills to Uncomplete?')">Complete</a>
-                            </td>
-                            @else
-                            <td><a href="{{ route('bills.status', $bills->id) }}" style="color:red; font-weight: bold;"
-                                    onclick="return confirm('Do you want change status column of this bills to complete?')">Uncomplete</a>
-                            </td>
-                            @endif
-
-                            <td align="center"><a href="{{ route('bills.details', $bills->id) }}"
-                                    style="color:blue; font-weight: bold; font-size:20px;">{{ count($bills->bill_detail) }}</a>
-                            </td>
-
-                            <td><b style="color:orange">{{ $bills->user_deleted }}</b> <br> {{ $bills->deleted_at }}
-                            </td>
-                            <td><a href="{{ route('bills.edit', $bills->id) }}" class="btn btn-info btn-sm"><i
-                                        class="fa fa-edit" aria-hidden="true" title="Edit"></i></a>
-                            </td>
-                            <td><a href="{{ route('bills.restore', $bills->id) }}" class="btn btn-warning btn-sm"
-                                    onclick="return confirm('Do you want restore bills {{ $bills->name }}?')">
-                                    <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i></a>
-                            </td>
-
-                            <td>
-                                <a href="{{ route('bills.delete', $bills->id) }}" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Do you want destroy bills {{ $bills->name }}?')">
-                                    <i class="fa fa-minus-circle" title="Destroy"></i>
-                                </a>
-                            </td>
-                        </tr>
-
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-body" id="tableProducts">
+            @include('admin.bills.ajax.bills_trash')
         </div>
     </div>
 
@@ -156,6 +35,289 @@
 @endsection
 
 @push('show-ajax')
+
+<script>
+    function destroyall() {
+        var conf = confirm("Do you want destroy all bills?");
+        $.ajax({
+            url : 'bills-delete-all',
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.warning('All bills destroyed !');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+
+    function restoreall() {
+        var conf = confirm("Do you want restore all bills?");
+        $.ajax({
+            url : 'bills-restore-all',
+            type : 'get' 
+        }).done(function(res){
+            if(conf) {
+                $('#tableProducts').empty();
+                $('#tableProducts').html(res);
+                toastr.success('All bills restored !');
+                $("#dataTable").dataTable();
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html(response.data.description)
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_created').html("User created: " + response.data.user_created)
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+
+    function deletebills(id) {
+        var conf = confirm("Do you want destroy this bills?");
+        $.ajax({
+            url : 'bills/destroy/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.warning("This bills destroyed");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html("Id customer: " + response.data.id)
+                                $('span#username').html("Username: " + response.data.username)
+                                $('span#name').html("Name: " + response.data.name)
+                                $('span#email').html("Email: " + response.data.email)
+                                $('span#address').html("Address: " + response.data.address)
+                                $('span#postcode').html("Post code: " + response.data.postcode)
+                                $('span#city').html("City: " + response.data.city)
+                                $('span#country').html("Country: " + response.data.country)
+                                $('span#phone').html("Phone: +84 " + response.data.phone)
+
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        })
+    }
+
+    function restorebills(id) {
+        var conf = confirm("Do you want restore this bills?");
+        $.ajax({
+            url : 'bills/restore/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.warning("This bills restored");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html("Id customer: " + response.data.id)
+                                $('span#username').html("Username: " + response.data.username)
+                                $('span#name').html("Name: " + response.data.name)
+                                $('span#email').html("Email: " + response.data.email)
+                                $('span#address').html("Address: " + response.data.address)
+                                $('span#postcode').html("Post code: " + response.data.postcode)
+                                $('span#city').html("City: " + response.data.city)
+                                $('span#country').html("Country: " + response.data.country)
+                                $('span#phone').html("Phone: +84 " + response.data.phone)
+
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        })
+    }
+
+    function changePaymoney(id) {
+        var conf = confirm("Do you want change pay money of this bills?");
+        $.ajax({
+            url : 'bills/paymoney/trash/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true) {
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change pay money of this bills success");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html("Id customer: " + response.data.id)
+                                $('span#username').html("Username: " + response.data.username)
+                                $('span#name').html("Name: " + response.data.name)
+                                $('span#email').html("Email: " + response.data.email)
+                                $('span#address').html("Address: " + response.data.address)
+                                $('span#postcode').html("Post code: " + response.data.postcode)
+                                $('span#city').html("City: " + response.data.city)
+                                $('span#country').html("Country: " + response.data.country)
+                                $('span#phone').html("Phone: +84 " + response.data.phone)
+
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        })
+    }
+
+    function changeStatus(id) {
+        var conf = confirm("Do you want change status of this bills?");
+        $.ajax({
+            url : 'bills/status/trash/'+id,
+            type : 'GET'
+        }).done(function(response) {
+            if(response.status == 'error') {
+                toastr.warning(response.msg);
+            } else if(conf == true){
+                $("#tableProducts").empty();
+                $("#tableProducts").html(response);
+                $("#dataTable").dataTable();
+                toastr.success("Change status of this bills success");
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(document).ready(function () {
+                    $('.btn-show').click(function(){
+                        var url = $(this).attr('data-url');
+                        $.ajax({
+                            type: 'get',
+                            url: url,
+                            success: function(response) {
+                                // console.log(response)
+                                $('h4#name').html(response.data.name)
+                                $('h1#descriptor').html("Id customer: " + response.data.id)
+                                $('span#username').html("Username: " + response.data.username)
+                                $('span#name').html("Name: " + response.data.name)
+                                $('span#email').html("Email: " + response.data.email)
+                                $('span#address').html("Address: " + response.data.address)
+                                $('span#postcode').html("Post code: " + response.data.postcode)
+                                $('span#city').html("City: " + response.data.city)
+                                $('span#country').html("Country: " + response.data.country)
+                                $('span#phone').html("Phone: +84 " + response.data.phone)
+
+                                $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
+                                $('span#user_updated').html("User updated: " + response.data.user_updated)
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //xử lý lỗi tại đây
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    }
+</script>
+
 {{-- @csrf ajax--}}
 <meta name="csrf-token" content="{{ csrf_token() }}">​
 <script type="text/javascript" charset="utf-8">
@@ -195,4 +357,5 @@
         })
     });
 </script>
+
 @endpush
