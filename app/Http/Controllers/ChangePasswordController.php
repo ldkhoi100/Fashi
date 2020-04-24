@@ -47,9 +47,7 @@ class ChangePasswordController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
-
         return redirect()->back()->with('success', 'Success, Password has changed');
     }
 
@@ -85,24 +83,25 @@ class ChangePasswordController extends Controller
     public function getEmailVerify()
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('auth.email', compact('user'));
+        if (empty($user->provider_id)) {
+            return view('auth.email', compact('user'));
+        } else {
+            return back()->with('toast_error', 'You don\'t need change your email !');
+        }
     }
 
     public function postEmailVerify(Request $request, User $user)
     {
         $this->validate($request, [
-            'current_password' => ['required', new MatchOldPassword],
-            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
+            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id), 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', 'max:99']
         ]);
         $user = User::findOrFail(Auth::user()->id);
-
-        if (Hash::check($user->password, $request->input('current_password'))) {
-            return redirect()->route('email', $user->id)->with('success', 'Error');
-        } else {
+        if ($user->email != request('email') && empty($user->provider_id)) {
             $user->email = request('email');
+            $user->email_verified_at = null;
             $user->save();
-            return redirect()->route('details')->with('success', 'Success, Your email has changed');
         }
+        return redirect()->route('details')->with('success', 'Success, Your email has changed');
     }
 
     public function getUpdatePhone()
@@ -114,19 +113,12 @@ class ChangePasswordController extends Controller
     public function postUpdatePhone(Request $request, User $user)
     {
         $this->validate($request, [
-            'current_password' => ['required', new MatchOldPassword],
-            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
+            'phone' => ['required', 'numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
-
         $user = User::findOrFail(Auth::user()->id);
-
-        if (Hash::check($user->password, $request->input('current_password'))) {
-            return redirect()->route('email', $user->id)->with('success', 'Error');
-        } else {
-            $user->phone = request('phone');
-            $user->save();
-            return redirect()->route('details')->with('success', 'Success, Your phone has changed');
-        }
+        $user->phone = request('phone');
+        $user->save();
+        return redirect()->route('details')->with('success', 'Success, Your phone has changed');
     }
 
     public function postChangeAddress(Request $request)
@@ -134,7 +126,6 @@ class ChangePasswordController extends Controller
         $this->validate($request, [
             'address' => 'required | string | min:5 | max:255'
         ]);
-
         $user = User::findOrFail(Auth::user()->id);
         $user->address = request('address');
         $user->save();

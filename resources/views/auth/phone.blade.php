@@ -36,7 +36,7 @@
                         password</span>
                     <hr>
 
-                    <form action="{{ route('verifyPhone') }}" method="post" class="beta-form-checkout">
+                    <form action="{{ route('verifyPhone') }}" method="post" class="beta-form-checkout" id="my-form5>
                         @csrf
 
                         <table>
@@ -44,10 +44,11 @@
                                 <td><label for="">Phone number: &nbsp;</label> </td>
                                 <td>
                                     <span
-                                        style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">+84
-                                        {{ $user->phone }}</span>
-                                </td>
-                            </tr>
+                                        style=" border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px;
+                        color: #5d5d5d">+84
+                        {{ $user->phone }}</span>
+                        </td>
+                        </tr>
                         </table><br>
 
                         <div class="form-input @error('phone') has-error has-feedback @enderror">
@@ -60,26 +61,11 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div><br>
-
-                        <div class="form-input has-error has-feedback">
-
-                            <label for="current_password">Current Password</label>
-
-                            <input type="password" id="password" name="current_password"
-                                class="form-control @error('current_password') is-invalid @enderror" required
-                                autocomplete="current_password">
-
-                            @error('current_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-
                         </div>
+
                         <br><br>
 
-                        <button type="submit" class="site-btn register-btn">Confirm</button>
+                        <button type="submit" class="site-btn register-btn" id="btn-submit5">Confirm</button>
                     </form>
 
                     <div class="switch-login">
@@ -93,3 +79,17 @@
 <!-- Register Form Section End -->
 
 @endsection
+
+@push('clicked')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form5").submit(function (e) {
+            $("#btn-submit5").attr("disabled", true);
+		    $("#btn-submit5").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+
+@endpush

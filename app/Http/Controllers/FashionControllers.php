@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Crypt;
 
 use App\Slide;
 use App\Image_large_products;
@@ -28,7 +29,6 @@ use App\Subscribe;
 use App\MessageCenter;
 use App\Size;
 use App\Size_products;
-use Illuminate\Support\Facades\Crypt;
 
 class FashionControllers extends Controller
 {
@@ -348,8 +348,11 @@ class FashionControllers extends Controller
         return view('fashi.kid_type_product', compact('categories', 'product', 'id_categories', 'tags'));
     }
 
-    public function getDetailProduct($id)
+    public function getDetailProduct($name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_product = Products::where('name', $slugs)->first();
+        $id = $find_product->id;
         $productKey = 'product_' . $id;
         // Kiểm tra Session của sản phẩm có tồn tại hay không.
         // Nếu không tồn tại, sẽ tự động tăng trường view_count lên 1 đồng thời tạo session lưu trữ key sản phẩm.

@@ -15,6 +15,12 @@ use Illuminate\Support\Str;
 
 class BlogCommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:ROLE_ADMIN');
+    }
+
     public function show($id)
     {
         $reviews = Comment::where('commentable_id', $id)->get();

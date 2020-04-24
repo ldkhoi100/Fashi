@@ -71,7 +71,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $product->id) }}" target="_blank"
+                            <td><a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}" target="_blank"
                                     style="color: #8B0000"><b style="color: #8B0000">{{ $product->name }}</b></a>
                                 <br><br>
                                 <b style="float: right; font-size: 12px">{{ $product->objects->name }} -

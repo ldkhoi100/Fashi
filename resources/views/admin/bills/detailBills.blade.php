@@ -70,10 +70,10 @@
                         <tr style="font-weight: bold;">
                             <td>{{ ++$key }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
+                            <td><a href="{{ url('/shop/detail/' . Str::slug($bills->products->name)) }}"
                                     target="_blank">{{ $bills->id_product }}</a></td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}" target="_blank"
+                            <td><a href="{{ url('/shop/detail/' . Str::slug($bills->products->name)) }}" target="_blank"
                                     style="color: #8B0000; font-weight: bold">{{ $bills->products->name }}</a> <br>
                                 @if($bills->cancle == 1)
                                 <span

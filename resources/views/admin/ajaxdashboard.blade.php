@@ -26,7 +26,7 @@
 
             <tr>
                 <td>{{ ++$key }}</td>
-                <td><b><a href="{{ route('getDetailProductMen', $products->id) }}" style="color:#8B0000;"
+                <td><b><a href="{{ url('/shop/detail/' . Str::slug($products->name)) }}" style="color:#8B0000;"
                             target="_blank">{{ $products->name }}
                         </a><br><span
                             style="color: #b2b2b2; font-size: 11px; float: right">{{ $products->categories->name }}

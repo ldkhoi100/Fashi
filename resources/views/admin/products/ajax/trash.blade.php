@@ -43,8 +43,8 @@
             <tr>
                 <td>{{ ++$key }}</td>
 
-                <td><a href="{{ route('getDetailProductMen', $product->id) }}" target="_blank" style="color: #8B0000"><b
-                            style="color: #8B0000">{{ $product->name }}</b></a>
+                <td><a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}" target="_blank"
+                        style="color: #8B0000"><b style="color: #8B0000">{{ $product->name }}</b></a>
                     <br><br>
                     <b style="float: right; font-size: 12px">{{ $product->objects->name }} -
                         {{ $product->categories->name }}</b>
@@ -52,8 +52,7 @@
 
                 <td><button data-url="{{ route('product.show',$product->id) }}" ​ type="button" data-target="#show"
                         data-toggle="modal" class="btn btn-info btn-show btn-sm">Detail</button> <br><br>
-                    <a href="{{ route('product.qtySizeGet', $product->id) }}"
-                        class="btn btn-warning btn-sm">Quantity</a>
+                    <a href="{{ route('product.qtySizeGet', $product->id) }}" class="btn btn-warning btn-sm">Stock</a>
                 </td>
 
                 <td>

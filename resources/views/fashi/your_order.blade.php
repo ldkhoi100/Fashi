@@ -77,18 +77,24 @@
                 <div class="cart-table">
 
                     <div class="col-lg-12" ; style="text-align: center">@if(count($bill_order) < 1) <h2>
-                            You have not placed any orders</h2>
+                            You have not placed any orders</h2> <br>
+                            <h3><a href="{{ route('shop') }}" style="color:blue;">Shop Now</a></h3>
                             @endif
                     </div>
 
-                    <div class="row scroll endless-pagination" data-next-page="{{ $bill_order->nextPageUrl() }}">
+                    <div class="row scroll endless-pagination" @if(count($bill_order)> 0)
+                        data-next-page="{{ $bill_order->nextPageUrl() }}" @endif>
 
                         @include('ajax.yourOrder')
 
                     </div>
+
+                    @if(count($bill_order)> 0)
                     <div class="col-lg-12 loading">
                         <button type='button' class='btn btn-warning'>Loading....</button>
                     </div>
+                    @endif
+
                 </div>
             </div>
         </div>

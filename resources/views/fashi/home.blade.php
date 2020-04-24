@@ -4,6 +4,18 @@
 
 @section('content')
 
+@if(Auth::check())
+@if(empty(Auth::user()->email_verified_at))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Please verify email before making a purchase,
+        <a href="{{ url('/email/verify') }}" style="color: blue;">Click here to verify email</a>
+    </strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+@endif
 <!-- Hero Section Begin, Slide -->
 <section class="hero-section">
     <div class="hero-items owl-carousel">
@@ -67,7 +79,7 @@
             <div class="col-lg-3">
                 <div class="product-large set-bg" data-setbg={{ "img/large/" . $large_image1->image}}>
                     <h2>Women’s</h2>
-                    <a href="{{  $large_image1->link }}">Discover More</a>
+                    <a href="{{ $large_image1->link }}">Discover More</a>
                 </div>
             </div>
 
@@ -85,7 +97,6 @@
 
                     @foreach ($women as $product)
                     @if($product->size_product->sum('quantity') > 0)
-
                     <div class="product-item">
                         <div class="pi-pic">
                             <img src={{ "img/products/" . $product->image1 }} alt="">
@@ -102,11 +113,13 @@
                                 <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                         <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                                 @else
-                                <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
+                                <li class="w-icon active"><a
+                                        href="{{ url('/shop/detail/' . Str::slug($product->name)) }}"><i
                                             class="fas fa-cart-arrow-down"></i></a>
                                 </li>
                                 @endif
-                                <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
+                                <li class="quick-view"><a
+                                        href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">+
                                         Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fas fa-heart" style="color: #D2691E"></i></a>
                                 </li>
@@ -215,11 +228,13 @@
                                 <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                         <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                                 @else
-                                <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
+                                <li class="w-icon active"><a
+                                        href="{{ url('/shop/detail/' . Str::slug($product->name)) }}"><i
                                             class="fas fa-cart-arrow-down"></i></a>
                                 </li>
                                 @endif
-                                <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
+                                <li class="quick-view"><a
+                                        href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">+
                                         Quick View</a></li>
                                 <li class="w-icon"><a href="#"><i class="fas fa-heart" style="color: #D2691E"></i></a>
                                 </li>

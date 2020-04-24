@@ -16,8 +16,8 @@ class CouponsController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN');
+        $this->middleware('auth');
+        $this->middleware('role:ROLE_ADMIN');
     }
 
     /**
@@ -81,7 +81,6 @@ class CouponsController extends Controller
         }
         $coupons = Coupons::orderBy('created_at', 'DESC')->get();
         return view('admin.coupons.ajaxUsed', compact('coupons'));
-        // return back()->with('success', "Coupons $coupons->id_coupon created!");
     }
 
     /**
@@ -122,7 +121,6 @@ class CouponsController extends Controller
         $coupons->used = request('used');
         $coupons->user_updated = Auth::user()->username;
         $coupons->save();
-
         return back()->with('success', "Coupons $coupons->id_coupon updated!");
     }
 
@@ -138,7 +136,6 @@ class CouponsController extends Controller
         $coupons = Coupons::findOrFail($id);
         Coupons::find($id)->update(['user_deleted' => Auth::user()->username]);
         $coupons->delete();
-
         return back()->with('delete', "Coupons $coupons->id_coupon moved to trash!");
     }
 
@@ -177,7 +174,6 @@ class CouponsController extends Controller
     public function deleteAll()
     {
         $coupons = Coupons::onlyTrashed()->get();
-
         if (count($coupons) == 0) {
             return back()->with('delete', "Clean trash, nothing to delete!");
         } else {

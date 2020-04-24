@@ -54,6 +54,16 @@
         background: white;
         display: inline-block;
     }
+
+    .size-select1,
+    .size-block {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
 </style>
 
 <!-- Breadcrumb Section Begin -->
@@ -726,18 +736,19 @@
                         <li class="w-icon active"><a href="javascript:void(0);" class="click">
                                 <i class="icon_bag_alt" data-target="#exampleModal1"></i></a></li>
                         @else
-                        <li class="w-icon active"><a href="{{ route('getDetailProductMen', $product->id) }}"><i
+                        <li class="w-icon active"><a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}"><i
                                     class="fas fa-cart-arrow-down"></i></a>
                         </li>
                         @endif
-                        <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+ Quick
+                        <li class="quick-view"><a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">+
+                                Quick
                                 View</a></li>
                         <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                     </ul>
                 </div>
                 <div class="pi-text">
                     <div class="catagory-name">{{ $product->categories->name }}</div>
-                    <a href="{{ route('getDetailProductMen', $product->id) }}">
+                    <a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">
                         <h5>{{ $product->name }}</h5>
                     </a>
                     @if($product->size_product->sum('quantity') <= 0) <div class="product-price"

@@ -36,7 +36,7 @@
                         password</span>
                     <hr>
 
-                    <form action="{{ route('verifyemail') }}" method="POST" class="beta-form-checkout" id="my-form">
+                    <form action="{{ route('verifyemail') }}" method="POST" class="beta-form-checkout" id="my-form5">
                         @csrf
 
                         <table>
@@ -45,6 +45,16 @@
                                 <td>
                                     <span
                                         style="border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px; color: #5d5d5d">{{ $user->email }}</span>
+                                    @if(empty(Auth::user()->email_verified_at))
+                                    <b style="color: #ee4d2d; font-size: 14.5px; padding-left: 5px;">Unverify <i
+                                            class="far fa-times-circle"></i></b>
+                                    &nbsp;
+                                    <a href="{{ url('/email/verify') }}" style="color: blue;">Verify now</a>
+
+                                    @else
+                                    <b style="color: #00cc00; font-size: 14.5px; padding-left: 10px;">Verified <i
+                                            class="fas fa-check-circle"></i></b>
+                                    @endif
                                 </td>
                             </tr>
                         </table><br>
@@ -59,26 +69,11 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div><br>
-
-                        <div class="form-input has-error has-feedback">
-
-                            <label for="current_password">Current Password</label>
-
-                            <input type="password" id="password" name="current_password"
-                                class="form-control @error('current_password') is-invalid @enderror" required
-                                autocomplete="current_password">
-
-                            @error('current_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-
                         </div>
+
                         <br><br>
 
-                        <button type="submit" class="site-btn register-btn" id="btn-submit"
+                        <button type="submit" class="site-btn register-btn" id="btn-submit5"
                             style="border: none">Confirm</button>
                     </form>
 
@@ -98,9 +93,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form").submit(function (e) {
-            $("#btn-submit").attr("disabled", true);
-		  $("#btn-submit").addClass('button-clicked');
+        $("#my-form5").submit(function (e) {
+            $("#btn-submit5").attr("disabled", true);
+		    $("#btn-submit5").addClass('button-clicked');
             return true;
         });
     });

@@ -21,7 +21,7 @@
 
                     <tr>
                         <td class="si-pic">
-                            <a href="{{ route('getDetailProductMen', $row->id) }}"><img
+                            <a href="{{ url('/shop/detail/' . Str::slug($row->name)) }}"><img
                                     src="{{ "img/products/" . $row->options->img }}" alt="No image" width='80px'>
                             </a>
                         </td>
@@ -29,7 +29,8 @@
                             <div class="product-selected">
                                 <p>${{ number_format($row->price, 2) }} x {{ $row->qty }}
                                 </p>
-                                <h6><a href="{{ route('getDetailProductMen', $row->id) }}">{{ $row->name }} -
+                                <h6><a href="{{ url('/shop/detail/' . Str::slug($row->name)) }}">{{ $row->name }}
+                                        -
                                         size: <b>{{ $row->options->namesize }}</b>
                                     </a>
                                 </h6>

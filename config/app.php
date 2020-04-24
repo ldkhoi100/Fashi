@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
         /*
          * Application Service Providers...
          */

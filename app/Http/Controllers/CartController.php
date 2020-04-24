@@ -68,6 +68,10 @@ class CartController extends Controller
             "size.*" => "required | string | min:0"
         ]);
 
+        if (empty(Auth::user()->phone) && empty(Auth::user()->address)) {
+            return redirect()->route('details')->with('toast_error', 'Please update your phone and your address !');
+        }
+
         $bool = true;
         foreach (Cart::instance(Auth::user()->id)->content() as $key => $item) {
             $size_check = Size_products::where('id_size', $item->options->size)->where('id_products', $item->id)->first();

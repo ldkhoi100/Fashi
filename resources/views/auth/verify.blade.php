@@ -1,8 +1,23 @@
 @extends('fashi.layouts')
 
+@section('title', 'Verify Email')
+
 @section('content')
 
-<div class="container" style="margin: 50px">
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a>
+                    <span>Verify Your Email Address</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin: 100px 200px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -15,13 +30,15 @@
                     </div>
                     @endif
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
+                    {{ __('Before purchase, please check your email for a verification link.') }} <br>
                     {{ __('If you did not receive the email') }},
+
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
                         <button type="submit"
-                            class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                            class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request link to verify') }}</button>.
                     </form>
+
                 </div>
             </div>
         </div>

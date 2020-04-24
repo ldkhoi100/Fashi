@@ -23,7 +23,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                    style="font-size: 14.5px;">
+                    style="font-size: 13px;">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -34,6 +34,7 @@
                             <th>Address</th>
                             <th>Role</th>
                             <th>Block</th>
+                            <th>Verified Mail</th>
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th>Edit</th>
@@ -50,6 +51,7 @@
                             <th>Address</th>
                             <th>Role</th>
                             <th>Block</th>
+                            <th>Verified Mail</th>
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th>Edit</th>
@@ -86,9 +88,14 @@
                             </td>
                             @endif
 
-                            <td>{{ $users->created_at }}</td>
+                            <td>
+                                @if(!empty($users->email_verified_at))
+                                {{ date("d-m-y H:i:s", strtotime($users->email_verified_at)) }}
+                                @endif</td>
 
-                            <td>{{ $users->updated_at }}</td>
+                            <td>{{ date("d-m-y H:i:s", strtotime($users->created_at)) }}</td>
+
+                            <td>{{ date("d-m-y H:i:s", strtotime($users->updated_at)) }}</td>
 
                             <td><a href="{{ route('users.edit', $users->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></a>

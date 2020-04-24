@@ -91,14 +91,14 @@
                                     <td>{{ $i+1 }}</td>
 
                                     <td class="cart-pic first-row">
-                                        <a href="{{ route('getDetailProductMen', $value->id) }}">
+                                        <a href="{{ url('/shop/detail/' . Str::slug($value->name)) }}">
                                             <img src="{{ "img/products/" . $value->options->img }}" alt=""
                                                 width='100px'>
                                         </a>
                                     </td>
 
                                     <td class="cart-title first-row">
-                                        <h5><a href="{{ route('getDetailProductMen', $value->id) }}"
+                                        <h5><a href="{{ url('/shop/detail/' . Str::slug($value->name)) }}"
                                                 style="color: black">{{ $value->name }}</a>
                                         </h5>
                                     </td>

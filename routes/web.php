@@ -2,15 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Auth::routes(['verify' => true]);
-Auth::routes();
+Auth::routes(['verify' => true]);
+// Auth::routes();
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
+//Log in with google account
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
+
+//Reset password
+Route::post('reset-password', 'ResetPasswordController@sendMail');
+Route::put('reset-password/{token}', 'ResetPasswordController@reset')->name('reset.password');
 
 Route::get('/home', 'HomeController@index');
 
@@ -21,11 +26,11 @@ Route::get('/password', 'ChangePasswordController@index')->name('password');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
 
 //Change email
-Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email');
+Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email')->middleware('password.confirm');
 Route::post('/user/account/email/', 'ChangePasswordController@postEmailVerify')->name('verifyemail');
 
 //Change phone
-Route::get('/user/account/phone/', 'ChangePasswordController@getUpdatePhone')->name('phoneNumber');
+Route::get('/user/account/phone/', 'ChangePasswordController@getUpdatePhone')->name('phoneNumber')->middleware('password.confirm');
 Route::post('/user/account/phone/', 'ChangePasswordController@postUpdatePhone')->name('verifyPhone');
 
 //Logout
@@ -44,6 +49,7 @@ Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
 //->middleware('verified')
+//->middleware('password.confirm')
 Route::get('/products', 'FashionControllers@product')->name('product');
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
 Route::get('/contact', 'FashionControllers@contact')->name('contact');
@@ -85,7 +91,7 @@ Route::get('/shop/women/{id}', 'FashionControllers@getProductWomen')->name('getP
 Route::get('/shop/kid/{id}', 'FashionControllers@getProductKid')->name('getProductKid');
 
 //Detail products
-Route::get('/shop/detail/{id}', 'FashionControllers@getDetailProduct')->name('getDetailProductMen');
+Route::get('/shop/detail/{slug}', 'FashionControllers@getDetailProduct')->name('getDetailProductMen');
 //Ajax load more data button for database detail product
 Route::post('/loadmore/load_data/{id}', 'AjaxProductController@load_data_product')->name('loadmore.load_data');
 //Search products
@@ -107,6 +113,7 @@ Route::get('/kid/sort/price', 'SortFashionController@kidSortPrice')->name('kidSo
 
 //Cart
 Route::resource('/cart', 'CartController');
+Route::post('/cart', 'CartController@store')->name('cart.store')->middleware('verified');
 Route::get('/addCart/{id}', 'CartController@addCart')->name('addCart');
 Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name('saveListItemCart');
 Route::get('/addCart/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');

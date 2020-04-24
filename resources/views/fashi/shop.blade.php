@@ -145,12 +145,13 @@
                                     @else
                                     @if($product->size_product->sum('quantity') > 0)
                                     <li class="w-icon active"><a
-                                            href="{{ route('getDetailProductMen', $product->id) }}"><i
+                                            href="{{ url('/shop/detail/' . Str::slug($product->name)) }}"><i
                                                 class="fas fa-cart-arrow-down"></i></a>
                                     </li>
                                     @endif
                                     @endif
-                                    <li class="quick-view"><a href="{{ route('getDetailProductMen', $product->id) }}">+
+                                    <li class="quick-view"><a
+                                            href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">+
                                             Quick View</a>
                                     </li>
                                     <li class="w-icon"><a href="#"><i class="fas fa-heart"
@@ -159,7 +160,7 @@
                             </div>
                             <div class="pi-text">
                                 <div class="catagory-name">{{ $product->categories->name }}</div>
-                                <a href="{{ route('getDetailProductMen', $product->id) }}">
+                                <a href="{{ url('/shop/detail/' . Str::slug($product->name)) }}">
                                     <h5>{{ $product->name }}</h5>
                                 </a>
 

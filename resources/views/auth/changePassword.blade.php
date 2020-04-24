@@ -26,7 +26,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Change password</h2>
-                    <form action="{{ route('details.store') }}" method="POST" id="my-form">
+                    <form action="{{ route('details.store') }}" method="POST" id="my-form5">
                         @csrf
 
                         <div class="form-input has-error has-feedback" style="margin-bottom: 20px">
@@ -71,7 +71,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="site-btn login-btn" id="btn-submit" style="border: none">Change
+                        <button type="submit" class="site-btn login-btn" id="btn-submit5" style="border: none">Change
                             password</button>
                     </form>
 
@@ -92,9 +92,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form").submit(function (e) {
-            $("#btn-submit").attr("disabled", true);
-		  $("#btn-submit").addClass('button-clicked');
+        $("#my-form5").submit(function (e) {
+            $("#btn-submit5").attr("disabled", true);
+		    $("#btn-submit5").addClass('button-clicked');
             return true;
         });
     });

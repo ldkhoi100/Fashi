@@ -79,8 +79,10 @@
 
                                 <tr>
                                     <td align="left" valign="top" style="width:120px;padding-left:15px">
-                                        <a href="{{ route('getDetailProductMen', $item->products->id) }}"
+
+                                        <a href="{{ url('/shop/detail/' . Str::slug($item->products->name)) }}"
                                             style="border:0">
+
                                             <img src="{{ $message->embed(public_path() . "/img/products/" . $item->products->image1) }}"
                                                 height="120" width="85" style="display:block;border:0px">
                                         </a>
@@ -98,7 +100,8 @@
                                                         :</td>
                                                     <td align="left" valign="top"
                                                         style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666;line-height:20px;padding-left:10px;padding-bottom:5px">
-                                                        <a href="{{ route('getDetailProductMen', $item->products->id) }}"
+
+                                                        <a href="{{ url('/shop/detail/' . Str::slug($item->products->name)) }}"
                                                             style="color:#115fff;text-decoration:none" target="_blank">
                                                             {{ $item->name_products }}
                                                         </a>

@@ -15,6 +15,12 @@ use App\Reviews;
 
 class ReviewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:ROLE_ADMIN');
+    }
+
     public function show($id)
     {
         $reviews = Reviews::where('id_products', $id)->orderBy('rating', 'desc')->get();
