@@ -56,7 +56,7 @@
                 <div class="single-banner">
                     <img src={{ "img/banner/" . $banner->image }} alt="" height='255px'>
                     <div class="inner-text">
-                        <a href="/shop/men">
+                        <a href="{{ $banner->link }}">
                             <h4>{{ $banner->objects->name }}</h4>
                         </a>
                     </div>
