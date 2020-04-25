@@ -32,7 +32,6 @@ class BannersTableSeeder extends Seeder
             ),
             1 =>
             array(
-
                 'id_objects' => 3,
                 'link' => '/shop/women',
                 'image' => 'PizDj_banner-2.jpg',
@@ -46,7 +45,6 @@ class BannersTableSeeder extends Seeder
             ),
             2 =>
             array(
-
                 'id_objects' => 4,
                 'link' => '/shop/kid',
                 'image' => 'r4aKE_banner-3.jpg',

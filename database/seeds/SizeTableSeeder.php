@@ -12,73 +12,67 @@ class SizeTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('size')->delete();
-        
-        \DB::table('size')->insert(array (
-            0 => 
-            array (
-                'id' => 5,
-                'name' => '36',
-            ),
-            1 => 
-            array (
-                'id' => 6,
-                'name' => '37',
-            ),
-            2 => 
-            array (
-                'id' => 7,
-                'name' => '38',
-            ),
-            3 => 
-            array (
-                'id' => 8,
-                'name' => '39',
-            ),
-            4 => 
-            array (
-                'id' => 9,
-                'name' => '40',
-            ),
-            5 => 
-            array (
-                'id' => 10,
-                'name' => '41',
-            ),
-            6 => 
-            array (
-                'id' => 11,
-                'name' => '42',
-            ),
-            7 => 
-            array (
-                'id' => 12,
-                'name' => '43',
-            ),
-            8 => 
-            array (
-                'id' => 3,
-                'name' => 'L',
-            ),
-            9 => 
-            array (
-                'id' => 2,
-                'name' => 'M',
-            ),
-            10 => 
-            array (
-                'id' => 1,
+
+        \DB::table('size')->insert(array(
+            0 =>
+            array(
                 'name' => 'S',
             ),
-            11 => 
-            array (
-                'id' => 4,
+            1 =>
+            array(
+                'name' => 'M',
+            ),
+            2 =>
+            array(
+                'name' => 'L',
+            ),
+            3 =>
+            array(
                 'name' => 'XL',
             ),
+            4 =>
+            array(
+                'name' => '36',
+            ),
+            5 =>
+            array(
+
+                'name' => '37',
+            ),
+            6 =>
+            array(
+
+                'name' => '38',
+            ),
+            7 =>
+            array(
+
+                'name' => '39',
+            ),
+            8 =>
+            array(
+                'name' => '40',
+            ),
+            9 =>
+            array(
+                'name' => '41',
+            ),
+            10 =>
+            array(
+
+                'name' => '42',
+            ),
+            11 =>
+            array(
+                'name' => '43',
+            ),
+            12 =>
+            array(
+                'name' => 'No size',
+            ),
         ));
-        
-        
     }
 }

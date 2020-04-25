@@ -169,7 +169,7 @@ class ProductsController extends Controller
             'name' => 'required | min:2 | max:255 | string | unique:products,name,' . $id,
             'description' => 'required | min:3 | string',
             'unit_price' => 'required | numeric | min:0 | not_in:0',
-            'promotion_price' => 'numeric | min:0 | lt:unit_price',
+            'promotion_price' => 'numeric | lt:unit_price',
             'id_categories' => 'required | numeric',
             'image1' => 'image | mimes:png,jpg,jpeg | max:8000',
             'image2' => 'image | mimes:png,jpg,jpeg | max:8000',

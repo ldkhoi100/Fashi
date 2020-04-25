@@ -112,14 +112,19 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
                                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                            @if($products_sold != 0)
                                             {{ number_format($products_sold * 100 / $total_products_input, 2) }}%
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
+                                            @if($products_sold != 0)
                                             <div class="progress-bar bg-info" role="progressbar"
                                                 style="width: {{ number_format($products_sold * 100 / $total_products_input, 2) }}%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
