@@ -30,9 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => env('2867768813312952'),
-        'client_secret' => env('dbd0c1a50aa910c86712493201ad890d'),
-        'redirect' => env('https://damp-stream-83219.herokuapp.com/callback/facebook'),
+        'client_id' => '2867768813312952',
+        'client_secret' => 'dbd0c1a50aa910c86712493201ad890d',
+        'redirect' => 'https://damp-stream-83219.herokuapp.com/callback/facebook',
     ],
     'google' => [
         'client_id' => '72252392541-s53s7bpil3j8gubgrtofbhniqhb34h79.apps.googleusercontent.com',
