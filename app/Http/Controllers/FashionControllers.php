@@ -351,8 +351,7 @@ class FashionControllers extends Controller
     public function getDetailProduct($name)
     {
         $slugs = explode("-", str_replace('-', ' ', $name));
-        dd($slugs);
-        $find_product = Products::where('name', 'LIKE', $slugs)->first();
+        $find_product = Products::where('name', 'LIKE', ucwords($slugs))->first();
         $id = $find_product->id;
         $productKey = 'product_' . $id;
         // Kiểm tra Session của sản phẩm có tồn tại hay không.
