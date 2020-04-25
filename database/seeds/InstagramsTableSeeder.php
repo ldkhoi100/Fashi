@@ -12,14 +12,14 @@ class InstagramsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('instagrams')->delete();
-        
-        \DB::table('instagrams')->insert(array (
-            0 => 
-            array (
-                'id' => 2,
+
+        \DB::table('instagrams')->insert(array(
+            0 =>
+            array(
+
                 'name' => 'scoutmodelagency',
                 'link' => 'https://www.instagram.com/scoutmodelagency/',
                 'image' => 'tNVRh_insta-1.jpg',
@@ -30,9 +30,9 @@ class InstagramsTableSeeder extends Seeder
                 'updated_at' => '2020-03-24 13:49:32',
                 'deleted_at' => NULL,
             ),
-            1 => 
-            array (
-                'id' => 3,
+            1 =>
+            array(
+
                 'name' => 'models',
                 'link' => 'https://www.instagram.com/models/',
                 'image' => 'JlrJ3_insta-2.jpg',
@@ -43,9 +43,9 @@ class InstagramsTableSeeder extends Seeder
                 'updated_at' => '2020-03-24 13:45:09',
                 'deleted_at' => NULL,
             ),
-            2 => 
-            array (
-                'id' => 4,
+            2 =>
+            array(
+
                 'name' => 'oneztuan',
                 'link' => 'https://www.instagram.com/oneztuan/',
                 'image' => 'XuCaD_insta-3.jpg',
@@ -56,9 +56,9 @@ class InstagramsTableSeeder extends Seeder
                 'updated_at' => '2020-03-24 13:47:30',
                 'deleted_at' => NULL,
             ),
-            3 => 
-            array (
-                'id' => 5,
+            3 =>
+            array(
+
                 'name' => 'cavoi.shop',
                 'link' => 'https://www.instagram.com/cavoi.shop/',
                 'image' => '2rbfb_insta-4.jpg',
@@ -69,9 +69,9 @@ class InstagramsTableSeeder extends Seeder
                 'updated_at' => '2020-03-24 13:48:12',
                 'deleted_at' => NULL,
             ),
-            4 => 
-            array (
-                'id' => 6,
+            4 =>
+            array(
+
                 'name' => 'shop_nuna',
                 'link' => 'https://www.instagram.com/shop_nuna/',
                 'image' => 'LlZgE_insta-5.jpg',
@@ -82,9 +82,9 @@ class InstagramsTableSeeder extends Seeder
                 'updated_at' => '2020-03-24 13:48:42',
                 'deleted_at' => NULL,
             ),
-            5 => 
-            array (
-                'id' => 7,
+            5 =>
+            array(
+
                 'name' => 'makecolor_shop',
                 'link' => 'https://www.instagram.com/makecolor_shop/',
                 'image' => 'D46RZ_insta-6.jpg',
@@ -96,7 +96,5 @@ class InstagramsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

@@ -12,14 +12,13 @@ class ImageLargeProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('image_large_products')->delete();
-        
-        \DB::table('image_large_products')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+
+        \DB::table('image_large_products')->insert(array(
+            0 =>
+            array(
                 'link' => '/shop/women',
                 'image' => '6mvxI_women-large.jpg',
                 'user_created' => 'ldkhoi97',
@@ -29,9 +28,9 @@ class ImageLargeProductsTableSeeder extends Seeder
                 'updated_at' => '2020-04-02 22:04:52',
                 'deleted_at' => NULL,
             ),
-            1 => 
-            array (
-                'id' => 2,
+            1 =>
+            array(
+
                 'link' => '/shop/men',
                 'image' => 'aUy83_man-large.jpg',
                 'user_created' => 'ldkhoi97',
@@ -42,7 +41,5 @@ class ImageLargeProductsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

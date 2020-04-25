@@ -12,14 +12,13 @@ class CouponsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('coupons')->delete();
-        
-        \DB::table('coupons')->insert(array (
-            0 => 
-            array (
-                'id' => 68,
+
+        \DB::table('coupons')->insert(array(
+            0 =>
+            array(
                 'id_coupon' => 'FS7905278320',
                 'discount' => 30,
                 'used' => 0,
@@ -32,7 +31,5 @@ class CouponsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

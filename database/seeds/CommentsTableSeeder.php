@@ -12,14 +12,13 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('comments')->delete();
-        
-        \DB::table('comments')->insert(array (
-            0 => 
-            array (
-                'id' => 38,
+
+        \DB::table('comments')->insert(array(
+            0 =>
+            array(
                 'commenter_id' => '1',
                 'commenter_type' => 'App\\User',
                 'guest_name' => NULL,
@@ -33,7 +32,5 @@ class CommentsTableSeeder extends Seeder
                 'updated_at' => '2020-04-21 11:29:20',
             ),
         ));
-        
-        
     }
 }

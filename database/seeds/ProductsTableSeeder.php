@@ -17,7 +17,6 @@ class ProductsTableSeeder extends Seeder
         \DB::table('products')->insert(array(
             0 =>
             array(
-                'id' => 14,
                 'name' => 'Mens Round Neck Printed T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -42,7 +41,6 @@ class ProductsTableSeeder extends Seeder
             ),
             1 =>
             array(
-                'id' => 15,
                 'name' => 'Mens Round Neck Graphic Print T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -67,7 +65,6 @@ class ProductsTableSeeder extends Seeder
             ),
             2 =>
             array(
-                'id' => 16,
                 'name' => 'Mens Slub Polo T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -92,7 +89,6 @@ class ProductsTableSeeder extends Seeder
             ),
             3 =>
             array(
-                'id' => 17,
                 'name' => 'Mens Round Neck Stripe T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -117,7 +113,6 @@ class ProductsTableSeeder extends Seeder
             ),
             4 =>
             array(
-                'id' => 18,
                 'name' => 'Mens Henley Neck Slub T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -142,7 +137,6 @@ class ProductsTableSeeder extends Seeder
             ),
             5 =>
             array(
-                'id' => 19,
                 'name' => 'Mens Round Neck Slub T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -167,7 +161,6 @@ class ProductsTableSeeder extends Seeder
             ),
             6 =>
             array(
-                'id' => 20,
                 'name' => 'Mens Round Nick Slub T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -192,7 +185,6 @@ class ProductsTableSeeder extends Seeder
             ),
             7 =>
             array(
-                'id' => 21,
                 'name' => 'Mens Round Nick Printed T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -217,7 +209,6 @@ class ProductsTableSeeder extends Seeder
             ),
             8 =>
             array(
-                'id' => 22,
                 'name' => 'Mens Self Printed Polo T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -242,7 +233,6 @@ class ProductsTableSeeder extends Seeder
             ),
             9 =>
             array(
-                'id' => 23,
                 'name' => 'Mens Solid Polo T Shirt',
                 'id_categories' => 28,
                 'id_objects' => 2,
@@ -267,7 +257,6 @@ class ProductsTableSeeder extends Seeder
             ),
             10 =>
             array(
-                'id' => 24,
                 'name' => 'Mens Solid Casual Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -292,7 +281,6 @@ class ProductsTableSeeder extends Seeder
             ),
             11 =>
             array(
-                'id' => 25,
                 'name' => 'Mens 2 Pocket Checked Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -317,7 +305,6 @@ class ProductsTableSeeder extends Seeder
             ),
             12 =>
             array(
-                'id' => 26,
                 'name' => 'Mens Mao Collar Slub Casual Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -342,7 +329,6 @@ class ProductsTableSeeder extends Seeder
             ),
             13 =>
             array(
-                'id' => 27,
                 'name' => 'Mens Slub Formal Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -367,7 +353,6 @@ class ProductsTableSeeder extends Seeder
             ),
             14 =>
             array(
-                'id' => 28,
                 'name' => 'Mens Button Down Collar Striped Casual Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -392,7 +377,6 @@ class ProductsTableSeeder extends Seeder
             ),
             15 =>
             array(
-                'id' => 29,
                 'name' => 'Mens Slim Collar Check Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -417,7 +401,6 @@ class ProductsTableSeeder extends Seeder
             ),
             16 =>
             array(
-                'id' => 30,
                 'name' => 'Mens Slim Fit Slub Casual Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -442,7 +425,6 @@ class ProductsTableSeeder extends Seeder
             ),
             17 =>
             array(
-                'id' => 31,
                 'name' => 'Mens Button Down Collar Stripe Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -467,7 +449,6 @@ class ProductsTableSeeder extends Seeder
             ),
             18 =>
             array(
-                'id' => 32,
                 'name' => 'Mens Slim Collar Self Printed Formal Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -492,7 +473,6 @@ class ProductsTableSeeder extends Seeder
             ),
             19 =>
             array(
-                'id' => 33,
                 'name' => 'Mens Slim Collar Printed Casual Shirt',
                 'id_categories' => 29,
                 'id_objects' => 2,
@@ -517,7 +497,6 @@ class ProductsTableSeeder extends Seeder
             ),
             20 =>
             array(
-                'id' => 34,
                 'name' => 'Mens 5 Pocket Mild Wash Jeans',
                 'id_categories' => 27,
                 'id_objects' => 2,
@@ -542,7 +521,6 @@ class ProductsTableSeeder extends Seeder
             ),
             21 =>
             array(
-                'id' => 35,
                 'name' => 'Mens 5 Pocket Heavy Wash Jeans',
                 'id_categories' => 27,
                 'id_objects' => 2,
@@ -567,7 +545,6 @@ class ProductsTableSeeder extends Seeder
             ),
             22 =>
             array(
-                'id' => 36,
                 'name' => 'Mens 5 Pocket Coated Jeans',
                 'id_categories' => 27,
                 'id_objects' => 2,
@@ -592,7 +569,6 @@ class ProductsTableSeeder extends Seeder
             ),
             23 =>
             array(
-                'id' => 37,
                 'name' => 'Mens 5 Pocket Mild Wash Jeans 2',
                 'id_categories' => 27,
                 'id_objects' => 2,
@@ -617,7 +593,6 @@ class ProductsTableSeeder extends Seeder
             ),
             24 =>
             array(
-                'id' => 38,
                 'name' => 'Mens 5 Pocket Rinse Wash Jeans',
                 'id_categories' => 27,
                 'id_objects' => 2,
@@ -642,7 +617,6 @@ class ProductsTableSeeder extends Seeder
             ),
             25 =>
             array(
-                'id' => 39,
                 'name' => 'Mens Leather Laceup Sneakers',
                 'id_categories' => 3,
                 'id_objects' => 2,
@@ -667,7 +641,6 @@ class ProductsTableSeeder extends Seeder
             ),
             26 =>
             array(
-                'id' => 40,
                 'name' => 'Mens Slip On Formal Shoes',
                 'id_categories' => 3,
                 'id_objects' => 2,
@@ -692,7 +665,6 @@ class ProductsTableSeeder extends Seeder
             ),
             27 =>
             array(
-                'id' => 41,
                 'name' => 'Mens Leather Slipon Loafers',
                 'id_categories' => 3,
                 'id_objects' => 2,
@@ -717,7 +689,6 @@ class ProductsTableSeeder extends Seeder
             ),
             28 =>
             array(
-                'id' => 42,
                 'name' => 'Mens Leather Slipon Loafers 2',
                 'id_categories' => 3,
                 'id_objects' => 2,
@@ -742,7 +713,6 @@ class ProductsTableSeeder extends Seeder
             ),
             29 =>
             array(
-                'id' => 43,
                 'name' => 'Mens Leather Slipon Sandals',
                 'id_categories' => 3,
                 'id_objects' => 2,
@@ -767,7 +737,6 @@ class ProductsTableSeeder extends Seeder
             ),
             30 =>
             array(
-                'id' => 44,
                 'name' => 'Mens Card Holder',
                 'id_categories' => 30,
                 'id_objects' => 2,
@@ -792,7 +761,6 @@ class ProductsTableSeeder extends Seeder
             ),
             31 =>
             array(
-                'id' => 45,
                 'name' => 'Mens Leather 1 Fold Wallet',
                 'id_categories' => 30,
                 'id_objects' => 2,
@@ -817,7 +785,6 @@ class ProductsTableSeeder extends Seeder
             ),
             32 =>
             array(
-                'id' => 46,
                 'name' => 'Mens 1 Fold Wallet',
                 'id_categories' => 30,
                 'id_objects' => 2,
@@ -842,7 +809,6 @@ class ProductsTableSeeder extends Seeder
             ),
             33 =>
             array(
-                'id' => 47,
                 'name' => 'Mens 1 Fold Passport Holder',
                 'id_categories' => 30,
                 'id_objects' => 2,
@@ -867,7 +833,6 @@ class ProductsTableSeeder extends Seeder
             ),
             34 =>
             array(
-                'id' => 48,
                 'name' => 'Mens Leather 1 Fold Wallet 2',
                 'id_categories' => 30,
                 'id_objects' => 2,
@@ -892,7 +857,6 @@ class ProductsTableSeeder extends Seeder
             ),
             35 =>
             array(
-                'id' => 49,
                 'name' => 'Mens Sport Black Dial Silicon Smart Watch',
                 'id_categories' => 1,
                 'id_objects' => 2,
@@ -917,7 +881,6 @@ class ProductsTableSeeder extends Seeder
             ),
             36 =>
             array(
-                'id' => 50,
                 'name' => 'Mens Analogue Stainless Steel Watch',
                 'id_categories' => 1,
                 'id_objects' => 2,
@@ -942,7 +905,6 @@ class ProductsTableSeeder extends Seeder
             ),
             37 =>
             array(
-                'id' => 51,
                 'name' => 'Mens Brown Dial Leather Hybrid Watch',
                 'id_categories' => 1,
                 'id_objects' => 2,
@@ -967,7 +929,6 @@ class ProductsTableSeeder extends Seeder
             ),
             38 =>
             array(
-                'id' => 52,
                 'name' => 'Mens Falster 2 Blue Dial Magnetic Steel Mesh Smart Watch',
                 'id_categories' => 1,
                 'id_objects' => 2,
@@ -992,7 +953,6 @@ class ProductsTableSeeder extends Seeder
             ),
             39 =>
             array(
-                'id' => 53,
                 'name' => 'Mens Black Dial Metallic Analogue Watch',
                 'id_categories' => 1,
                 'id_objects' => 2,
@@ -1017,7 +977,6 @@ class ProductsTableSeeder extends Seeder
             ),
             40 =>
             array(
-                'id' => 74,
                 'name' => 'Womens Round Neck Solid Pinafore Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1042,7 +1001,6 @@ class ProductsTableSeeder extends Seeder
             ),
             41 =>
             array(
-                'id' => 75,
                 'name' => 'Womens Printed Harem Pants',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1067,7 +1025,6 @@ class ProductsTableSeeder extends Seeder
             ),
             42 =>
             array(
-                'id' => 76,
                 'name' => 'Womens V Neck Printed A Line Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1092,7 +1049,6 @@ class ProductsTableSeeder extends Seeder
             ),
             43 =>
             array(
-                'id' => 77,
                 'name' => 'Womens Surplice Neck Solid A Line Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1117,7 +1073,6 @@ class ProductsTableSeeder extends Seeder
             ),
             44 =>
             array(
-                'id' => 78,
                 'name' => 'Womens Washed Casual Shirt Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1142,7 +1097,6 @@ class ProductsTableSeeder extends Seeder
             ),
             45 =>
             array(
-                'id' => 79,
                 'name' => 'Womens Mandarin Neck Printed Anarkali Kurta',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1167,7 +1121,6 @@ class ProductsTableSeeder extends Seeder
             ),
             46 =>
             array(
-                'id' => 80,
                 'name' => 'Womens Round Neck Embellished Flared Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1192,7 +1145,6 @@ class ProductsTableSeeder extends Seeder
             ),
             47 =>
             array(
-                'id' => 81,
                 'name' => 'Womens Slub Embroidered Palazzo Pants',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1217,7 +1169,6 @@ class ProductsTableSeeder extends Seeder
             ),
             48 =>
             array(
-                'id' => 82,
                 'name' => 'Womens Pink Mandarin Collar Embroidered Fit and Flare Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1242,7 +1193,6 @@ class ProductsTableSeeder extends Seeder
             ),
             49 =>
             array(
-                'id' => 83,
                 'name' => 'Womens Washed Shirt Dress',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1267,7 +1217,6 @@ class ProductsTableSeeder extends Seeder
             ),
             50 =>
             array(
-                'id' => 84,
                 'name' => 'Womens 5 Pocket Coated Jeans',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1292,7 +1241,6 @@ class ProductsTableSeeder extends Seeder
             ),
             51 =>
             array(
-                'id' => 85,
                 'name' => 'Womens 5 Pocket Stone Wash Jeans',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1317,7 +1265,6 @@ class ProductsTableSeeder extends Seeder
             ),
             52 =>
             array(
-                'id' => 86,
                 'name' => 'Womens 5 Pocket Rinse Wash Jeans',
                 'id_categories' => 31,
                 'id_objects' => 3,
@@ -1342,7 +1289,6 @@ class ProductsTableSeeder extends Seeder
             ),
             53 =>
             array(
-                'id' => 87,
                 'name' => 'Womens 5 Pocket Mild Wash Jeans 3',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1367,7 +1313,6 @@ class ProductsTableSeeder extends Seeder
             ),
             54 =>
             array(
-                'id' => 88,
                 'name' => 'Womens 5 Pocket Mild Wash Jeans 4',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1392,7 +1337,6 @@ class ProductsTableSeeder extends Seeder
             ),
             55 =>
             array(
-                'id' => 89,
                 'name' => 'Womens 5 Pocket Heavy Wash Jeans',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1417,7 +1361,6 @@ class ProductsTableSeeder extends Seeder
             ),
             56 =>
             array(
-                'id' => 90,
                 'name' => 'Womens 5 Pocket Mild Wash Jeans 5',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1442,7 +1385,6 @@ class ProductsTableSeeder extends Seeder
             ),
             57 =>
             array(
-                'id' => 91,
                 'name' => 'Womens 5 Pocket Distressed Jeans',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1467,7 +1409,6 @@ class ProductsTableSeeder extends Seeder
             ),
             58 =>
             array(
-                'id' => 92,
                 'name' => 'Womens 5 Pocket Mild Wash Jeans 6',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1492,7 +1433,6 @@ class ProductsTableSeeder extends Seeder
             ),
             59 =>
             array(
-                'id' => 93,
                 'name' => 'Womens 5 Pocket Coated Jeans 2',
                 'id_categories' => 32,
                 'id_objects' => 3,
@@ -1517,7 +1457,6 @@ class ProductsTableSeeder extends Seeder
             ),
             60 =>
             array(
-                'id' => 94,
                 'name' => 'Womens Zip Closure Satchel Handbag',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1542,7 +1481,6 @@ class ProductsTableSeeder extends Seeder
             ),
             61 =>
             array(
-                'id' => 95,
                 'name' => 'Womens Zipper Closure Sling Bag',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1567,7 +1505,6 @@ class ProductsTableSeeder extends Seeder
             ),
             62 =>
             array(
-                'id' => 96,
                 'name' => 'Womens Zip Closure Sling Bag',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1594,7 +1531,6 @@ class ProductsTableSeeder extends Seeder
             ),
             63 =>
             array(
-                'id' => 97,
                 'name' => 'Womens 1 Compartment Zip Closure Backpack',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1619,7 +1555,6 @@ class ProductsTableSeeder extends Seeder
             ),
             64 =>
             array(
-                'id' => 98,
                 'name' => 'Womens Loop Closure Sling Bag',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1644,7 +1579,6 @@ class ProductsTableSeeder extends Seeder
             ),
             65 =>
             array(
-                'id' => 99,
                 'name' => 'Basic Small Jute Bag',
                 'id_categories' => 8,
                 'id_objects' => 3,
@@ -1669,7 +1603,7 @@ class ProductsTableSeeder extends Seeder
             ),
             66 =>
             array(
-                'id' => 100,
+
                 'name' => 'Womens Casual Wear Slipon Ballerinas',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1694,7 +1628,7 @@ class ProductsTableSeeder extends Seeder
             ),
             67 =>
             array(
-                'id' => 101,
+
                 'name' => 'Womens Casual Wear Velcro Closure Wedges',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1719,7 +1653,7 @@ class ProductsTableSeeder extends Seeder
             ),
             68 =>
             array(
-                'id' => 102,
+
                 'name' => 'Womens Casual Wear Slipon Ballerinas 2',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1744,7 +1678,7 @@ class ProductsTableSeeder extends Seeder
             ),
             69 =>
             array(
-                'id' => 103,
+
                 'name' => 'Womens Casual Wear Slipon Ballerinas 3',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1769,7 +1703,7 @@ class ProductsTableSeeder extends Seeder
             ),
             70 =>
             array(
-                'id' => 104,
+
                 'name' => 'Womens Casual Wear Slipon Flats',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1794,7 +1728,7 @@ class ProductsTableSeeder extends Seeder
             ),
             71 =>
             array(
-                'id' => 105,
+
                 'name' => 'Womens Casual Wear Slipon Flats 2',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1819,7 +1753,7 @@ class ProductsTableSeeder extends Seeder
             ),
             72 =>
             array(
-                'id' => 106,
+
                 'name' => 'Womens Casual Wear Slipon Flats 3',
                 'id_categories' => 7,
                 'id_objects' => 3,
@@ -1844,7 +1778,7 @@ class ProductsTableSeeder extends Seeder
             ),
             73 =>
             array(
-                'id' => 107,
+
                 'name' => 'Womens Round Neck Solid Top',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1869,7 +1803,7 @@ class ProductsTableSeeder extends Seeder
             ),
             74 =>
             array(
-                'id' => 108,
+
                 'name' => 'Womens Surplice Neck Striped Top',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1894,7 +1828,7 @@ class ProductsTableSeeder extends Seeder
             ),
             75 =>
             array(
-                'id' => 109,
+
                 'name' => 'Womens Mandarin Collar Floral Print Kurti',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1919,7 +1853,7 @@ class ProductsTableSeeder extends Seeder
             ),
             76 =>
             array(
-                'id' => 110,
+
                 'name' => 'Womens Round Neck Lace Top',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1944,7 +1878,7 @@ class ProductsTableSeeder extends Seeder
             ),
             77 =>
             array(
-                'id' => 111,
+
                 'name' => 'Womens V Neck Solid Kurti',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1969,7 +1903,7 @@ class ProductsTableSeeder extends Seeder
             ),
             78 =>
             array(
-                'id' => 112,
+
                 'name' => 'Womens Round Neck Slub Top',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -1994,7 +1928,7 @@ class ProductsTableSeeder extends Seeder
             ),
             79 =>
             array(
-                'id' => 113,
+
                 'name' => 'Womens Mandarin Collar Checked Top',
                 'id_categories' => 5,
                 'id_objects' => 3,
@@ -2019,7 +1953,7 @@ class ProductsTableSeeder extends Seeder
             ),
             80 =>
             array(
-                'id' => 114,
+
                 'name' => 'Boys Collared Printed Shirt',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2044,7 +1978,7 @@ class ProductsTableSeeder extends Seeder
             ),
             81 =>
             array(
-                'id' => 115,
+
                 'name' => 'Boys Printed Casual Shirt',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2069,7 +2003,7 @@ class ProductsTableSeeder extends Seeder
             ),
             82 =>
             array(
-                'id' => 116,
+
                 'name' => 'Boys Round Neck Printed Tee',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2094,7 +2028,7 @@ class ProductsTableSeeder extends Seeder
             ),
             83 =>
             array(
-                'id' => 117,
+
                 'name' => 'Boys Round Neck Printed Tee 2',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2119,7 +2053,7 @@ class ProductsTableSeeder extends Seeder
             ),
             84 =>
             array(
-                'id' => 118,
+
                 'name' => 'Boys Round Neck Printed Tee Pack of 3',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2144,7 +2078,7 @@ class ProductsTableSeeder extends Seeder
             ),
             85 =>
             array(
-                'id' => 119,
+
                 'name' => 'Boys Round Neck Graphic Print Tee',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2169,7 +2103,7 @@ class ProductsTableSeeder extends Seeder
             ),
             86 =>
             array(
-                'id' => 120,
+
                 'name' => 'Boys Collared Printed Shirt with Bow Tie',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2194,7 +2128,7 @@ class ProductsTableSeeder extends Seeder
             ),
             87 =>
             array(
-                'id' => 121,
+
                 'name' => 'Boys Round Neck Printed Tee 4',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2219,7 +2153,7 @@ class ProductsTableSeeder extends Seeder
             ),
             88 =>
             array(
-                'id' => 122,
+
                 'name' => 'Boys Striped Polo Tee',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2244,7 +2178,7 @@ class ProductsTableSeeder extends Seeder
             ),
             89 =>
             array(
-                'id' => 123,
+
                 'name' => 'Boys Solid Polo Tee',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2269,7 +2203,7 @@ class ProductsTableSeeder extends Seeder
             ),
             90 =>
             array(
-                'id' => 124,
+
                 'name' => 'Unisex Mesh Lace Up Sports Shoes',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2294,7 +2228,7 @@ class ProductsTableSeeder extends Seeder
             ),
             91 =>
             array(
-                'id' => 125,
+
                 'name' => 'Mens Lace Up Sports Shoes',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2319,7 +2253,7 @@ class ProductsTableSeeder extends Seeder
             ),
             92 =>
             array(
-                'id' => 126,
+
                 'name' => 'Mens Synthetic Leather Lace Up Sneakers',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2344,7 +2278,7 @@ class ProductsTableSeeder extends Seeder
             ),
             93 =>
             array(
-                'id' => 127,
+
                 'name' => 'Mens Leather Slipon Loafers 3',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2369,7 +2303,7 @@ class ProductsTableSeeder extends Seeder
             ),
             94 =>
             array(
-                'id' => 128,
+
                 'name' => 'Mens Mesh Laceup Sneakers',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2394,7 +2328,7 @@ class ProductsTableSeeder extends Seeder
             ),
             95 =>
             array(
-                'id' => 129,
+
                 'name' => 'Mens Slip On Formal Shoes 2',
                 'id_categories' => 11,
                 'id_objects' => 4,
@@ -2419,7 +2353,7 @@ class ProductsTableSeeder extends Seeder
             ),
             96 =>
             array(
-                'id' => 130,
+
                 'name' => 'Kids Disney Frozen Print Zip Closure School Bag',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2444,7 +2378,7 @@ class ProductsTableSeeder extends Seeder
             ),
             97 =>
             array(
-                'id' => 131,
+
                 'name' => 'Kids Printed and Solid Socks Pack of 3',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2469,7 +2403,7 @@ class ProductsTableSeeder extends Seeder
             ),
             98 =>
             array(
-                'id' => 132,
+
                 'name' => 'Unisex Printed and Stripe Mittens Pack of 2',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2494,7 +2428,7 @@ class ProductsTableSeeder extends Seeder
             ),
             99 =>
             array(
-                'id' => 133,
+
                 'name' => 'Unisex 2 Compartment Zip Closure Backpack',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2519,7 +2453,7 @@ class ProductsTableSeeder extends Seeder
             ),
             100 =>
             array(
-                'id' => 134,
+
                 'name' => 'Girls Zip Closure Cartoon Print School Bag',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2544,7 +2478,7 @@ class ProductsTableSeeder extends Seeder
             ),
             101 =>
             array(
-                'id' => 135,
+
                 'name' => 'Girls Analogue Plastic Watch',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2569,7 +2503,7 @@ class ProductsTableSeeder extends Seeder
             ),
             102 =>
             array(
-                'id' => 136,
+
                 'name' => 'Girls Printed and Stripe Socks Pack of 3',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2594,7 +2528,7 @@ class ProductsTableSeeder extends Seeder
             ),
             103 =>
             array(
-                'id' => 137,
+
                 'name' => 'Boys Digital Nylon Watch',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2619,7 +2553,7 @@ class ProductsTableSeeder extends Seeder
             ),
             104 =>
             array(
-                'id' => 138,
+
                 'name' => 'Unisex Zip Closure Printed School Bag',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2644,7 +2578,7 @@ class ProductsTableSeeder extends Seeder
             ),
             105 =>
             array(
-                'id' => 139,
+
                 'name' => 'Magic Wipeout\'s Magic Pen',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2669,7 +2603,7 @@ class ProductsTableSeeder extends Seeder
             ),
             106 =>
             array(
-                'id' => 140,
+
                 'name' => 'Kids Printed Water Bottle',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2694,7 +2628,7 @@ class ProductsTableSeeder extends Seeder
             ),
             107 =>
             array(
-                'id' => 141,
+
                 'name' => 'Kids Printed and Solid Napkins Pack of 6',
                 'id_categories' => 12,
                 'id_objects' => 4,
@@ -2719,7 +2653,7 @@ class ProductsTableSeeder extends Seeder
             ),
             108 =>
             array(
-                'id' => 142,
+
                 'name' => 'Unisex Graphic Print Zip Closure School Bag',
                 'id_categories' => 9,
                 'id_objects' => 4,
@@ -2744,7 +2678,7 @@ class ProductsTableSeeder extends Seeder
             ),
             109 =>
             array(
-                'id' => 143,
+
                 'name' => 'Boys Printed Embroidered Pokemon Pikachu Cap',
                 'id_categories' => 12,
                 'id_objects' => 4,

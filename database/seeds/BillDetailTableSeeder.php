@@ -12,14 +12,14 @@ class BillDetailTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('bill_detail')->delete();
-        
-        \DB::table('bill_detail')->insert(array (
-            0 => 
-            array (
-                'id' => 134,
+
+        \DB::table('bill_detail')->insert(array(
+            0 =>
+            array(
+
                 'id_bill' => 121,
                 'id_product' => 87,
                 'name_products' => 'Womens 5 Pocket Mild Wash Jeans',
@@ -37,9 +37,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:32:41',
                 'deleted_at' => NULL,
             ),
-            1 => 
-            array (
-                'id' => 138,
+            1 =>
+            array(
+
                 'id_bill' => 124,
                 'id_product' => 41,
                 'name_products' => 'Mens Leather Slipon Loafers',
@@ -57,9 +57,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:32:31',
                 'deleted_at' => NULL,
             ),
-            2 => 
-            array (
-                'id' => 139,
+            2 =>
+            array(
+
                 'id_bill' => 125,
                 'id_product' => 113,
                 'name_products' => 'Womens Mandarin Collar Checked Top',
@@ -77,9 +77,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:32:20',
                 'deleted_at' => NULL,
             ),
-            3 => 
-            array (
-                'id' => 140,
+            3 =>
+            array(
+
                 'id_bill' => 126,
                 'id_product' => 113,
                 'name_products' => 'Womens Mandarin Collar Checked Top',
@@ -97,9 +97,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-23 11:43:23',
                 'deleted_at' => NULL,
             ),
-            4 => 
-            array (
-                'id' => 141,
+            4 =>
+            array(
+
                 'id_bill' => 127,
                 'id_product' => 112,
                 'name_products' => 'Womens Round Neck Slub Top',
@@ -117,9 +117,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:32:05',
                 'deleted_at' => NULL,
             ),
-            5 => 
-            array (
-                'id' => 142,
+            5 =>
+            array(
+
                 'id_bill' => 128,
                 'id_product' => 78,
                 'name_products' => 'Womens Washed Casual Shirt Dress',
@@ -137,9 +137,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:56',
                 'deleted_at' => NULL,
             ),
-            6 => 
-            array (
-                'id' => 143,
+            6 =>
+            array(
+
                 'id_bill' => 129,
                 'id_product' => 78,
                 'name_products' => 'Womens Washed Casual Shirt Dress',
@@ -157,9 +157,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:43',
                 'deleted_at' => NULL,
             ),
-            7 => 
-            array (
-                'id' => 144,
+            7 =>
+            array(
+
                 'id_bill' => 130,
                 'id_product' => 112,
                 'name_products' => 'Womens Round Neck Slub Top',
@@ -177,9 +177,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:36',
                 'deleted_at' => NULL,
             ),
-            8 => 
-            array (
-                'id' => 145,
+            8 =>
+            array(
+
                 'id_bill' => 131,
                 'id_product' => 78,
                 'name_products' => 'Womens Washed Casual Shirt Dress',
@@ -197,9 +197,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-24 11:44:04',
                 'deleted_at' => '2020-04-24 11:44:04',
             ),
-            9 => 
-            array (
-                'id' => 146,
+            9 =>
+            array(
+
                 'id_bill' => 132,
                 'id_product' => 78,
                 'name_products' => 'Womens Washed Casual Shirt Dress',
@@ -217,9 +217,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-23 11:43:23',
                 'deleted_at' => NULL,
             ),
-            10 => 
-            array (
-                'id' => 147,
+            10 =>
+            array(
+
                 'id_bill' => 133,
                 'id_product' => 109,
                 'name_products' => 'Womens Mandarin Collar Floral Print Kurti',
@@ -237,9 +237,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-23 11:43:23',
                 'deleted_at' => NULL,
             ),
-            11 => 
-            array (
-                'id' => 148,
+            11 =>
+            array(
+
                 'id_bill' => 134,
                 'id_product' => 94,
                 'name_products' => 'Womens Zip Closure Satchel Handbag',
@@ -257,9 +257,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:29',
                 'deleted_at' => NULL,
             ),
-            12 => 
-            array (
-                'id' => 149,
+            12 =>
+            array(
+
                 'id_bill' => 135,
                 'id_product' => 112,
                 'name_products' => 'Womens Round Neck Slub Top',
@@ -277,9 +277,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-23 11:43:23',
                 'deleted_at' => NULL,
             ),
-            13 => 
-            array (
-                'id' => 150,
+            13 =>
+            array(
+
                 'id_bill' => 136,
                 'id_product' => 91,
                 'name_products' => 'Womens 5 Pocket Distressed Jeans',
@@ -297,9 +297,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-23 11:43:23',
                 'deleted_at' => NULL,
             ),
-            14 => 
-            array (
-                'id' => 151,
+            14 =>
+            array(
+
                 'id_bill' => 136,
                 'id_product' => 137,
                 'name_products' => 'Boys Digital Nylon Watch',
@@ -317,9 +317,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:34:13',
                 'deleted_at' => '2020-04-12 08:33:13',
             ),
-            15 => 
-            array (
-                'id' => 152,
+            15 =>
+            array(
+
                 'id_bill' => 136,
                 'id_product' => 131,
                 'name_products' => 'Kids Printed and Solid Socks - Pack of 3',
@@ -337,9 +337,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:34:18',
                 'deleted_at' => '2020-04-12 08:33:13',
             ),
-            16 => 
-            array (
-                'id' => 153,
+            16 =>
+            array(
+
                 'id_bill' => 137,
                 'id_product' => 112,
                 'name_products' => 'Womens Round Neck Slub Top',
@@ -357,9 +357,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:16',
                 'deleted_at' => NULL,
             ),
-            17 => 
-            array (
-                'id' => 154,
+            17 =>
+            array(
+
                 'id_bill' => 138,
                 'id_product' => 103,
                 'name_products' => 'Womens Casual Wear Slipon Ballerinas',
@@ -377,9 +377,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:31:01',
                 'deleted_at' => NULL,
             ),
-            18 => 
-            array (
-                'id' => 155,
+            18 =>
+            array(
+
                 'id_bill' => 139,
                 'id_product' => 76,
                 'name_products' => 'Womens V Neck Printed A-Line Dress',
@@ -397,9 +397,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:30:50',
                 'deleted_at' => NULL,
             ),
-            19 => 
-            array (
-                'id' => 156,
+            19 =>
+            array(
+
                 'id_bill' => 140,
                 'id_product' => 86,
                 'name_products' => 'Womens 5 Pocket Rinse Wash Jeans',
@@ -417,9 +417,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:39:18',
                 'deleted_at' => NULL,
             ),
-            20 => 
-            array (
-                'id' => 157,
+            20 =>
+            array(
+
                 'id_bill' => 140,
                 'id_product' => 17,
                 'name_products' => 'Mens Round Neck Stripe T-Shirt',
@@ -437,9 +437,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 10:30:39',
                 'deleted_at' => NULL,
             ),
-            21 => 
-            array (
-                'id' => 158,
+            21 =>
+            array(
+
                 'id_bill' => 141,
                 'id_product' => 94,
                 'name_products' => 'Womens Zip Closure Satchel Handbag',
@@ -457,9 +457,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-15 22:11:07',
                 'deleted_at' => NULL,
             ),
-            22 => 
-            array (
-                'id' => 159,
+            22 =>
+            array(
+
                 'id_bill' => 142,
                 'id_product' => 91,
                 'name_products' => 'Womens 5 Pocket Distressed Jeans',
@@ -477,9 +477,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 11:08:25',
                 'deleted_at' => NULL,
             ),
-            23 => 
-            array (
-                'id' => 160,
+            23 =>
+            array(
+
                 'id_bill' => 142,
                 'id_product' => 41,
                 'name_products' => 'Mens Leather Slipon Loafers',
@@ -497,9 +497,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 11:08:27',
                 'deleted_at' => NULL,
             ),
-            24 => 
-            array (
-                'id' => 161,
+            24 =>
+            array(
+
                 'id_bill' => 143,
                 'id_product' => 108,
                 'name_products' => 'Womens Surplice Neck Striped Top',
@@ -517,9 +517,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 11:24:32',
                 'deleted_at' => NULL,
             ),
-            25 => 
-            array (
-                'id' => 162,
+            25 =>
+            array(
+
                 'id_bill' => 144,
                 'id_product' => 78,
                 'name_products' => 'Womens Washed Casual Shirt Dress',
@@ -537,9 +537,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 14:54:33',
                 'deleted_at' => '2020-04-22 14:54:33',
             ),
-            26 => 
-            array (
-                'id' => 163,
+            26 =>
+            array(
+
                 'id_bill' => 144,
                 'id_product' => 112,
                 'name_products' => 'Womens Round Neck Slub Top',
@@ -557,9 +557,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 14:54:33',
                 'deleted_at' => '2020-04-22 14:54:33',
             ),
-            27 => 
-            array (
-                'id' => 173,
+            27 =>
+            array(
+
                 'id_bill' => 148,
                 'id_product' => 14,
                 'name_products' => 'Mens Round Neck Printed T-Shirt',
@@ -577,9 +577,9 @@ class BillDetailTableSeeder extends Seeder
                 'updated_at' => '2020-04-22 11:08:42',
                 'deleted_at' => '2020-04-22 11:08:42',
             ),
-            28 => 
-            array (
-                'id' => 191,
+            28 =>
+            array(
+
                 'id_bill' => 161,
                 'id_product' => 77,
                 'name_products' => 'Womens Surplice Neck Solid A-Line Dress',
@@ -598,7 +598,5 @@ class BillDetailTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

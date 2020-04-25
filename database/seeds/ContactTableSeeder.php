@@ -12,14 +12,13 @@ class ContactTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('contact')->delete();
-        
-        \DB::table('contact')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+
+        \DB::table('contact')->insert(array(
+            0 =>
+            array(
                 'name' => 'abcabc',
                 'email' => 'abcabc@gmail.com',
                 'message' => 'abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc',
@@ -28,9 +27,8 @@ class ContactTableSeeder extends Seeder
                 'updated_at' => '2020-04-21 13:56:58',
                 'deleted_at' => NULL,
             ),
-            1 => 
-            array (
-                'id' => 2,
+            1 =>
+            array(
                 'name' => 'Lê Đăng Khôi',
                 'email' => 'ldkhoi100@gmail.com',
                 'message' => 'Lê Đăng KhôiLê ĐănLê Đăng Khôig Khôi',
@@ -40,7 +38,5 @@ class ContactTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

@@ -12,14 +12,13 @@ class BannersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('banners')->delete();
-        
-        \DB::table('banners')->insert(array (
-            0 => 
-            array (
-                'id' => 2,
+
+        \DB::table('banners')->insert(array(
+            0 =>
+            array(
                 'id_objects' => 2,
                 'link' => '/shop/men',
                 'image' => 'wTgXi_banner-1.jpg',
@@ -31,9 +30,9 @@ class BannersTableSeeder extends Seeder
                 'updated_at' => '2020-04-02 21:55:30',
                 'deleted_at' => NULL,
             ),
-            1 => 
-            array (
-                'id' => 3,
+            1 =>
+            array(
+
                 'id_objects' => 3,
                 'link' => '/shop/women',
                 'image' => 'PizDj_banner-2.jpg',
@@ -45,9 +44,9 @@ class BannersTableSeeder extends Seeder
                 'updated_at' => '2020-04-02 21:55:36',
                 'deleted_at' => NULL,
             ),
-            2 => 
-            array (
-                'id' => 4,
+            2 =>
+            array(
+
                 'id_objects' => 4,
                 'link' => '/shop/kid',
                 'image' => 'r4aKE_banner-3.jpg',
@@ -59,9 +58,9 @@ class BannersTableSeeder extends Seeder
                 'updated_at' => '2020-04-02 21:55:41',
                 'deleted_at' => NULL,
             ),
-            3 => 
-            array (
-                'id' => 6,
+            3 =>
+            array(
+
                 'id_objects' => 5,
                 'link' => 'Lê Đăng Khôi',
                 'image' => 'r8IsB_insta-2.jpg',
@@ -74,7 +73,5 @@ class BannersTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
     }
 }

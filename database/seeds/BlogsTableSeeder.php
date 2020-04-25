@@ -12,14 +12,13 @@ class BlogsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('blogs')->delete();
-        
-        \DB::table('blogs')->insert(array (
-            0 => 
-            array (
-                'id' => 4,
+
+        \DB::table('blogs')->insert(array(
+            0 =>
+            array(
                 'title' => 'REAL TALK: WHAT BRINGS YOU HERE?',
                 'description' => '<p><img alt="" src="https://www.hellofashionblog.com/wp-content/uploads/2020/02/Photo-Feb-13-1-58-48-PM-720x841.jpg" style="height:841px; width:720px" /></p>
 
@@ -64,22 +63,21 @@ class BlogsTableSeeder extends Seeder
 <p>My blog, like my clothing line ILY Couture, has always gradually evolved with me. For those of you who may not remember, I started ILY when I was engaged and looking for some headpieces to wear to my wedding. I couldn&rsquo;t find what I wanted, so I decided to make my own! From there, it evolved to jewelry, women and kids clothing and more. I remember when I got pregnant with Beckam, we made our &lsquo;Preggers&rsquo; tee, and then our iconic &lsquo;Wifey&rsquo; tee. Hello Fashion has been evolving also &ndash; initially just fashion, then expanding to include family and lifestyle, beauty, travel, home decor, and more. I feel like you guys are truly friends and I love the community we&rsquo;ve created, so it feels right to share the natural progression of my life.</p>
 
 <p>After having Ollie I did a Q&amp;A on insta and asked what you missed seeing and people said fashion. I hadn&rsquo;t even realized it but None of my recent pictures on Insta were in jeans, but then upon a closer look I realized I had barely posted jeans in the year prior (part of that was just living in swimsuits and dresses during my pregnancy 🙂 and it occurred to me how much my brand has grown to be more lifestyle than just fashion. I have always loved fashion and love sharing my new finds with you guys, but as I&rsquo;ve been trying to reflect on my brand, I wanted to give you guys a chance to weigh in. The last thing I want this to be is asking you guys &lsquo;What content do you want to see more of?&rdquo; that has been so prevalent this year. But for those of you who read here &ndash; what do you love the most? &nbsp;fashion and street style? Or do you prefer the family content at home?&nbsp; I would love to hear your thoughts below. And thank you guys from the bottom of my heart for being here throughout this journey of life. 🙂 Hope you guys are all staying safe during the quarantine!</p>',
-                    'image' => '7eOVN_Photo-Feb-13-3-16-12-PM-1024x1365.jpg',
-                    'id_categories' => 13,
-                    'id_objects' => 5,
-                    'view_count' => 14,
-                    'user_created' => 'ldkhoi100',
-                    'user_updated' => 'ldkhoi100',
-                    'user_deleted' => 'ldkhoi97',
-                    'created_at' => '2020-03-30 15:04:47',
-                    'updated_at' => '2020-04-21 10:41:37',
-                    'deleted_at' => NULL,
-                ),
-                1 => 
-                array (
-                    'id' => 5,
-                    'title' => '17 WAYS TO TURN QUARANTINE INTO QUALITY TIME WITH THE KIDS',
-                    'description' => '<p>With everything going on in the world right now, one thing I find peace in is being able to be with my kids. Although it can be hard to give them structure, keep up with homeschooling, prepare 3 meals a day, and still keep up with work at the same time. We get so caught up in the things we &lsquo;have to&rsquo; do, that we might forget to take advantage of the time together with our family and just play! Here is a list of 17 ways to turn quarantine time into quality time together and maybe even overshadow this chapter of our lives with unforgettable memories together.</p>
+                'image' => '7eOVN_Photo-Feb-13-3-16-12-PM-1024x1365.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 14,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => 'ldkhoi100',
+                'user_deleted' => 'ldkhoi97',
+                'created_at' => '2020-03-30 15:04:47',
+                'updated_at' => '2020-04-21 10:41:37',
+                'deleted_at' => NULL,
+            ),
+            1 =>
+            array(
+                'title' => '17 WAYS TO TURN QUARANTINE INTO QUALITY TIME WITH THE KIDS',
+                'description' => '<p>With everything going on in the world right now, one thing I find peace in is being able to be with my kids. Although it can be hard to give them structure, keep up with homeschooling, prepare 3 meals a day, and still keep up with work at the same time. We get so caught up in the things we &lsquo;have to&rsquo; do, that we might forget to take advantage of the time together with our family and just play! Here is a list of 17 ways to turn quarantine time into quality time together and maybe even overshadow this chapter of our lives with unforgettable memories together.</p>
 
 <p>&nbsp;</p>
 
@@ -194,22 +192,21 @@ class BlogsTableSeeder extends Seeder
 <p><strong>Let them be the boss for the day:&nbsp;Granted, you might have to add some parameters depending on the direction they go, but let your kids rule the roost for the day! They can have their choice between a few options for dinner, decide on games, activities, etc. &ndash; such a fun opportunity to see what they would do on their dream day!</strong></p>
 
 <p>I would love to keep the list going! If you guys want to add some fun ideas below in comments, I&rsquo;ll add a list of your additional ideas to the end of the post!</p>',
-                            'image' => 'iZxBU_40.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 4,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 15:55:49',
-                            'updated_at' => '2020-04-06 14:06:33',
-                            'deleted_at' => NULL,
-                        ),
-                        2 => 
-                        array (
-                            'id' => 6,
-                            'title' => 'THE 5 THINGS I’M LOVING LATELY',
-                            'description' => '<p><img alt="" src="https://www.hellofashionblog.com/wp-content/uploads/2018/11/GC6A8518.jpg" style="height:2047px; width:1360px" /><a href="https://www.hellofashionblog.com/2018/11/the-5-things-im-loving-lately.html#">PIN IT</a></p>
+                'image' => 'iZxBU_40.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 4,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 15:55:49',
+                'updated_at' => '2020-04-06 14:06:33',
+                'deleted_at' => NULL,
+            ),
+            2 =>
+            array(
+                'title' => 'THE 5 THINGS I’M LOVING LATELY',
+                'description' => '<p><img alt="" src="https://www.hellofashionblog.com/wp-content/uploads/2018/11/GC6A8518.jpg" style="height:2047px; width:1360px" /><a href="https://www.hellofashionblog.com/2018/11/the-5-things-im-loving-lately.html#">PIN IT</a></p>
 
 <p>&nbsp;</p>
 
@@ -294,22 +291,21 @@ class BlogsTableSeeder extends Seeder
 </ol>
 
 <p>What things have you been loving lately?! &nbsp;Hope you are all having a great week!</p>',
-                            'image' => 'YgwLD_GC6A8518.jpg',
-                            'id_categories' => 15,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:39:05',
-                            'updated_at' => '2020-04-05 09:37:57',
-                            'deleted_at' => NULL,
-                        ),
-                        3 => 
-                        array (
-                            'id' => 7,
-                            'title' => 'How to Wear Blue & Gray – Color Combinations for Blues & Greys in Menswear',
-                            'description' => '<p>The combination of blue &amp; gray is always stylish, while remaining conservative and perfect for the office. In this article, one in a series on classic color combinations, we take a look at the different ways to pair blue and gray.</p>
+                'image' => 'YgwLD_GC6A8518.jpg',
+                'id_categories' => 15,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:39:05',
+                'updated_at' => '2020-04-05 09:37:57',
+                'deleted_at' => NULL,
+            ),
+            3 =>
+            array(
+                'title' => 'How to Wear Blue & Gray – Color Combinations for Blues & Greys in Menswear',
+                'description' => '<p>The combination of blue &amp; gray is always stylish, while remaining conservative and perfect for the office. In this article, one in a series on classic color combinations, we take a look at the different ways to pair blue and gray.</p>
 
 <p>&nbsp;</p>
 
@@ -486,22 +482,21 @@ class BlogsTableSeeder extends Seeder
 <p>Atte Rytk&ouml;nen from Dress Like A wearing jeans and a gray jacket.</p>
 
 <p>Blue&nbsp;<a href="https://www.gentlemansgazette.com/how-wear-denim-shirt/" rel="noopener noreferrer" target="_blank" title="">denim shirts</a>&nbsp;have recently become a popular transitional garment, worn instead of dressier shirts with sports coats. Add a navy jacket, gray pants, and the aforementioned blue loafers, and you have a fantastic outfit.</p>',
-                            'image' => 'GXrVV_Windowpane-with-Gray-Windowpane-Tie-1324x1500.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:42:23',
-                            'updated_at' => '2020-04-05 16:24:02',
-                            'deleted_at' => NULL,
-                        ),
-                        4 => 
-                        array (
-                            'id' => 8,
-                            'title' => 'James Bond Style Rules – Menswear Secrets from 007',
-                            'description' => '<p>James Bond is one of the world&rsquo;s most famous fictional characters. His style is admired, copied, and adored by men around the world. Even though there are entire blogs and channels dedicated to the style of James Bond, it&rsquo;s not that easy to copy his look because on the one hand, you need a lot of dough, and on the other hand, you may not look like James Bond.</p>
+                'image' => 'GXrVV_Windowpane-with-Gray-Windowpane-Tie-1324x1500.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:42:23',
+                'updated_at' => '2020-04-05 16:24:02',
+                'deleted_at' => NULL,
+            ),
+            4 =>
+            array(
+                'title' => 'James Bond Style Rules – Menswear Secrets from 007',
+                'description' => '<p>James Bond is one of the world&rsquo;s most famous fictional characters. His style is admired, copied, and adored by men around the world. Even though there are entire blogs and channels dedicated to the style of James Bond, it&rsquo;s not that easy to copy his look because on the one hand, you need a lot of dough, and on the other hand, you may not look like James Bond.</p>
 
 <p>&nbsp;</p>
 
@@ -650,22 +645,21 @@ class BlogsTableSeeder extends Seeder
 <h2>11. James Bond Embraces The Suit</h2>
 
 <p>In 2020,&nbsp;<a href="https://www.gentlemansgazette.com/is-the-suit-dying/" rel="noopener" target="_blank" title="">the suit is, in many ways, dying</a>&nbsp;as a requirement in the workplace and people don&rsquo;t have to wear the suit anymore. At the same time, James Bond chooses to wear it because it gives him dignity, authority, and competence. Bond chooses to wear the suit because it&rsquo;s the classic hyper masculine garment that communicates power and authority, at the same time, he wears it because it makes him feel good and respected. The same is true for you. If you like the way&nbsp;<a href="https://www.gentlemansgazette.com/the-anatomy-suit-jacket/" rel="noopener" target="_blank" title="">suits</a>&nbsp;make you feel and be perceived, then by all means, go ahead and wear them even though people around you may not wear them anymore.</p>',
-                            'image' => 'S3q9J_Daniel-Craig-as-James-Bond-in-black-suit.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 2,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:44:23',
-                            'updated_at' => '2020-04-05 16:24:10',
-                            'deleted_at' => NULL,
-                        ),
-                        5 => 
-                        array (
-                            'id' => 9,
-                            'title' => '11 Bad Men’s Style “Rules” to Ignore',
-                            'description' => '<p>Here are a number of supposed style rules or pieces of advice that you may have heard before that we don&rsquo;t necessarily think you need to follow all the time or in some cases at all.</p>
+                'image' => 'S3q9J_Daniel-Craig-as-James-Bond-in-black-suit.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 2,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:44:23',
+                'updated_at' => '2020-04-05 16:24:10',
+                'deleted_at' => NULL,
+            ),
+            5 =>
+            array(
+                'title' => '11 Bad Men’s Style “Rules” to Ignore',
+                'description' => '<p>Here are a number of supposed style rules or pieces of advice that you may have heard before that we don&rsquo;t necessarily think you need to follow all the time or in some cases at all.</p>
 
 <p><img alt="" src="https://i.ytimg.com/vi/o9jZYFZT7Jo/hqdefault.jpg" style="height:360px; width:480px" /></p>
 
@@ -786,22 +780,22 @@ class BlogsTableSeeder extends Seeder
 <p>It&rsquo;s helpful to think of the principles of classic menswear more as guidelines and guardrails than hard and fast rules. Some of these can be bent some of them can be broken from time to time and some of them can be discarded completely. If you&rsquo;re just starting out on your menswear journey it can be helpful to follow some of these pieces of advice more closely so that you won&rsquo;t be making grave mistakes. As you become more experienced however by knowing more of these guidelines you&rsquo;ll be able to break them tastefully.</p>
 
 <p><strong>What did you think of our list? Are there any that you really think we got dead wrong in our advice? Do you think some of these rules should still be followed to the letter or do you have a different perspective? Whatever the case may be, share with us in the comments below.</strong></p>',
-                            'image' => 'eCx5U_Follow-the-trend.png',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:50:57',
-                            'updated_at' => '2020-04-05 16:24:14',
-                            'deleted_at' => NULL,
-                        ),
-                        6 => 
-                        array (
-                            'id' => 10,
-                            'title' => '7 Best Summer Accessories for Men – Warm Weather Style',
-                            'description' => '<p>Along with the heat, summer provides the opportunity to embrace the more casual side of classic menswear. Just because it&rsquo;s&nbsp;<a href="https://www.gentlemansgazette.com/summer-suits-cool-hot/" rel="noreferrer noopener" target="_blank">hot outside</a>&nbsp;doesn&rsquo;t mean you can&rsquo;t still dress well! At the same time, there are ways to look stylish without overheating, and we&rsquo;ve got a list of 7 must-have accessories that will help you to accomplish this goal.</p>
+                'image' => 'eCx5U_Follow-the-trend.png',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:50:57',
+                'updated_at' => '2020-04-05 16:24:14',
+                'deleted_at' => NULL,
+            ),
+            6 =>
+            array(
+
+                'title' => '7 Best Summer Accessories for Men – Warm Weather Style',
+                'description' => '<p>Along with the heat, summer provides the opportunity to embrace the more casual side of classic menswear. Just because it&rsquo;s&nbsp;<a href="https://www.gentlemansgazette.com/summer-suits-cool-hot/" rel="noreferrer noopener" target="_blank">hot outside</a>&nbsp;doesn&rsquo;t mean you can&rsquo;t still dress well! At the same time, there are ways to look stylish without overheating, and we&rsquo;ve got a list of 7 must-have accessories that will help you to accomplish this goal.</p>
 
 <p>&nbsp;</p>
 
@@ -854,22 +848,22 @@ class BlogsTableSeeder extends Seeder
 <p><a href="https://www.gentlemansgazette.com/shop/accessories/pocket-square-handkerchief/light-blue-linen-pocket-square-yellow-x-stitches-fort-belvedere" rel="noreferrer noopener" target="_blank">Light Blue Linen Pocket Square with Yellow Handrolled X Stitch &ndash; Fort Belvedere</a></p>
 
 <p>For example, if you have a blue and white&nbsp;<a href="https://www.gentlemansgazette.com/stripes-menswear-different-types/" rel="noreferrer noopener" target="_blank">striped shirt</a>, consider wearing it with a white linen pocket square that has a blue contrasting X-stitch, so that you pick up the colors of the shirt in the pocket square and it&rsquo;s all harmonious. Alternatively, you could have a white pocket square with&nbsp;<a href="https://www.gentlemansgazette.com/shop/accessories/pocket-square-handkerchief/white-linen-pocket-square-blue-polka-dots-spots-fort-belvedere" rel="noreferrer noopener" target="_blank">blue hand-embroidered polka dots</a>, or maybe you want to coordinate the pocket square with something else in your outfit. So light pastel colors in blue, red, or yellow are fantastic because they&rsquo;re very summery. Again, just like with the ties, if you have a warp and a weft with one color in white and the other in a different brighter color, it results in a three-dimensional color depth which is very summery and ideal for the warm months of the year. Of course, you can also wear a summery&nbsp;<a href="https://www.gentlemansgazette.com/shop/accessories/pocket-square-handkerchief/silk-pocket-squares-handkerchiefs" rel="noreferrer noopener" target="_blank">silk pocket square</a>, maybe in white and bolder lighter colors, or perhaps a silk-blend pocket square in an orange color that works well.</p>',
-                            'image' => 'dF7iq_7-best-summer-accessories_3870x1440-900x342.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:51:37',
-                            'updated_at' => '2020-03-30 16:51:37',
-                            'deleted_at' => NULL,
-                        ),
-                        7 => 
-                        array (
-                            'id' => 11,
-                            'title' => 'Summer Accessories & Clothes 2013 – MRket',
-                            'description' => '<p>After we introduced some&nbsp;<a href="https://www.gentlemansgazette.com/mrket-people-outfits-details/" rel="noopener noreferrer" target="_blank" title="MRKet People, Outfits &amp; Details">stylish people and their outfits</a>&nbsp;at&nbsp;<a href="https://www.gentlemansgazette.com/mrket-new-york-first/" rel="noopener noreferrer" target="_blank" title="MRket New York First Day">MRket in New York</a>, I would like to focus on the accessories and clothes presented at the show.&nbsp;All of these items will be available for the 2013 Spring / Summer season, so take a look what you can expect to see in stores next&nbsp;<a href="https://www.gentlemansgazette.com/summer-fabrics-guide/" rel="noopener noreferrer" target="_blank" title="Summer Fabrics Guide – Suiting, Shirt &amp; Pants for Hot Weather">summer</a>.</p>
+                'image' => 'dF7iq_7-best-summer-accessories_3870x1440-900x342.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:51:37',
+                'updated_at' => '2020-03-30 16:51:37',
+                'deleted_at' => NULL,
+            ),
+            7 =>
+            array(
+
+                'title' => 'Summer Accessories & Clothes 2013 – MRket',
+                'description' => '<p>After we introduced some&nbsp;<a href="https://www.gentlemansgazette.com/mrket-people-outfits-details/" rel="noopener noreferrer" target="_blank" title="MRKet People, Outfits &amp; Details">stylish people and their outfits</a>&nbsp;at&nbsp;<a href="https://www.gentlemansgazette.com/mrket-new-york-first/" rel="noopener noreferrer" target="_blank" title="MRket New York First Day">MRket in New York</a>, I would like to focus on the accessories and clothes presented at the show.&nbsp;All of these items will be available for the 2013 Spring / Summer season, so take a look what you can expect to see in stores next&nbsp;<a href="https://www.gentlemansgazette.com/summer-fabrics-guide/" rel="noopener noreferrer" target="_blank" title="Summer Fabrics Guide – Suiting, Shirt &amp; Pants for Hot Weather">summer</a>.</p>
 
 <h2>Borsalino Hats</h2>
 
@@ -976,22 +970,22 @@ class BlogsTableSeeder extends Seeder
 <p>&nbsp;</p>
 
 <p><strong>Tags:</strong>&nbsp;<a href="https://www.gentlemansgazette.com/tag/borsalino/" rel="tag">Borsalino</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/mrket/" rel="tag">Mrket</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/panama-hat/" rel="tag">Panama Hat</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/pocket-square/" rel="tag">Pocket Square</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/pocket-squares/" rel="tag">pocket squares</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/schneiders-salzburg/" rel="tag">Schneider&#39;s Salzburg</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/seaward-stern/" rel="tag">Seaward &amp; Stern</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/swimwear/" rel="tag">Swimwear</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/without-prejudice/" rel="tag">Without Prejudice</a></p>',
-                            'image' => 'TXtVJ_Summer-Accessories-Clothes-MRket-2012.jpeg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:54:52',
-                            'updated_at' => '2020-03-30 16:54:52',
-                            'deleted_at' => NULL,
-                        ),
-                        8 => 
-                        array (
-                            'id' => 12,
-                            'title' => 'Clothes for College Men in Fall – Apparel Arts 1933',
-                        'description' => '<p>First issued in 1931, Apparel Arts (AA) soon became the leading magazine for the men&rsquo;s clothing trade &amp; haberdasheries in the USA. An AA article&nbsp;from 1933 focuses on<em>&nbsp;out of town clothing,</em>&nbsp;beginning with college fashion at the time. Undoubtedly, college students were much better dressed than their peers today, and hence it is very interesting to see how meticulously all the essentials of a young collegiate&rsquo;s wardrobe was described.&nbsp; In order to help the reader to visualize the fine clothing items better, famous illustrator&nbsp;<a href="https://www.gentlemansgazette.com/laurence-fellows-fashion-illustrator/" rel="noopener" target="_blank" title="Laurence Fellows – An Iconic Fashion Illustrator"><em>Laurence Fellows</em></a>&nbsp;sketched a fashion forecast as well. In the following we will explain the illustration, and subsequently, you will be able to read the original article about College Fashion from 1933.</p>
+                'image' => 'TXtVJ_Summer-Accessories-Clothes-MRket-2012.jpeg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:54:52',
+                'updated_at' => '2020-03-30 16:54:52',
+                'deleted_at' => NULL,
+            ),
+            8 =>
+            array(
+
+                'title' => 'Clothes for College Men in Fall – Apparel Arts 1933',
+                'description' => '<p>First issued in 1931, Apparel Arts (AA) soon became the leading magazine for the men&rsquo;s clothing trade &amp; haberdasheries in the USA. An AA article&nbsp;from 1933 focuses on<em>&nbsp;out of town clothing,</em>&nbsp;beginning with college fashion at the time. Undoubtedly, college students were much better dressed than their peers today, and hence it is very interesting to see how meticulously all the essentials of a young collegiate&rsquo;s wardrobe was described.&nbsp; In order to help the reader to visualize the fine clothing items better, famous illustrator&nbsp;<a href="https://www.gentlemansgazette.com/laurence-fellows-fashion-illustrator/" rel="noopener" target="_blank" title="Laurence Fellows – An Iconic Fashion Illustrator"><em>Laurence Fellows</em></a>&nbsp;sketched a fashion forecast as well. In the following we will explain the illustration, and subsequently, you will be able to read the original article about College Fashion from 1933.</p>
 
 <p><img alt="Apparel Arts - Laurence Fellows - Clothes for College" src="https://www.gentlemansgazette.com/wp-content/uploads/2010/09/Apparel-Arts-Laurence-Fellows-Clothes-for-College-273x320.webp" title="Apparel Arts - Laurence Fellows - Clothes for College" /></p>
 
@@ -1084,22 +1078,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 
 <p>This gives you a very definite example of what to offer college men, both, from the angle of what they need and what is smart.</p>
 </blockquote>',
-                            'image' => 'bNI8R_Apparel-Arts-College-Clothes.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:55:37',
-                            'updated_at' => '2020-03-30 16:55:37',
-                            'deleted_at' => NULL,
-                        ),
-                        9 => 
-                        array (
-                            'id' => 13,
-                            'title' => 'The Formality Scale: How Clothes Rank From Formal To Informal',
-                            'description' => '<p>One of the key tenets of classic style is to always dress appropriately for the occasion, which is most often stipulated by the required level of formality. But which articles of clothing are appropriate to different levels of formality, and how do they rank in comparison to one another? For&nbsp;<a href="https://www.gentlemansgazette.com/the-queen-garden-party/" rel="nofollow noopener noreferrer" target="_blank" title="The Queen’s Garden Party: An Opportunity for Morning Wear">an event hosted by Queen Elizabeth II</a>, you&rsquo;d select different items than you would for&nbsp;<a href="https://www.gentlemansgazette.com/how-to-get-ahead/" rel="noopener noreferrer" target="_blank" title="How To Get Ahead At The Office">office</a>&nbsp;work or for a weekend brunch with friends.&nbsp; In this article, we present some general principles to determine the formality of nearly any<strong>&nbsp;</strong>menswear item and provide you with a list of clues to recognize where they fall on the scale of casual to formal.</p>
+                'image' => 'bNI8R_Apparel-Arts-College-Clothes.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:55:37',
+                'updated_at' => '2020-03-30 16:55:37',
+                'deleted_at' => NULL,
+            ),
+            9 =>
+            array(
+
+                'title' => 'The Formality Scale: How Clothes Rank From Formal To Informal',
+                'description' => '<p>One of the key tenets of classic style is to always dress appropriately for the occasion, which is most often stipulated by the required level of formality. But which articles of clothing are appropriate to different levels of formality, and how do they rank in comparison to one another? For&nbsp;<a href="https://www.gentlemansgazette.com/the-queen-garden-party/" rel="nofollow noopener noreferrer" target="_blank" title="The Queen’s Garden Party: An Opportunity for Morning Wear">an event hosted by Queen Elizabeth II</a>, you&rsquo;d select different items than you would for&nbsp;<a href="https://www.gentlemansgazette.com/how-to-get-ahead/" rel="noopener noreferrer" target="_blank" title="How To Get Ahead At The Office">office</a>&nbsp;work or for a weekend brunch with friends.&nbsp; In this article, we present some general principles to determine the formality of nearly any<strong>&nbsp;</strong>menswear item and provide you with a list of clues to recognize where they fall on the scale of casual to formal.</p>
 
 <h2>The General Rules of Formality</h2>
 
@@ -1316,22 +1310,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p><a href="https://www.gentlemansgazette.com/wp-content/uploads/2018/04/moccassins.jpg"><img alt="Soft, less structured loafer (top) and more structured loafer (bottom)" src="https://www.gentlemansgazette.com/wp-content/uploads/2018/04/moccassins-1030x1030.jpg" /></a></p>
 
 <p>Soft, less structured loafer (top) and more structured loafer (bottom)</p>',
-                            'image' => '5762h_formality-scale-900x342.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:56:56',
-                            'updated_at' => '2020-03-31 14:10:34',
-                            'deleted_at' => NULL,
-                        ),
-                        10 => 
-                        array (
-                            'id' => 14,
-                            'title' => 'Film: Gosford Park and the Clothes',
-                            'description' => '<p>Today, it is again time for a film review, and so we would like to present you&nbsp;<em>Gosford Park&nbsp;</em>by<em>&nbsp;Robert Altman&nbsp;</em>and<em>&nbsp;Julian Fellowes.&nbsp;</em>The film was nominated for 7 Oscars. It is an entertaining murder mystery&nbsp;with an excellent cast, which is&nbsp;a study of the British class system in the 1930&rsquo;s with all its intricacies, problems and infidelities. As you have likely&nbsp;guessed, we will focus on the 1930&rsquo;s period clothing worn by the male actors.</p>
+                'image' => '5762h_formality-scale-900x342.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:56:56',
+                'updated_at' => '2020-03-31 14:10:34',
+                'deleted_at' => NULL,
+            ),
+            10 =>
+            array(
+
+                'title' => 'Film: Gosford Park and the Clothes',
+                'description' => '<p>Today, it is again time for a film review, and so we would like to present you&nbsp;<em>Gosford Park&nbsp;</em>by<em>&nbsp;Robert Altman&nbsp;</em>and<em>&nbsp;Julian Fellowes.&nbsp;</em>The film was nominated for 7 Oscars. It is an entertaining murder mystery&nbsp;with an excellent cast, which is&nbsp;a study of the British class system in the 1930&rsquo;s with all its intricacies, problems and infidelities. As you have likely&nbsp;guessed, we will focus on the 1930&rsquo;s period clothing worn by the male actors.</p>
 
 <h2>The Story</h2>
 
@@ -1470,22 +1464,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p>You can find the movie at&nbsp;<a href="http://buy.geni.us/Proxy.ashx?TSID=12980&amp;GR_URL=http%3A%2F%2Famzn.to%2F2d2Ry3m" rel="nofollow noopener" target="_blank">Gosford Park here</a>.</p>
 
 <p><strong>Tags:</strong>&nbsp;<a href="https://www.gentlemansgazette.com/tag/country/" rel="tag">country</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/dressing-gown/" rel="tag">dressing gown</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/film/" rel="tag">film</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/gosford-park/" rel="tag">Gosford Park</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/shooting/" rel="tag">shooting</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/tweed/" rel="tag">tweed</a>,&nbsp;<a href="https://www.gentlemansgazette.com/tag/white-tie/" rel="tag">white tie</a></p>',
-                            'image' => 'NiOqo_Gosford_park.jpg',
-                            'id_categories' => 13,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:57:41',
-                            'updated_at' => '2020-03-30 16:57:41',
-                            'deleted_at' => NULL,
-                        ),
-                        11 => 
-                        array (
-                            'id' => 15,
-                            'title' => 'Pros and Cons of Buying Vintage Clothing',
-                            'description' => '<p>If you&rsquo;re anything like me, for example, not only do you enjoy learning about classic menswear but you enjoy wearing it as well and while it is possible to assemble a classically styled outfit using only more contemporary pieces, turning your attention to consignment stores, second-hand shops and so on to look for vintage pieces will also be a fantastic option. Still, buying vintage isn&rsquo;t always a breeze.</p>
+                'image' => 'NiOqo_Gosford_park.jpg',
+                'id_categories' => 13,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:57:41',
+                'updated_at' => '2020-03-30 16:57:41',
+                'deleted_at' => NULL,
+            ),
+            11 =>
+            array(
+
+                'title' => 'Pros and Cons of Buying Vintage Clothing',
+                'description' => '<p>If you&rsquo;re anything like me, for example, not only do you enjoy learning about classic menswear but you enjoy wearing it as well and while it is possible to assemble a classically styled outfit using only more contemporary pieces, turning your attention to consignment stores, second-hand shops and so on to look for vintage pieces will also be a fantastic option. Still, buying vintage isn&rsquo;t always a breeze.</p>
 
 <p><img alt="" src="https://i.ytimg.com/vi/YePVJu2JbTQ/hqdefault.jpg" style="height:360px; width:480px" /></p>
 
@@ -1542,22 +1536,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <h3>8. Vintage Pieces Make For A Great Conversation Starter.</h3>
 
 <p>Finally in the positives category, buying and wearing vintage provides a great&nbsp;<a href="https://www.gentlemansgazette.com/how-to-get-to-know-someone/" rel="noreferrer noopener" target="_blank">conversation starter</a>&nbsp;for those who might be especially curious about what you&rsquo;re wearing. For example, a comment on your vintage tie might get another&nbsp;<a href="https://www.gentlemansgazette.com/gentleman-what-it-means-today/" rel="noreferrer noopener" target="_blank">gentleman</a>&nbsp;the path of dressing stylishly and as we all know in the vintage menswear community, the more the merrier.</p>',
-                            'image' => 'mfY8u_pros-cons-of-buying-vintage_3870x1440-900x342.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:58:42',
-                            'updated_at' => '2020-03-30 16:58:42',
-                            'deleted_at' => NULL,
-                        ),
-                        12 => 
-                        array (
-                            'id' => 16,
-                            'title' => 'Vintage Clothes & Interior Design by Sean Crowley & Meredith Modzelewski',
-                        'description' => '<p>The first time I heard about Sean Crowley was a few years ago, when Rose Callahan produced a&nbsp;<a href="http://dandyportraits.blogspot.com/2011/03/enormity-of-ties-with-mr-crowley.html" rel="noopener noreferrer" target="_blank" title="The Dandy Portraits: The Lives of Exquisite Gentlemen Today by Rose Callahan: The Enormity of Ties with Mr. Crowley">photo series</a>&nbsp;and&nbsp;<a href="https://www.gentlemansgazette.com/sean-crowley-tie-collector/" rel="noopener noreferrer" target="_blank" title="Sean Crowley - Tie Collector Extraordinaire — Gentleman\'s Gazette">video&nbsp;</a>about him and his&nbsp;<a href="https://www.gentlemansgazette.com/shop/ties?limit=all" rel="noopener noreferrer" target="_blank" title="Ties">tie</a>&nbsp;collection.&nbsp;Fascinated by his collection of vintage clothes, I contacted him afterwards and during my last trip to New York, I was finally able to meet Sean Crowley and his girlfriend&nbsp;<a href="https://twitter.com/meredithmo" rel="nofollow noopener noreferrer" target="_blank" title="Meredith Modzelewski (meredithmo) on Twitter">Meredith Modzelewski</a>. Now most of the coverage about Sean has evolved around his clothes, especially his&nbsp;<a href="https://www.gentlemansgazette.com/shop/ties?limit=all" rel="noopener noreferrer" target="_blank" title="Ties">ties</a>, but there is more to his story. While he has truly amassed a treasure of vintage clothes over the last decades, their Brooklyn apartment is fascinating tribute to their tastes &ndash; it is an expression of Sean &amp; Meredith&rsquo;s passion and lifestyle. Both of them have decorated their home together and it seams unfair just to mention him, especially because she has sacrificed a lot of closet / storage space for his collection.</p>
+                'image' => 'mfY8u_pros-cons-of-buying-vintage_3870x1440-900x342.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:58:42',
+                'updated_at' => '2020-03-30 16:58:42',
+                'deleted_at' => NULL,
+            ),
+            12 =>
+            array(
+
+                'title' => 'Vintage Clothes & Interior Design by Sean Crowley & Meredith Modzelewski',
+                'description' => '<p>The first time I heard about Sean Crowley was a few years ago, when Rose Callahan produced a&nbsp;<a href="http://dandyportraits.blogspot.com/2011/03/enormity-of-ties-with-mr-crowley.html" rel="noopener noreferrer" target="_blank" title="The Dandy Portraits: The Lives of Exquisite Gentlemen Today by Rose Callahan: The Enormity of Ties with Mr. Crowley">photo series</a>&nbsp;and&nbsp;<a href="https://www.gentlemansgazette.com/sean-crowley-tie-collector/" rel="noopener noreferrer" target="_blank" title="Sean Crowley - Tie Collector Extraordinaire — Gentleman\'s Gazette">video&nbsp;</a>about him and his&nbsp;<a href="https://www.gentlemansgazette.com/shop/ties?limit=all" rel="noopener noreferrer" target="_blank" title="Ties">tie</a>&nbsp;collection.&nbsp;Fascinated by his collection of vintage clothes, I contacted him afterwards and during my last trip to New York, I was finally able to meet Sean Crowley and his girlfriend&nbsp;<a href="https://twitter.com/meredithmo" rel="nofollow noopener noreferrer" target="_blank" title="Meredith Modzelewski (meredithmo) on Twitter">Meredith Modzelewski</a>. Now most of the coverage about Sean has evolved around his clothes, especially his&nbsp;<a href="https://www.gentlemansgazette.com/shop/ties?limit=all" rel="noopener noreferrer" target="_blank" title="Ties">ties</a>, but there is more to his story. While he has truly amassed a treasure of vintage clothes over the last decades, their Brooklyn apartment is fascinating tribute to their tastes &ndash; it is an expression of Sean &amp; Meredith&rsquo;s passion and lifestyle. Both of them have decorated their home together and it seams unfair just to mention him, especially because she has sacrificed a lot of closet / storage space for his collection.</p>
 
 <p><a href="https://www.gentlemansgazette.com/wp-content/uploads/2013/07/Meredith-Modzelewski-Sean-Crowley.webp"><img alt="Meredith Modzelewski &amp; Sean Crowley" src="https://www.gentlemansgazette.com/wp-content/uploads/2013/07/Meredith-Modzelewski-Sean-Crowley-600x400.webp" style="height:400px; width:600px" /></a></p>
 
@@ -1666,22 +1660,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p>A not so simple tray</p>
 
 <p>Hopefully, the two will start to sell some of their findings one day, so others with funds can benefit from their vintage expertise. In the meantime, take a look at the book&nbsp;<a href="http://buy.geni.us/Proxy.ashx?TSID=12980&amp;GR_URL=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fproduct%2F0847839591%2Fref%3Das_li_ss_tl%3Fie%3DUTF8%26camp%3D1789%26creative%3D390957%26creativeASIN%3D0847839591%26linkCode%3Das2%26tag%3Dgentsgaze-20" rel="nofollow" target="_blank" title="Heirloom Modern: Homes filled with objects bought, bequeathed, beloved, and worth handing down: Hollister Hovey, Porter Hovey: 9780847839599: Amazon.com: Books">Heirloom Modern</a>&nbsp;by&nbsp;<a href="http://hollisterhovey.blogspot.com/" rel="noopener noreferrer" target="_blank" title="Hollister Hovey">Hollister &amp; Porter Hovey</a>&nbsp;which featured Sean and Meredith along with others.</p>',
-                            'image' => 'D4LCg_Sean-Crowley.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 16:59:39',
-                            'updated_at' => '2020-03-30 16:59:39',
-                            'deleted_at' => NULL,
-                        ),
-                        13 => 
-                        array (
-                            'id' => 17,
-                            'title' => 'Top 30 Interior Design Books',
-                            'description' => '<p>In this article, we&rsquo;re going to share some of essential interior design books for your reading and designing pleasure.</p>
+                'image' => 'D4LCg_Sean-Crowley.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 16:59:39',
+                'updated_at' => '2020-03-30 16:59:39',
+                'deleted_at' => NULL,
+            ),
+            13 =>
+            array(
+
+                'title' => 'Top 30 Interior Design Books',
+                'description' => '<p>In this article, we&rsquo;re going to share some of essential interior design books for your reading and designing pleasure.</p>
 
 <p>&nbsp;</p>
 
@@ -1902,22 +1896,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p><a href="https://www.gentlemansgazette.com/wp-content/uploads/2016/07/The-Big-Book-of-Chic.webp"><img alt="The Big Book of Chic" src="https://www.gentlemansgazette.com/wp-content/uploads/2016/07/The-Big-Book-of-Chic-900x900.webp" style="height:900px; width:900px" /></a></p>
 
 <p><em>The Big Book of Chic</em></p>',
-                            'image' => 'CYgPJ_top-30-interior-design-books-900x342.jpg',
-                            'id_categories' => 14,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:00:27',
-                            'updated_at' => '2020-04-06 14:27:02',
-                            'deleted_at' => NULL,
-                        ),
-                        14 => 
-                        array (
-                            'id' => 18,
-                            'title' => 'My Top 10 Men’s Style Books',
-                            'description' => '<p>If you are a follower of the Gentleman&rsquo;s Gazette, you may very well know my fascination for all things classic menswear.</p>
+                'image' => 'CYgPJ_top-30-interior-design-books-900x342.jpg',
+                'id_categories' => 14,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:00:27',
+                'updated_at' => '2020-04-06 14:27:02',
+                'deleted_at' => NULL,
+            ),
+            14 =>
+            array(
+
+                'title' => 'My Top 10 Men’s Style Books',
+                'description' => '<p>If you are a follower of the Gentleman&rsquo;s Gazette, you may very well know my fascination for all things classic menswear.</p>
 
 <p>In today&rsquo;s article, I will share with you my top 10 men&rsquo;s style books, I explain why I chose them over others, I tell you which ones didn&rsquo;t make the list and why they didn&rsquo;t make it, and I mention other books that may make your top 10 list.</p>
 
@@ -2167,22 +2161,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <h2>8.&nbsp;I Am Dandy And We Are Dandy &ndash; Rose Callahan &amp; Nathaniel Adams</h2>
 
 <p>Also, I really like the books I am dandy and We are dandy by Rose Callahan and Nathaniel Adams that highlight unique personal style paired with a story of the people and how they created it.</p>',
-                            'image' => 'dKmiI_top-10-mens-style-books_3870x1440-900x342.jpg',
-                            'id_categories' => 14,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:01:01',
-                            'updated_at' => '2020-03-30 17:01:01',
-                            'deleted_at' => NULL,
-                        ),
-                        15 => 
-                        array (
-                            'id' => 19,
-                            'title' => 'How to Grow Facial Hair & Beards – Grooming, Styling, & Shaving Tips for Men',
-                            'description' => '<p>As beards &amp; facial hair are once again in fashion, you may also have felt a desire to grow a beard at some time or another. But what&rsquo;s the best way to let a beard grow&ndash;and is it true that some men have a more difficult time than others? In this guide, we&rsquo;re going to discuss how to grow thicker&nbsp;<a href="https://www.gentlemansgazette.com/beard-facial-hair-guide/" rel="noopener noreferrer" target="_blank" title="Beard &amp; Facial Hair Guide">facial hair</a>&nbsp;faster and how to fix a patchy beard.</p>
+                'image' => 'dKmiI_top-10-mens-style-books_3870x1440-900x342.jpg',
+                'id_categories' => 14,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:01:01',
+                'updated_at' => '2020-03-30 17:01:01',
+                'deleted_at' => NULL,
+            ),
+            15 =>
+            array(
+
+                'title' => 'How to Grow Facial Hair & Beards – Grooming, Styling, & Shaving Tips for Men',
+                'description' => '<p>As beards &amp; facial hair are once again in fashion, you may also have felt a desire to grow a beard at some time or another. But what&rsquo;s the best way to let a beard grow&ndash;and is it true that some men have a more difficult time than others? In this guide, we&rsquo;re going to discuss how to grow thicker&nbsp;<a href="https://www.gentlemansgazette.com/beard-facial-hair-guide/" rel="noopener noreferrer" target="_blank" title="Beard &amp; Facial Hair Guide">facial hair</a>&nbsp;faster and how to fix a patchy beard.</p>
 
 <p><img alt="" src="https://i.ytimg.com/vi/F9AghLoANmw/hqdefault.jpg" style="height:360px; width:480px" /></p>
 
@@ -2373,22 +2367,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p><a href="https://www.gentlemansgazette.com/wp-content/uploads/2016/08/Make-sure-you-outline-the-beard-so-it-looks-like-you-didnt-forget-to-shave.webp"><img alt="Make sure you outline the beard so it looks like you didnt forget to shave" src="https://www.gentlemansgazette.com/wp-content/uploads/2016/08/Make-sure-you-outline-the-beard-so-it-looks-like-you-didnt-forget-to-shave-900x675.webp" /></a></p>
 
 <p>Make sure you outline the beard so it looks like you didn&rsquo;t forget to shave</p>',
-                            'image' => '4iRmj_how-to-grow-facial-hair_3870x1440-900x342.jpg',
-                            'id_categories' => 14,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:01:59',
-                            'updated_at' => '2020-03-30 17:01:59',
-                            'deleted_at' => NULL,
-                        ),
-                        16 => 
-                        array (
-                            'id' => 20,
-                            'title' => 'Best Hair Products For Men: Science, Styling & More',
-                            'description' => '<p>The difficulty in finding a hair product that is best for your hair is the sheer flood products on the market. You can find anything from one dollar products to others that cost several hundred dollars but just because one thing is more expensive, it doesn&rsquo;t mean it is automatically better for you. Secondly, just because a hair product works well for your friend, it doesn&rsquo;t mean it&rsquo;s going to work for you simply because you may have very thick greasy&nbsp;<a href="https://www.gentlemansgazette.com/hairstyles-for-men-haircuts/" rel="noreferrer noopener" target="_blank">hair</a>&nbsp;when your friend has thin and dry hair.</p>
+                'image' => '4iRmj_how-to-grow-facial-hair_3870x1440-900x342.jpg',
+                'id_categories' => 14,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:01:59',
+                'updated_at' => '2020-03-30 17:01:59',
+                'deleted_at' => NULL,
+            ),
+            16 =>
+            array(
+
+                'title' => 'Best Hair Products For Men: Science, Styling & More',
+                'description' => '<p>The difficulty in finding a hair product that is best for your hair is the sheer flood products on the market. You can find anything from one dollar products to others that cost several hundred dollars but just because one thing is more expensive, it doesn&rsquo;t mean it is automatically better for you. Secondly, just because a hair product works well for your friend, it doesn&rsquo;t mean it&rsquo;s going to work for you simply because you may have very thick greasy&nbsp;<a href="https://www.gentlemansgazette.com/hairstyles-for-men-haircuts/" rel="noreferrer noopener" target="_blank">hair</a>&nbsp;when your friend has thin and dry hair.</p>
 
 <p>&nbsp;</p>
 
@@ -2526,22 +2520,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <h2>CONCLUSION</h2>
 
 <p>I urge you to check out the Environmental Working Group&rsquo;s Skin Deep Cosmetics Database. That is really the first step and if you go down that path, you&rsquo;ll have to invest a few hours but you&rsquo;ll be armed with more information and you know exactly what&rsquo;s good for your hair and what is not.</p>',
-                            'image' => 'AAMma_hair-product-guide_3870x1440-900x342.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:02:31',
-                            'updated_at' => '2020-03-30 17:02:31',
-                            'deleted_at' => NULL,
-                        ),
-                        17 => 
-                        array (
-                            'id' => 21,
-                            'title' => 'Disconnected Undercut – How To Style Hair The Gentleman’s Gazette Way',
-                            'description' => '<p>In this guide, we will show you how to achieve and style the disconnected undercut &ndash; Gentleman&rsquo;s Gazette style!</p>
+                'image' => 'AAMma_hair-product-guide_3870x1440-900x342.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:02:31',
+                'updated_at' => '2020-03-30 17:02:31',
+                'deleted_at' => NULL,
+            ),
+            17 =>
+            array(
+
+                'title' => 'Disconnected Undercut – How To Style Hair The Gentleman’s Gazette Way',
+                'description' => '<p>In this guide, we will show you how to achieve and style the disconnected undercut &ndash; Gentleman&rsquo;s Gazette style!</p>
 
 <p>&nbsp;</p>
 
@@ -2687,22 +2681,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <h2>CONCLUSION</h2>
 
 <p>Before you decide to go with this haircut, you should think about what exactly do you want, how long you want it on top, do you really want to shorten the side? Do you want a slight fade or not? And how are you going to wear it? What are you going to wear it with?</p>',
-                            'image' => 'FPRLo_Disconnected-Undercut_3870x1440-900x342.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:03:00',
-                            'updated_at' => '2020-03-30 17:03:00',
-                            'deleted_at' => NULL,
-                        ),
-                        18 => 
-                        array (
-                            'id' => 22,
-                            'title' => 'Get To Know Modest Man, Masculine Style, Effortless Gent & Gentleman’s Gazette',
-                            'description' => '<p>Get up close and personal with&nbsp;<a href="http://www.themodestman.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Modest Man</a>&nbsp;&ndash; Brock McGoff,&nbsp;<a href="http://masculine-style.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Masculine Style</a>&nbsp;&ndash; Tanner Guzy,&nbsp;<a href="https://effortlessgent.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Effortless Gent</a>&nbsp;&ndash; Barron Cuadro &amp;&nbsp;<a href="https://www.gentlemansgazette.com/" rel="noopener noreferrer" target="_blank" title="">Gentleman&rsquo;s Gazette</a>&nbsp;&ndash; Sven Raphael Schneider in this impressive Q&amp;A.</p>
+                'image' => 'FPRLo_Disconnected-Undercut_3870x1440-900x342.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:03:00',
+                'updated_at' => '2020-03-30 17:03:00',
+                'deleted_at' => NULL,
+            ),
+            18 =>
+            array(
+
+                'title' => 'Get To Know Modest Man, Masculine Style, Effortless Gent & Gentleman’s Gazette',
+                'description' => '<p>Get up close and personal with&nbsp;<a href="http://www.themodestman.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Modest Man</a>&nbsp;&ndash; Brock McGoff,&nbsp;<a href="http://masculine-style.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Masculine Style</a>&nbsp;&ndash; Tanner Guzy,&nbsp;<a href="https://effortlessgent.com/" rel="nofollow noopener noreferrer" target="_blank" title="">Effortless Gent</a>&nbsp;&ndash; Barron Cuadro &amp;&nbsp;<a href="https://www.gentlemansgazette.com/" rel="noopener noreferrer" target="_blank" title="">Gentleman&rsquo;s Gazette</a>&nbsp;&ndash; Sven Raphael Schneider in this impressive Q&amp;A.</p>
 
 <p>&nbsp;</p>
 
@@ -3249,22 +3243,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <p><strong>BC:</strong>&nbsp;I don&rsquo;t think so. I think there&rsquo;s a team already being put together or applicants already in the works for people who&rsquo;re the first people going to Mars, which is just crazy right?</p>
 
 <p><strong>SRS:</strong>&nbsp;You could take risks and stuff but at the same time like I enjoy life! I&rsquo;m not like, &ldquo;Hey, this so shitty here I need to kind of get out. I need to leave and go to US because I&rsquo;m like religiously..&rdquo; like no, I&rsquo;m happy!</p>',
-                            'image' => 'pyaGw_Get-To-Know_3870x1440-900x342.jpg',
-                            'id_categories' => 15,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:03:48',
-                            'updated_at' => '2020-03-30 17:03:48',
-                            'deleted_at' => NULL,
-                        ),
-                        19 => 
-                        array (
-                            'id' => 23,
-                            'title' => 'Fred Astaire: Gentleman of Style',
-                            'description' => '<p>In today&rsquo;s installment of our&nbsp;<em><a href="https://www.gentlemansgazette.com/category/wardrobe/gentlemen-of-style/">Gentlemen of Style</a></em>&nbsp;series, we bring you the Hollywood fashion icon, Fred Astaire&ndash;who, by many measures, was an unlikely recipient of fame.</p>
+                'image' => 'pyaGw_Get-To-Know_3870x1440-900x342.jpg',
+                'id_categories' => 15,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:03:48',
+                'updated_at' => '2020-03-30 17:03:48',
+                'deleted_at' => NULL,
+            ),
+            19 =>
+            array(
+
+                'title' => 'Fred Astaire: Gentleman of Style',
+                'description' => '<p>In today&rsquo;s installment of our&nbsp;<em><a href="https://www.gentlemansgazette.com/category/wardrobe/gentlemen-of-style/">Gentlemen of Style</a></em>&nbsp;series, we bring you the Hollywood fashion icon, Fred Astaire&ndash;who, by many measures, was an unlikely recipient of fame.</p>
 
 <p>&nbsp;</p>
 
@@ -3419,22 +3413,22 @@ In the trunk to his right, you can see a double-breasted dinner coat with massiv
 <blockquote>
 <p>He could wear the uniform of the upper class when the need called for it, but it&rsquo;s ironic that the man some associated with the top hat and tails is really the one who popularized the sports jacket and soft lounge suit. Astaire wore white ties and tails as though they were pajamas, and a tuxedo as though it were a part of his everyday routine..It was not supposed to look perfect, it was supposed to look natural. It worked then, and it works now. It&rsquo;s what genius and style are all about.&nbsp;</p>
 </blockquote>',
-                            'image' => 'hVfJu_how-to-dress-like-fred-astaire_3870x1440-1-900x342.jpg',
-                            'id_categories' => 14,
-                            'id_objects' => 5,
-                            'view_count' => 1,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:04:33',
-                            'updated_at' => '2020-03-30 20:09:15',
-                            'deleted_at' => NULL,
-                        ),
-                        20 => 
-                        array (
-                            'id' => 24,
-                            'title' => 'What Is a Signet Ring & How to Wear Them Like A Gentleman',
-                            'description' => '<p>For thousands of years, men of influence have been donning a wearable form of identification and communication known as the signet ring. Today, it&rsquo;s simply an attractive accessory that any man can wear. We&rsquo;ll explore how.</p>
+                'image' => 'hVfJu_how-to-dress-like-fred-astaire_3870x1440-1-900x342.jpg',
+                'id_categories' => 14,
+                'id_objects' => 5,
+                'view_count' => 1,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:04:33',
+                'updated_at' => '2020-03-30 20:09:15',
+                'deleted_at' => NULL,
+            ),
+            20 =>
+            array(
+
+                'title' => 'What Is a Signet Ring & How to Wear Them Like A Gentleman',
+                'description' => '<p>For thousands of years, men of influence have been donning a wearable form of identification and communication known as the signet ring. Today, it&rsquo;s simply an attractive accessory that any man can wear. We&rsquo;ll explore how.</p>
 
 <p>&nbsp;</p>
 
@@ -3707,22 +3701,22 @@ depth or the more three-dimensional engraving which takes more time it looks muc
 <h2>Conclusion</h2>
 
 <p>Whether you wear the ring as a status symbol, for authentication or simply because it was handed down to you, a signet ring is still considered a mark of the elegant gentleman. We hope you&rsquo;ve enjoyed this short primer on signet rings and will share the story of your ring in the comment section below.</p>',
-                            'image' => 'tHxqV_signet-ring-primer_3870x1440-900x342.jpg',
-                            'id_categories' => 15,
-                            'id_objects' => 5,
-                            'view_count' => 0,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:06:30',
-                            'updated_at' => '2020-03-30 17:06:30',
-                            'deleted_at' => NULL,
-                        ),
-                        21 => 
-                        array (
-                            'id' => 25,
-                            'title' => 'How To Lace Oxfords & Tie Men’s Dress Shoes',
-                            'description' => '<p>Shoestrings, bootlaces or shoelaces. It doesn&rsquo;t matter what you call them. They all do the same thing; they keep your footwear secured and comfortable while you wear them.</p>
+                'image' => 'tHxqV_signet-ring-primer_3870x1440-900x342.jpg',
+                'id_categories' => 15,
+                'id_objects' => 5,
+                'view_count' => 0,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:06:30',
+                'updated_at' => '2020-03-30 17:06:30',
+                'deleted_at' => NULL,
+            ),
+            21 =>
+            array(
+
+                'title' => 'How To Lace Oxfords & Tie Men’s Dress Shoes',
+                'description' => '<p>Shoestrings, bootlaces or shoelaces. It doesn&rsquo;t matter what you call them. They all do the same thing; they keep your footwear secured and comfortable while you wear them.</p>
 
 <p>One of the easiest ways to change the look and feel of your&nbsp;<a href="https://www.gentlemansgazette.com/100-vs-500-usd-dress-shoes-men/" rel="noopener noreferrer" target="_blank" title="100 USD vs. 500 USD Men’s Dress Shoes – Differences Explained">shoes</a>&nbsp;is to simply&nbsp;<a href="https://www.gentlemansgazette.com/change-the-look-of-shoes-with-shoelaces/" rel="noopener noreferrer" target="_blank" title="How To Change The Look Of Your Shoes With Shoelaces">change your shoelaces</a>. The advantages are simple: it&rsquo;s quick, easy, inexpensive and reversible&hellip; but before we show you with two videos how to Lace&nbsp;<a href="https://www.gentlemansgazette.com/oxford-shoes-guide/" rel="noopener noreferrer" target="_blank">Oxfords</a>&nbsp;the proper way, let&rsquo;s take a closer look at shoelaces in general because a dress shoe requires a certain kind of lace.</p>
 
@@ -3853,22 +3847,22 @@ Mathematically, there are a number of ways of how to tie your shoes but when it 
 <li>Continue in the same fashion. With an even number of eyelets, you will reach the top eyelets from the bottom on each side and it tools great. With uneven holes, you have to make a cross underneath with one end from the bottom. For that reason, one shoelace has to be longer than the other one.</li>
 <li>Pull on both ends to tighten the lacing and tie your shoelace. Traditionally</li>
 </ol>',
-                            'image' => 'rw36j_How-To-Lace-Oxfords-900x342.jpg',
-                            'id_categories' => 15,
-                            'id_objects' => 5,
-                            'view_count' => 2,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:07:23',
-                            'updated_at' => '2020-04-05 16:21:36',
-                            'deleted_at' => NULL,
-                        ),
-                        22 => 
-                        array (
-                            'id' => 26,
-                            'title' => 'All the Trimmings: The Sheen Factor',
-                        'description' => '<p>Contemporary sartorial authorities&nbsp;typically&nbsp;refer to just two options for formal silk:&nbsp;<a href="https://www.gentlemansgazette.com/shop/evening-wear-tuxedo-black-tie-white-tie/black-tie-bow-ties">satin or ribbed (aka grosgrain)</a>.&nbsp;So when I recently came across a historical reference to a third option &ndash; &ldquo;dull silk&rdquo; &ndash; it was&nbsp;an eye-opener in&nbsp;a couple of ways.</p>
+                'image' => 'rw36j_How-To-Lace-Oxfords-900x342.jpg',
+                'id_categories' => 15,
+                'id_objects' => 5,
+                'view_count' => 2,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:07:23',
+                'updated_at' => '2020-04-05 16:21:36',
+                'deleted_at' => NULL,
+            ),
+            22 =>
+            array(
+
+                'title' => 'All the Trimmings: The Sheen Factor',
+                'description' => '<p>Contemporary sartorial authorities&nbsp;typically&nbsp;refer to just two options for formal silk:&nbsp;<a href="https://www.gentlemansgazette.com/shop/evening-wear-tuxedo-black-tie-white-tie/black-tie-bow-ties">satin or ribbed (aka grosgrain)</a>.&nbsp;So when I recently came across a historical reference to a third option &ndash; &ldquo;dull silk&rdquo; &ndash; it was&nbsp;an eye-opener in&nbsp;a couple of ways.</p>
 
 <p><img alt="" src="https://www.gentlemansgazette.com/wp-content/uploads/2018/12/Catoir-Grosgrain-ad-from-1933-Illustration-by-Robert-Goodman-777x1030.jpg" /></p>
 
@@ -3929,19 +3923,17 @@ Mathematically, there are a number of ways of how to tie your shoes but when it 
 <p>Notched Lapel tuxedo with daywear vest and glossy lapel facings</p>
 
 <p>Plastic&nbsp;perhaps &ldquo;dulled&rdquo; &ldquo;flat&rdquo; or &ldquo;matte&rdquo; is a better term as it doesn&rsquo;t suggest &lsquo;boring&rsquo;&nbsp;rougher finish also makes for easier tying bow tie.</p>',
-                            'image' => 'HMzNt_sheen-factor-1-900x342.jpg',
-                            'id_categories' => 16,
-                            'id_objects' => 5,
-                            'view_count' => 2,
-                            'user_created' => 'ldkhoi100',
-                            'user_updated' => NULL,
-                            'user_deleted' => NULL,
-                            'created_at' => '2020-03-30 17:08:29',
-                            'updated_at' => '2020-04-05 16:20:22',
-                            'deleted_at' => NULL,
-                        ),
-                    ));
-        
-        
+                'image' => 'HMzNt_sheen-factor-1-900x342.jpg',
+                'id_categories' => 16,
+                'id_objects' => 5,
+                'view_count' => 2,
+                'user_created' => 'ldkhoi100',
+                'user_updated' => NULL,
+                'user_deleted' => NULL,
+                'created_at' => '2020-03-30 17:08:29',
+                'updated_at' => '2020-04-05 16:20:22',
+                'deleted_at' => NULL,
+            ),
+        ));
     }
 }
