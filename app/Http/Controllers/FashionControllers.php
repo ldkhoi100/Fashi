@@ -193,17 +193,12 @@ class FashionControllers extends Controller
     public function shop(Request $request)
     {
         $this->validate($request, [
-            'search_select' => 'between:1,2',
             'search_products' => 'max:255'
         ]);
         if (request('search_products')) {
-            if (request('search_select') == 1) {
-                $request->session()->flash('search_products', request('search_products'));
-                $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
-                $count_product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->count();
-            } else {
-                return abort(404);
-            }
+            $request->session()->flash('search_products', request('search_products'));
+            $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
+            $count_product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->count();
         } else {
             $product = Products::inRandomOrder('1234')->paginate(12);
             $count_product = Products::count();
@@ -214,7 +209,6 @@ class FashionControllers extends Controller
                 'next_page' => $product->nextPageUrl()
             ];
         }
-
         return view('fashi.shop')->with(compact('product', 'count_product'));
     }
 
@@ -224,7 +218,6 @@ class FashionControllers extends Controller
             'comment' => 'required | min:10 | max:255 | string',
             'id_products' => 'required | numeric | min:0'
         ]);
-
         $reviews = new Reviews();
         if (Auth::user()) {
             $reviews->name = Auth::user()->name;

@@ -1,3 +1,54 @@
+<style>
+    .loginBtn {
+        box-sizing: border-box;
+        position: relative;
+        /* width: 13em;  - apply for fixed size */
+        margin: 0.2em;
+        padding: 0 15px 0 46px;
+        border: none;
+        width: 98%;
+        text-align: center;
+        line-height: 34px;
+        white-space: nowrap;
+        border-radius: 0.2em;
+        font-size: 16px;
+        color: #FFF;
+    }
+
+    .loginBtn:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 34px;
+        height: 100%;
+    }
+
+    .loginBtn:focus {
+        outline: none;
+    }
+
+    .loginBtn:active {
+        box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .loginBtn--google {
+        font-family: 'Nunito', sans-serif;
+        background: #DD4B39;
+    }
+
+    .loginBtn--google:before {
+        border-right: #BB3F30 1px solid;
+        background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+    }
+
+    .loginBtn--google:hover,
+    .loginBtn--google:focus {
+        background: #E74B37;
+    }
+</style>
+
 <!-- Modal sign in -->
 <div id="ModalSignin" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -30,6 +81,14 @@
                             style="border: none; width: 100%">Sign In
                         </button>
                     </p>
+
+                    <div class="switch-login">
+                        <a href="{{ url('/auth/redirect/google') }}" style="color:white">
+                            <button class="loginBtn loginBtn--google">
+                                Login with Google
+                            </button></a> <br>
+                    </div>
+
                     <p style="text-align: center;">
                         <a href="" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
                         font: 13px/13px PTSans-Regular; display: inline-block;">Forgot password?</a>
@@ -125,6 +184,14 @@
                             style="border: none; width: 100%">Sign Up
                         </button>
                     </p>
+
+                    <div class="switch-login">
+                        <a href="{{ url('/auth/redirect/google') }}" style="color:white">
+                            <button class="loginBtn loginBtn--google">
+                                Login with Google
+                            </button></a> <br>
+                    </div>
+
                     <p style="text-align: center;">
                         <a href="" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
                         font: 13px/13px PTSans-Regular; display: inline-block;">Forgot password?</a>

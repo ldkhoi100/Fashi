@@ -25,6 +25,7 @@ class SocialController extends Controller
         $check = User::where('provider_id', $getInfo->id)->first();
         if (!$check) {
             $password = Str::random(8);
+            dd($getInfo);
             $user = $this->createUser($getInfo, $provider, $password);
             $message = "Your password is: <b>" . $password . "</b>. <br/> You should change your password immediately to avoid forgetting your password !";
             Mail::to($getInfo->email)->send(new ReplyMail($getInfo, $message));
