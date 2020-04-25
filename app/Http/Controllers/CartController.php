@@ -147,7 +147,7 @@ class CartController extends Controller
                 }
             }
 
-            // Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
+            Mail::to($customer->email)->send(new ShoppingMail($bills, $oderdetail));
 
             Cart::instance(Auth::user()->id)->destroy();
             return redirect()->route('home')->with('toast', 'You have successfully placed an order! We will send a mail to confirm your order today');
