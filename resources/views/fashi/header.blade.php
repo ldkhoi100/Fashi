@@ -128,7 +128,7 @@
 
                     @endif
 
-                    <div class="lan-selector" class="collapse-header">
+                    {{-- <div class="lan-selector" class="collapse-header">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;"
                             onchange="window.location.href=this.value;">
                             <option value="">Language</option>
@@ -138,7 +138,7 @@
                             <option value='/change-language/vi' data-image="img/flag-3.jpg" data-imagecss="flag yu"
                                 data-title="Bangladesh" class="flag">Vietnamese</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div class="top-social">
                         <a href="https://www.facebook.com/demon977" target="_blank"><i class="ti-facebook"></i></a>

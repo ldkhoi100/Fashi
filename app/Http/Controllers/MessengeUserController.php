@@ -93,6 +93,7 @@ class MessengeUserController extends Controller
      */
     public function show($id)
     {
+        MessengeUser::delete();
         $id = Crypt::decrypt($id);
         $messenger = MessengeUser::withTrashed()->findOrFail($id);
         $messenger->reader = 1;
