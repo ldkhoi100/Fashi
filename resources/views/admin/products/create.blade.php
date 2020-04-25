@@ -134,32 +134,20 @@
                                     value="{{ old('promotion_price') }}" @else value="0" @endif
                                     placeholder="Promotion price">
 
-                            </div>
+                            </div> <br>
 
-                            <div class="form-group @error('highlight') has-error has-feedback @enderror">
+                            <input type="hidden" value="0" name="highlight">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="highlight"
+                                    name="highlight">
+                                <label class="custom-control-label" for="highlight">Highlight</label>
+                            </div> <br>
 
-                                <label>Highlight</label>
-
-                                <select name="highlight" id=""
-                                    class="form-control @error('highlight') is-invalid @enderror">
-                                    <option value="0" @if(old('highlight')==0 ) {{ "selected" }} @endif>No
-                                    </option>
-                                    <option value="1" @if(old('highlight')==1 ) {{ "selected" }} @endif>Yes
-                                    </option>
-                                </select>
-
-                            </div>
-
-                            <div class="form-group @error('new') has-error has-feedback @enderror">
-
-                                <label>News</label>
-
-                                <select name="new" id="" class="form-control @error('new') is-invalid @enderror">
-                                    <option value="0" @if(old('new')==0) {{ "selected" }} @endif>No</option>
-                                    <option value="1" @if(old('new')==1) {{ "selected" }} @endif>Yes</option>
-                                </select>
-
-                            </div>
+                            <input type="hidden" value="0" name="new">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="new" name="new">
+                                <label class="custom-control-label" for="new">New</label>
+                            </div> <br>
 
                             <div class="form-group @error('image1') has-error has-feedback @enderror">
 

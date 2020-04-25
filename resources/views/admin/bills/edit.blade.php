@@ -99,32 +99,19 @@
 
                             </div>
 
+                            <input type="hidden" value="0" name="pay_money">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="pay_money"
+                                    name="pay_money" @if($bills->pay_money=='1' ) checked @endif>
+                                <label class="custom-control-label" for="pay_money">Paid</label>
+                            </div> <br>
 
-                            <div class="form-group @error('pay_money') has-error has-feedback @enderror">
-
-                                <label>Pay money</label>
-
-                                <select name="pay_money" id=""
-                                    class="form-control @error('pay_money') is-invalid @enderror">
-                                    <option value="0" @if($bills->pay_money==0 ) {{ "selected" }} @endif>Not paid
-                                    </option>
-                                    <option value="1" @if($bills->pay_money==1 ) {{ "selected" }} @endif>Paid
-                                    </option>
-                                </select>
-
-                            </div>
-
-                            <div class="form-group @error('status') has-error has-feedback @enderror">
-
-                                <label>Status</label>
-
-                                <select name="status" id="" class="form-control @error('status') is-invalid @enderror">
-                                    <option value="0" @if($bills->status==0) {{ "selected" }} @endif>Uncomplete
-                                    </option>
-                                    <option value="1" @if($bills->status==1) {{ "selected" }} @endif>Complete</option>
-                                </select>
-
-                            </div>
+                            <input type="hidden" value="0" name="status">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="status" name="status"
+                                    @if($bills->status=='1' ) checked @endif>
+                                <label class="custom-control-label" for="status">Complete</label>
+                            </div> <br>
 
                             <div class="form-group @error('total') has-error has-feedback @enderror">
 

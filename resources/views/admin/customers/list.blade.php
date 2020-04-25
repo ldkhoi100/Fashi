@@ -33,11 +33,10 @@
                             <th>Order number</th>
                             <th width='10%'>Email</th>
                             <th width='15%'>Address</th>
-                            <th>Postcode</th>
-                            <th>City</th>
-                            <th>Country</th>
+                            {{-- <th>Postcode</th>
+                            <th>City</th> --}}
+                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
-                            <th>Active</th>
                             <th width='15%'>User updated</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -51,11 +50,10 @@
                             <th>Order number</th>
                             <th width='10%'>Email</th>
                             <th width='15%'>Address</th>
-                            <th>Postcode</th>
-                            <th>City</th>
-                            <th>Country</th>
+                            {{-- <th>Postcode</th>
+                            <th>City</th> --}}
+                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
-                            <th>Active</th>
                             <th width='15%'>User updated</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -74,22 +72,10 @@
 
                             <td>{{ $customers->email }}</td>
                             <td>{{ $customers->address }}</td>
-                            <td>{{ $customers->postcode }}</td>
-                            <td>{{ $customers->city }}</td>
-                            <td>{{ $customers->country }}</td>
+                            {{-- <td>{{ $customers->postcode }}</td>
+                            <td>{{ $customers->city }}</td> --}}
+                            {{-- <td>{{ $customers->country }}</td> --}}
                             <td>+84 {{ $customers->phone }}</td>
-
-                            @if($customers->active == 1)
-                            <td><a href="{{ route('customers.active', $customers->id) }}"
-                                    style="color:#32CD32; font-weight: bold;"
-                                    onclick="return confirm('Do you want change active column of this customer?')">Yes</a>
-                            </td>
-                            @else
-                            <td><a href="{{ route('customers.active', $customers->id) }}"
-                                    style="color:red; font-weight: bold;"
-                                    onclick="return confirm('Do you want change active column of this customer?')">No</a>
-                            </td>
-                            @endif
 
                             <td><b style="color:purple">{{ $customers->user_updated }}</b> <br>
                                 {{ $customers->updated_at }}

@@ -267,7 +267,7 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
                 </a>
 
-                @if(Auth::user()->roles[0]->id == 1 && Auth::user()->roles[1]->id == 2)
+                @if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[1]->id == 2)
                 <a class="dropdown-item" href="{{ route('users.index') }}">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Users managerment
                 </a>

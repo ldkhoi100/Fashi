@@ -45,8 +45,8 @@
                         <a href="{{ route('home') }}"><img src="img/logo.png" alt="" width="150px"></a>
                     </div>
                     <ul>
-                        <li>Address: 4/2 Dang Van Ngu street, Hue, Viet Nam</li>
-                        <li>Phone: +84 79.399.5401</li>
+                        <li>Address: Hue, Viet Nam</li>
+                        <li>Phone: +84 932.650.218</li>
                         <li>Email: ldkhoi100@gmail.com</li>
                     </ul>
                     <div class="footer-social">
@@ -137,7 +137,7 @@
 @stack('clicked')
 @stack('cartjs')
 @stack('scroll_endless')
-<meta name="csrf-token" content="{{ csrf_token() }}">​
+
 <script src="js/login.js"></script>
 <script src="js/register.js"></script>
 <script>

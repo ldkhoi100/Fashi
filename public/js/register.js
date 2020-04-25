@@ -4,7 +4,6 @@ $.ajaxSetup({
     }
 });
 
-$("#btn-submit").attr("disabled", true);
 $("#btn-submit").addClass('button-clicked');
 $(".checkemail").hide();
 

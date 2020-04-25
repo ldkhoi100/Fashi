@@ -62,10 +62,7 @@
                             <td>{{ $categories->name }}</td>
                             <td>{{ $categories->objects->name }}</td>
                             <td>{{ count($categories->products) }}</td>
-                            {{-- <td><a href="{{ route('categories.show', $categories->id) }}">Details</a></td> --}}
-                            <td><button data-url="{{ route('categories.show',$categories->id) }}" ​ type="button"
-                                    data-target="#show" data-toggle="modal"
-                                    class="btn btn-info btn-show btn-sm">Detail</button></td>
+                            <td>{!! $categories->description !!}</td>
 
                             <td><img src="img/categories/{{ $categories->image }}" alt="" srcset="" width="75px">
 

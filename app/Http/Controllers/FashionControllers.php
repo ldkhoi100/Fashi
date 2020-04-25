@@ -39,8 +39,8 @@ class FashionControllers extends Controller
         $large_image2 = Image_large_products::take(1)->orderBy('id', 'desc')->get();
         $banners = Banners::where('position', '>', 0)->orderBy('position', 'asc')->take(3)->get();
         $instagram = Instagrams::take(6)->get();
-        $men = Products::where('id_objects', 2)->inRandomOrder('4231')->get();
-        $women = Products::where('id_objects', 3)->inRandomOrder('4231')->get();
+        $men = Products::where('id_objects', 2)->where('new', 1)->inRandomOrder('4231')->get();
+        $women = Products::where('id_objects', 3)->where('new', 1)->inRandomOrder('4231')->get();
         $blogs = Blogs::orderBy('view_count', 'DESC')->paginate(3);
         return view('fashi.home', compact('slide', 'large_image1', 'large_image2', 'banners', 'instagram', 'men', 'women', 'blogs'));
     }
@@ -64,7 +64,7 @@ class FashionControllers extends Controller
             } else {
                 $bill_order = [];
             }
-            if ($request->ajax()) {
+            if ($request->ajax() && (count($bill_order) > 5)) {
                 return [
                     'bill_order' => view('ajax.yourOrder')->with(compact('bill_order'))->render(),
                     'next_page' => $bill_order->nextPageUrl()
@@ -201,24 +201,14 @@ class FashionControllers extends Controller
                 $request->session()->flash('search_products', request('search_products'));
                 $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
                 $count_product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->count();
-            }
-            // elseif (request('search_select') == 2) {
-            //     $code_bills = Bills::withTrashed()->where('id', request('search_products'))->first();
-            //     if ($code_bills == true) {
-            //         $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
-            //         return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
-            //     } else {
-            //         return redirect()->route('home')->with('toast', 'Code bills incorrect!');
-            //     }
-            // } 
-            else {
+            } else {
                 return abort(404);
             }
         } else {
             $product = Products::inRandomOrder('1234')->paginate(12);
             $count_product = Products::count();
         }
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.shop')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -264,7 +254,7 @@ class FashionControllers extends Controller
         $count_product = Products::where('id_objects', 2)->count();
         $categories = Categories::where('id_objects', 2)->get();
         $tags = Categories::where('id_objects', 2)->get();
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.men')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -279,7 +269,7 @@ class FashionControllers extends Controller
         $count_product = Products::where('id_objects', 3)->count();
         $categories = Categories::where('id_objects', 3)->get();
         $tags = Categories::where('id_objects', 3)->get();
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.women')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -294,7 +284,7 @@ class FashionControllers extends Controller
         $count_product = Products::where('id_objects', 4)->count();
         $categories = Categories::where('id_objects', 4)->get();
         $tags = Categories::where('id_objects', 4)->get();
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.kid')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -305,11 +295,12 @@ class FashionControllers extends Controller
 
     public function getProductMen(Request $request, $id)
     {
-        $product = Products::where('id_categories', $id)->paginate(9);
+        $product = Products::where('id_categories', $id)->paginate(12);
+        $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 2)->get();
         $tags = Categories::where('id_objects', 2)->get();
         $id_categories = Categories::find($id);
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.menProduct')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -320,11 +311,12 @@ class FashionControllers extends Controller
 
     public function getProductWomen(Request $request, $id)
     {
-        $product = Products::where('id_categories', $id)->paginate(9);
+        $product = Products::where('id_categories', $id)->paginate(12);
+        $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 3)->get();
         $tags = Categories::where('id_objects', 3)->get();
         $id_categories = Categories::find($id);
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.womenProduct')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()
@@ -335,11 +327,12 @@ class FashionControllers extends Controller
 
     public function getProductKid(Request $request, $id)
     {
-        $product = Products::where('id_categories', $id)->paginate(9);
+        $product = Products::where('id_categories', $id)->paginate(12);
+        $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 4)->get();
         $tags = Categories::where('id_objects', 4)->get();
         $id_categories = Categories::find($id);
-        if ($request->ajax()) {
+        if ($request->ajax() && ($count_product > 12)) {
             return [
                 'product' => view('ajax.kidProduct')->with(compact('product'))->render(),
                 'next_page' => $product->nextPageUrl()

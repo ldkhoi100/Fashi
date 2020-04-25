@@ -147,32 +147,21 @@
                                     name="promotion_price" value="{{ $product->promotion_price }}">
 
                             </div>
+                            <br>
 
-                            <div class="form-group @error('highlight') has-error has-feedback @enderror">
+                            <input type="hidden" value="0" name="highlight">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="highlight"
+                                    name="highlight" @if($product->highlight=='1' ) checked @endif>
+                                <label class="custom-control-label" for="highlight">Highlight</label>
+                            </div> <br>
 
-                                <label>Highlight</label>
-
-                                <select name="highlight" id=""
-                                    class="form-control @error('highlight') is-invalid @enderror">
-                                    <option value="0" @if($product->highlight=='0' ) {{ "selected" }} @endif>No
-                                    </option>
-                                    <option value="1" @if($product->highlight=='1' ) {{ "selected" }} @endif>Yes
-                                    </option>
-                                </select>
-
-                            </div>
-
-                            <div class="form-group @error('new') has-error has-feedback @enderror">
-
-                                <label>News</label>
-
-                                <select name="new" id="" class="form-control @error('new') is-invalid @enderror">
-                                    <option value="0" @if($product->new==0) {{ "selected" }} @endif>No
-                                    </option>
-                                    <option value="1" @if($product->new==1) {{ "selected" }} @endif>Yes</option>
-                                </select>
-
-                            </div>
+                            <input type="hidden" value="0" name="new">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="new" name="new"
+                                    @if($product->new=='1' ) checked @endif>
+                                <label class="custom-control-label" for="new">New</label>
+                            </div> <br>
 
                             <div class="form-group @error('image1') has-error has-feedback @enderror">
 
@@ -182,7 +171,7 @@
                                     class="form-control @error('image1') is-invalid @enderror"
                                     onchange="readURL1(event)">
 
-                                <img id="zoom1" src="img/products/{{ $product->image1 }}" alt="" srcset="" width="250">
+                                <img id="zoom1" src="img/products/{{ $product->image1 }}" alt="" srcset="" width="200">
 
                             </div>
 
@@ -194,7 +183,7 @@
                                     class="form-control @error('image2') is-invalid @enderror"
                                     onchange="readURL2(event)">
 
-                                <img id="zoom2" src="img/products/{{ $product->image2 }}" alt="" srcset="" width="250">
+                                <img id="zoom2" src="img/products/{{ $product->image2 }}" alt="" srcset="" width="200">
 
                             </div>
 
@@ -206,7 +195,7 @@
                                     class="form-control @error('image3') is-invalid @enderror"
                                     onchange="readURL3(event)">
 
-                                <img id="zoom3" src="img/products/{{ $product->image3 }}" alt="" srcset="" width="250">
+                                <img id="zoom3" src="img/products/{{ $product->image3 }}" alt="" srcset="" width="200">
 
                             </div>
 
@@ -218,7 +207,7 @@
                                     class="form-control @error('image4') is-invalid @enderror"
                                     onchange="readURL4(event)">
 
-                                <img id="zoom4" src="img/products/{{ $product->image4 }}" alt="" srcset="" width="250">
+                                <img id="zoom4" src="img/products/{{ $product->image4 }}" alt="" srcset="" width="200">
 
                             </div>
 

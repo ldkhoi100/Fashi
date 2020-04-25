@@ -34,24 +34,6 @@
     <!--  Zoom image detail product and toastr  -->
     <link rel="stylesheet" href="css/zoom-image.css" type="text/css">
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
-    <style>
-        .button-clicked {
-            background: #ffe0b3;
-        }
-
-        #select_search {
-            max-width: 23%;
-            height: 50px;
-            float: left;
-            background: transparent;
-            padding-left: 23px;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            font-size: 16px;
-            color: #252525;
-            position: relative;
-        }
-    </style>
 </head>
 
 @if(session('toast'))
@@ -166,10 +148,9 @@
                             {{-- <button type="button" class="category-btn">All Categories</button> --}}
                             <form action="{{ route('shop.search') }}" method="GET" style="all:unset">
                                 @csrf
-                                <select name="search_select" id="select_search" class="form-control">
+                                {{-- <select name="search_select" id="select_search" class="form-control">
                                     <option value="1">Products</option>
-                                    {{-- <option value="2">Code bills</option> --}}
-                                </select>
+                                </select> --}}
                                 <div class="input-group">
                                     <input type="text" name="search_products" placeholder="Search Products . . ."
                                         style="width: 194%; color: black;">
@@ -181,12 +162,6 @@
 
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
-                        {{-- <li class="heart-icon">
-                            <a href="#">
-                                <i class="icon_heart_alt"></i>
-                                <span>1</span>
-                            </a>
-                        </li> --}}
 
                         {{-- Ajax store cart --}}
                         <span id="change-item-cart">
@@ -200,7 +175,7 @@
             </div>
         </div>
         </div>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">​
         @include('fashi.navbar')
 
     </header>

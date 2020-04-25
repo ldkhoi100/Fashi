@@ -178,6 +178,7 @@ class ProductsController extends Controller
             'highlight' => 'required | numeric',
             'new' => 'required | numeric',
         ]);
+
         if (request('promotion_price') > request('unit_price')) {
             return back()->with('delete', "Promotion price must be smaller than unit price!");
         }

@@ -59,13 +59,7 @@
                     @else
                 <li><a href="{{ route('faq') }}">FAQs</a>
                     @endif
-                    {{-- <ul class="dropdown">
-                        <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
-                <li><a href="{{ route('faq') }}">Faq</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
-                <li><a href="{{ route('login') }}">Login</a></li>
-            </ul> --}}
-            </li>
+                </li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>

@@ -58,7 +58,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Admin Page</div>
             </a>
 
             <!-- Divider -->
@@ -76,11 +76,24 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Manager
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('bills.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Bills</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('customers.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Customers</span></a>
+            </li>
+
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -90,13 +103,13 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="{{ route('button') }}">Buttons</a>
-                        <a class="collapse-item" href="{{ route('card') }}">Cards</a>
-                    </div>
-                </div>
-            </li>
+            <a class="collapse-item" href="{{ route('card') }}">Cards</a>
+    </div>
+    </div>
+    </li> --}}
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            {{-- <li class="nav-item">
+    <!-- Nav Item - Utilities Collapse Menu -->
+    {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -107,9 +120,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="{{ route('color') }}">Colors</a>
-            <a class="collapse-item" href="{{ route('border') }}">Borders</a>
-            <a class="collapse-item" href="{{ route('animation') }}">Animations</a>
-            <a class="collapse-item" href="{{ route('orther') }}">Other</a>
+    <a class="collapse-item" href="{{ route('border') }}">Borders</a>
+    <a class="collapse-item" href="{{ route('animation') }}">Animations</a>
+    <a class="collapse-item" href="{{ route('orther') }}">Other</a>
     </div>
     </div>
     </li> --}}
@@ -119,11 +132,11 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+        List
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
             aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
@@ -133,14 +146,14 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Login Screens:</h6>
                 <a class="collapse-item" href="{{ route('loginadmin') }}">Login</a>
-                <a class="collapse-item" href="{{ route('signup') }}">Register</a>
-                <a class="collapse-item" href="{{ route('forgotpassword') }}">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="{{ route('error404') }}">404 Page</a>
-            </div>
-        </div>
-    </li>
+    <a class="collapse-item" href="{{ route('signup') }}">Register</a>
+    <a class="collapse-item" href="{{ route('forgotpassword') }}">Forgot Password</a>
+    <div class="collapse-divider"></div>
+    <h6 class="collapse-header">Other Pages:</h6>
+    <a class="collapse-item" href="{{ route('error404') }}">404 Page</a>
+    </div>
+    </div>
+    </li> --}}
 
     <!-- Nav Item - Charts -->
     {{-- <li class="nav-item">
@@ -155,18 +168,6 @@
     <i class="fas fa-fw fa-table"></i>
     <span>Tables</span></a>
     </li> --}}
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('bills.index') }}">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Bills</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('customers.index') }}">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Customers</span></a>
-    </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('coupons.index') }}">

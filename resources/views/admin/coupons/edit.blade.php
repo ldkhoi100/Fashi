@@ -58,18 +58,12 @@
 
                             </div>
 
-                            <div class="form-group @error('used') has-error has-feedback @enderror">
-
-                                <label>Used or not?</label>
-
-                                <select name="used" id="" class="form-control @error('used') is-invalid @enderror">
-                                    <option value="0" @if($coupons->used=='0' ) {{ "selected" }} @endif>No
-                                    </option>
-                                    <option value="1" @if($coupons->used=='1' ) {{ "selected" }} @endif>Yes
-                                    </option>
-                                </select>
-
-                            </div>
+                            <input type="hidden" value="0" name="used">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="used" name="used"
+                                    @if($coupons->used=='1' ) checked @endif>
+                                <label class="custom-control-label" for="used">Used</label>
+                            </div> <br>
 
                             <button type="submit" class="btn btn-primary" id="btn-submit"
                                 style="border: none">Update</button>

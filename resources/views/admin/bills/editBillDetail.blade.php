@@ -96,17 +96,12 @@
 
                             </div>
 
-                            <div class="form-group @error('status') has-error has-feedback @enderror">
-
-                                <label>Status</label>
-
-                                <select name="status" id="" class="form-control @error('status') is-invalid @enderror">
-                                    <option value="0" @if($bills->status == 0) {{ "selected" }} @endif>Uncomplete
-                                    </option>
-                                    <option value="1" @if($bills->status == 1) {{ "selected" }} @endif>Complete</option>
-                                </select>
-
-                            </div>
+                            <input type="hidden" value="0" name="status">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" value="1" class="custom-control-input" id="status" name="status"
+                                    @if($bills->status=='1' ) checked @endif>
+                                <label class="custom-control-label" for="status">Complete</label>
+                            </div> <br>
 
                             <button type="submit" class="btn btn-primary" id="btn-submit"
                                 style="border: none">Update</button>
