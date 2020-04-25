@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$url = parse_url(getenv('DATABASE_URL'));
-$host = $url['host'] ?? null;
-$username = $url['user'] ?? null;
-$password = $url['pass'] ?? null;
-$database = substr($url['path'], 1);
-
 return [
 
     /*
@@ -71,12 +65,12 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => $url,
-            'host' => $host,
+            'url' => env('postgres://aznmrfnsgfngxa:3e4b2b0db978720595bfc3a5011a7cca229c001b6425b91e29c1cb60baf4a808@ec2-54-147-209-121.compute-1.amazonaws.com:5432/df0ic13crorktn'),
+            'host' => env('DB_HOST', 'ec2-54-147-209-121.compute-1.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
+            'database' => env('DB_DATABASE', 'df0ic13crorktn'),
+            'username' => env('DB_USERNAME', 'aznmrfnsgfngxa'),
+            'password' => env('DB_PASSWORD', '3e4b2b0db978720595bfc3a5011a7cca229c001b6425b91e29c1cb60baf4a808'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
