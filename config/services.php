@@ -37,7 +37,7 @@ return [
     'google' => [
         'client_id' => '72252392541-s53s7bpil3j8gubgrtofbhniqhb34h79.apps.googleusercontent.com',
         'client_secret' => 'vycRa_hVOuGSROZplsi2Dj5q',
-        'redirect' => 'http://damp-stream-83219.herokuapp.com/callback/google',
+        'redirect' => 'https://damp-stream-83219.herokuapp.com/callback/google',
     ],
 
 ];
