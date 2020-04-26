@@ -29,12 +29,12 @@ class SocialController extends Controller
             Mail::to($getInfo->email)->send(new ReplyMail($getInfo, $message));
 
             auth()->login($user);
-            return redirect()->to('http://dollashop.herokuapp.com/')->with('toast', 'This is the first time you log in, a password has been sent to your email');
+            return redirect()->to('https://dollashop.herokuapp.com/')->with('toast', 'This is the first time you log in, a password has been sent to your email');
         } else {
             $password = 0;
             $user = $this->createUser($getInfo, $provider, $password);
             auth()->login($user);
-            return redirect()->to('http://dollashop.herokuapp.com/')->with('toast', 'Login with google account success !');
+            return redirect()->to('https://dollashop.herokuapp.com/')->with('toast', 'Login with google account success !');
         }
     }
 
@@ -42,13 +42,9 @@ class SocialController extends Controller
     {
         $user = User::where('provider_id', $getInfo->id)->first();
         if (!$user) {
-            $username = substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5);
-            while ($username == $user->username) {
-                $username = substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5);
-            }
             $user = User::create([
                 'name'     => $getInfo->name,
-                'username' => $username,
+                'username' => substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5),
                 'email'    => $getInfo->email,
                 'image' => $getInfo->avatar,
                 'password' => Hash::make($password),
