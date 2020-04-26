@@ -42,7 +42,8 @@
                         <ul>
                             @foreach ($category_blog as $blog)
 
-                            <li><a href="{{ route('categories.blog', $blog->id) }}">{{ $blog->name }}</a></li>
+                            <li><a href="{{ route('categories.blog', Str::slug($blog->name)) }}">{{ $blog->name }}</a>
+                            </li>
 
                             @endforeach
                         </ul>
@@ -71,7 +72,7 @@
                         <div class="tag-item">
                             @foreach ($tags_category_blog as $blog)
 
-                            <a href="{{ route('categories.blog', $blog->id) }}">{{ $blog->name }}</a>
+                            <a href="{{ route('categories.blog', Str::slug($blog->name)) }}">{{ $blog->name }}</a>
 
                             @endforeach
                         </div>

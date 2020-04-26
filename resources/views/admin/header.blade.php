@@ -12,11 +12,6 @@
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
-    <!-- add icon link -->
-    <link rel="icon"
-        href="https://lh3.googleusercontent.com/proxy/GpHPPb4AOj9kXuYNAAnqWNTaG6zTMewnnyvHBiS1X7sWvYbL-LwVvh6h20T_dB6EJoNAu6wuCjqSrxremqkH2KBB1K2KsF5DMaVPrw3vinWJwg"
-        type="image/x-icon">
-
     <!-- Custom fonts for this template-->
     <link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link

@@ -116,7 +116,7 @@ class FashionControllers extends Controller
     {
         if (request('search_blog')) {
             $request->session()->flash('search_post', request('search_blog'));
-            $blogs = Blogs::where('id_objects', 5)->where('title', 'LIKE', '%' . request('search_blog') . '%')->paginate(800);
+            $blogs = Blogs::where('id_objects', 5)->where('title', 'LIKE', '%' . ucwords(request('search_blog')) . '%')->paginate(800);
         } else {
             $blogs = Blogs::where('id_objects', 5)->paginate(8);
         }
@@ -126,8 +126,12 @@ class FashionControllers extends Controller
         return view('fashi.blog', compact('category_blog', 'blogs', 'new_blogs', 'tags_category_blog'));
     }
 
-    public function getCategoriesBlog(Request $request, $id)
+    public function getCategoriesBlog(Request $request, $name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_blog = Categories::where('name', 'LIKE', ucwords($slugs[0]))->first();
+        $id = $find_blog->id;
+
         $category_blog = Categories::where('id_objects', 5)->get();
         $id_categories_blog = Categories::findOrFail($id);
         $tags_category_blog = Categories::where('id_objects', 5)->get();
@@ -200,18 +204,25 @@ class FashionControllers extends Controller
         ]);
         if (request('search_products')) {
             $request->session()->flash('search_products', request('search_products'));
-            $product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->paginate(12);
+            $product = Products::where('name', 'LIKE', '%' . ucwords(request('search_products')) . '%')->paginate(12);
             $count_product = Products::where('name', 'LIKE', '%' . request('search_products') . '%')->count();
+            if ($request->ajax() && ($count_product > 12)) {
+                return [
+                    'product' => view('ajax.shop')->with(compact('product'))->render(),
+                    'next_page' => $product->nextPageUrl()
+                ];
+            }
         } else {
             $product = Products::inRandomOrder('1234')->paginate(12);
             $count_product = Products::count();
+            if ($request->ajax() && ($count_product > 12)) {
+                return [
+                    'product' => view('ajax.shop')->with(compact('product'))->render(),
+                    'next_page' => $product->nextPageUrl()
+                ];
+            }
         }
-        if ($request->ajax() && ($count_product > 12)) {
-            return [
-                'product' => view('ajax.shop')->with(compact('product'))->render(),
-                'next_page' => $product->nextPageUrl()
-            ];
-        }
+
         return view('fashi.shop')->with(compact('product', 'count_product'));
     }
 

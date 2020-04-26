@@ -1,6 +1,8 @@
 @extends('fashi.layouts')
 
-@section('title', 'Shop Women\'s')
+@section('title')
+Women's-{{ $id_categories->name }}
+@endsection
 
 @section('content')
 

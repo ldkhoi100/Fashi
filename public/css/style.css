@@ -3928,7 +3928,6 @@ ol {
 
 @media only screen and (min-width: 1200px) and (max-width: 1920px) {
     .inner-header .advanced-search .input-group button {
-        right: -47px;
         bottom: 0px;
     }
     .product-item .pi-pic ul li a {

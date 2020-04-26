@@ -49,8 +49,14 @@ class BlogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogsRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required | min:2 | max:255 | string | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/ |unique:blogs,',
+            'description' => 'required | min:3 | string',
+            'id_categories' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg | max:8000'
+        ]);
         $blogs = new Blogs();
         $blogs->title = ucwords(request('name'));
         $blogs->description = request('description');
@@ -108,10 +114,10 @@ class BlogsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required | min:2 | max:255 | string | unique:blogs,title,' . $id,
+            'name' => 'required | min:2 | max:255 | string | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/ |unique:blogs,title,' . $id,
             'description' => 'required | min:3 | string',
             'id_categories' => 'required | numeric',
-            'image' => 'image | mimes:png,jpg,jpeg'
+            'image' => 'image | mimes:png,jpg,jpeg | max:8000'
         ]);
         $blogs = Blogs::withTrashed()->findOrFail($id);
 

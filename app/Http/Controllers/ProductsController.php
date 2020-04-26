@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use App\Http\Requests\ProductsRequest;
 use App\Products;
 use App\Categories;
 use App\Objects;
-use App\Reviews;
 use App\Size;
 use App\Size_products;
 
@@ -56,11 +52,21 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductsRequest $request)
+    public function store(Request $request)
     {
-        if (request('promotion_price') > request('unit_price')) {
-            return back()->with('delete', "Promotion price must be smaller than unit price!");
-        }
+        $this->validate($request, [
+            'name' => 'required | min:2 | max:255 | string | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/ | unique:products',
+            'description' => 'required | min:3 | string',
+            'unit_price' => 'required | numeric | min:0 | not_in:0',
+            'promotion_price' => 'numeric | lt:unit_price',
+            'id_categories' => 'required | numeric',
+            'image1' => 'image | mimes:png,jpg,jpeg | max:8000',
+            'image2' => 'image | mimes:png,jpg,jpeg | max:8000',
+            'image3' => 'image | mimes:png,jpg,jpeg | max:8000',
+            'image4' => 'image | mimes:png,jpg,jpeg | max:8000',
+            'highlight' => 'required | numeric',
+            'new' => 'required | numeric',
+        ]);
         $product = new Products();
         $product->name = ucwords(request('name'));
         $product->id_objects = request('id_objects');
@@ -166,7 +172,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required | min:2 | max:255 | string | unique:products,name,' . $id,
+            'name' => 'required | min:2 | max:255 | string | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/ | unique:products,name,' . $id,
             'description' => 'required | min:3 | string',
             'unit_price' => 'required | numeric | min:0 | not_in:0',
             'promotion_price' => 'numeric | lt:unit_price',
@@ -178,10 +184,6 @@ class ProductsController extends Controller
             'highlight' => 'required | numeric',
             'new' => 'required | numeric',
         ]);
-
-        if (request('promotion_price') > request('unit_price')) {
-            return back()->with('delete', "Promotion price must be smaller than unit price!");
-        }
         $product = Products::withTrashed()->findOrFail($id);
         $product->name = ucwords(request('name'));
         $product->description = request('description');
@@ -253,9 +255,7 @@ class ProductsController extends Controller
 
         $product->user_updated = Auth::user()->username;
         $product->save();
-
         $product->size()->sync(request('size'));
-
         return redirect()->route('product.edit', $product->id)->with('success', "Product $product->name updated!");
     }
 
@@ -273,7 +273,6 @@ class ProductsController extends Controller
         $product->delete();
         $products = Products::all();
         return view('admin.products.ajax.list', compact('products'));
-        // return redirect()->route('product.index')->with('delete', "Product $product->name moved to trash!");
     }
 
     public function trashed(Request $request)
@@ -288,7 +287,6 @@ class ProductsController extends Controller
         $product->restore();
         $products = Products::onlyTrashed()->get();
         return view('admin.products.ajax.trash', compact('products'));
-        // return redirect()->route('product.trash')->with('success', "Product $product->name restored!");
     }
 
     public function restoreAll()
@@ -297,12 +295,10 @@ class ProductsController extends Controller
         if (count($product) == 0) {
             $products = Products::onlyTrashed()->get();
             return view('admin.products.ajax.trash', compact('products'));
-            // return redirect()->route('product.trash')->with('success', "Clean trash, nothing to restore!");
         } else {
             Products::onlyTrashed()->restore();
             $products = Products::onlyTrashed()->get();
             return view('admin.products.ajax.trash', compact('products'));
-            // return redirect()->route('product.trash')->with('success', "All data restored!");
         }
     }
 
@@ -321,12 +317,10 @@ class ProductsController extends Controller
         if (!empty($product->image4)) {
             unlink("img/products/" . $product->image4);
         }
-
         $product->size()->detach();
         $product->forceDelete();
         $products = Products::onlyTrashed()->get();
         return view('admin.products.ajax.trash', compact('products'));
-        // return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
     }
 
     public function deleteAll()
@@ -351,12 +345,10 @@ class ProductsController extends Controller
         if (count($product) == 0) {
             $products = Products::onlyTrashed()->get();
             return view('admin.products.ajax.trash', compact('products'));
-            // return redirect()->route('product.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
             Products::onlyTrashed()->forceDelete();
             $products = Products::onlyTrashed()->get();
             return view('admin.products.ajax.trash', compact('products'));
-            // return redirect()->route('product.trash')->with('delete', "All data destroyed!");
         }
     }
 

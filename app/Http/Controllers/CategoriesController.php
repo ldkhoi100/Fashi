@@ -54,13 +54,13 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required | min:3 | max:255 | string',
+            'name' => 'required | min:3 | max:255 | string | unique:categories',
             'description' => 'required | min:3 | string',
             'id_objects' => 'required | numeric',
             'image' => 'image | mimes:png,jpg,jpeg'
         ]);
         $categories = new Categories();
-        $categories->name = request('name');
+        $categories->name = ucwords(request('name'));
         $categories->description = request('description');
         $categories->id_objects = request('id_objects');
 
@@ -115,14 +115,14 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required | min:3 | max:255 | string',
+            'name' => 'required | min:3 | max:255 | string | unique:categories,name,' . $id,
             'description' => 'required | min:3 | string',
             'id_objects' => 'required | numeric',
             'image' => 'image | mimes:png,jpg,jpeg'
         ]);
         $categories = Categories::withTrashed()->findOrFail($id);
 
-        $categories->name = request('name');
+        $categories->name = ucwords(request('name'));
         $categories->description = request('description');
         $categories->id_objects = request('id_objects');
 

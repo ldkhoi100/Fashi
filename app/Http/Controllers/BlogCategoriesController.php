@@ -7,10 +7,8 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use App\Http\Requests\categoriesRequest;
 use App\Categories;
 use App\Objects;
 
@@ -50,8 +48,14 @@ class BlogCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoriesRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required | min:3 | max:255 | string | unique:categories | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/',
+            'description' => 'required | min:3 | string',
+            'id_objects' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg | max:8000'
+        ]);
         $categories = new Categories();
         $categories->name = request('name');
         $categories->description = request('description');
@@ -81,7 +85,6 @@ class BlogCategoriesController extends Controller
     public function show($id)
     {
         $categories = Categories::withTrashed()->findOrFail($id);
-        // return view('admin.categories-blogs.show', compact('categories'));
         return response()->json(['data' => $categories, 'name' => 'Khôi'], 200); // 200 là mã lỗi
     }
 
@@ -105,8 +108,14 @@ class BlogCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoriesRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required | min:3 | max:255 | string | regex:/^([a-zA-Z0-9]+)(\s[a-zA-Z0-9]+)*$/ |unique:categories,name,' . $id,
+            'description' => 'required | min:3 | string',
+            'id_objects' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg | max:8000'
+        ]);
         $categories = Categories::withTrashed()->findOrFail($id);
 
         $categories->name = request('name');

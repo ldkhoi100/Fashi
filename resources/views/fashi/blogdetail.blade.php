@@ -11,7 +11,8 @@
                 <div class="breadcrumb-text">
                     <a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a>
                     <a href="{{ route('blog') }}">Blog</a>
-                    <a href="{{ route('categories.blog', $blog->id_categories) }}">{{ $blog->categories->name }}</a>
+                    <a
+                        href="{{ route('categories.blog', Str::slug($blog->categories->name)) }}">{{ $blog->categories->name }}</a>
                     <span>{{ substr($blog->title, 0, 50) }}...</span>
                 </div>
             </div>
