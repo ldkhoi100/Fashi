@@ -326,16 +326,6 @@
     });
 </script>
 <script>
-    $("#list-cart").on("click", ".save-td .ti-save", function(){
-        $.ajax({
-            url : "/updateDeleteListCart/"+0,
-            type : 'GET',
-        }).done(function(response){
-            $("#change-item-cart").empty();
-            $("#change-item-cart").html(response);
-        });
-    });
-    
     //Save Cart
     $("#list-cart").on("click", ".save-td .ti-save", function(){
         var y = $(this).data("idsave");
@@ -367,6 +357,18 @@
         //         $("#change-item-cart").html(res2[0]);
         //     }  
         // });
+    });
+
+    $("#list-cart").on("click", ".save-td .ti-save", function(){
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);
+        });
     });
 </script>
 
