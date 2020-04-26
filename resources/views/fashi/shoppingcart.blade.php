@@ -387,7 +387,8 @@
             type : 'GET',
         }).done(function(response){
             $("#change-item-cart").empty();
-            $("#change-item-cart").html(response);  
+            $("#change-item-cart").html(response); 
+            $('body').removeClass('modal-open'); 
         });
     }
 </script>
