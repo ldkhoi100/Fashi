@@ -345,28 +345,47 @@
     //apply coupons
     function coupons(){
         let code = document.getElementById('apply_cp').value;
-        var ajax1 = $.ajax({
+        $.ajax({
             url : '/coupons/apply/'+code,
             type : 'GET',
-        });
-        var ajax2 = $.ajax({
-            url : "/updateDeleteListCart/"+0,
-            type : 'GET',
-        });
-        $.when(ajax1, ajax2).done(function(response, response2) {
-            if(response[0].status == "error") {
-                toastr.warning(response[0].msg);
-            } else if(response[0].used == "error") {
-                toastr.warning(response[0].msg2);
+        }).done(function(response){
+            if(response.status == "error") {
+                toastr.warning(response.msg);
+            } else if(response.used == "error") {
+                toastr.warning(response.msg2);
             } else {
                 $("#list-cart").empty();
-                $("#list-cart").html(response[0]);
-                $("#change-item-cart").empty();
-                $("#change-item-cart").html(response2[0]);  
+                $("#list-cart").html(response);
                 $('body').removeClass('modal-open');
                 Command: toastr["success"]("Success, Your discount code has been applied");
             }
         });
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response2){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response2);  
+        });
+
+        // var ajax2 = $.ajax({
+        //     url : "/updateDeleteListCart/"+0,
+        //     type : 'GET',
+        // });
+        // $.when(ajax1, ajax2).done(function(response, response2) {
+        //     if(response[0].status == "error") {
+        //         toastr.warning(response[0].msg);
+        //     } else if(response[0].used == "error") {
+        //         toastr.warning(response[0].msg2);
+        //     } else {
+        //         $("#list-cart").empty();
+        //         $("#list-cart").html(response[0]);
+        //         $("#change-item-cart").empty();
+        //         $("#change-item-cart").html(response2[0]);  
+        //         $('body').removeClass('modal-open');
+        //         Command: toastr["success"]("Success, Your discount code has been applied");
+        //     }
+        // });
     }
 </script>
 
