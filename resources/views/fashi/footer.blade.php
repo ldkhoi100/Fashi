@@ -271,7 +271,7 @@
             type : 'GET',
         });
         var ajax2 = $.ajax({
-            url : 'updatedeleteCart/',
+            url : 'updatedeleteCart',
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){
@@ -307,11 +307,11 @@
         var y = $(this).data("idsave");
         var x = document.getElementById("quantityItem" + $(this).data("idsave")).value;
         var ajax1 = $.ajax({
-            url : 'saveCart/'+ y + '/'+ x,
+            url : "/saveCart/"+ y + '/'+ x,
             type : 'GET',
         })
         var ajax2 = $.ajax({
-            url : 'updateDeleteListCart/',
+            url : "{{ route('updateDeleteListCart') }}",
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){

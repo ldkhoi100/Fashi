@@ -81,7 +81,7 @@
                         <h4>Leave A Feedback</h4>
                         <p>Our staff will call back later and answer your questions.</p>
 
-                        <form action="{{ route('contact.post') }}" method="POST" class="comment-form" id="my-form">
+                        <form action="{{ route('contact.post') }}" method="POST" class="comment-form" id="my-form10">
                             @csrf
                             <div class="row">
                                 <div
@@ -108,7 +108,7 @@
                                         </span>
                                     </div>
 
-                                    <button type="submit" class="site-btn" id="btn-submit" style="border: none">Send
+                                    <button type="submit" class="site-btn" id="btn-submit10" style="border: none">Send
                                         message</button>
                                 </div>
                             </div>
@@ -128,9 +128,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form").submit(function (e) {
-            $("#btn-submit").attr("disabled", true);
-		  $("#btn-submit").addClass('button-clicked');
+        $("#my-form10").submit(function (e) {
+            $("#btn-submit10").attr("disabled", true);
+		  $("#btn-submit10").addClass('button-clicked');
             return true;
         });
     });

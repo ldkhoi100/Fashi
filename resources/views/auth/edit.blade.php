@@ -10,18 +10,6 @@
     }
 </style>
 
-@if(Auth::check())
-@if(empty(Auth::user()->email_verified_at))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Please verify email before making a purchase,
-        <a href="{{ url('/email/verify') }}" style="color: blue;">Click here to verify email</a>
-    </strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-@endif
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -36,6 +24,19 @@
     </div>
 </div>
 <!-- Breadcrumb Form Section Begin -->
+
+@if(Auth::check())
+@if(empty(Auth::user()->email_verified_at))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Please verify email before making a purchase,
+        <a href="{{ url('/email/verify') }}" style="color: blue;">Click here to verify email</a>
+    </strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+@endif
 
 <!-- Register Section Begin -->
 <div class="register-login-section spad">
