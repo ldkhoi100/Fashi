@@ -10,7 +10,7 @@
                     <li class="active"><a href="/shop/women">Women’s Clothing</a></li>
                     <li><a href="/shop/men">Men’s Clothing</a></li>
                     <li><a href="/shop/kid">Kid's Clothing</a></li>
-                    <li><a href="/shop/women/7">Accessories/Shoes</a></li>
+                    <li><a href="/shop/women/accessories-women">Accessories/Shoes</a></li>
                 </ul>
             </div>
         </div>
