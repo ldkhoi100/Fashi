@@ -369,6 +369,14 @@
             $("#change-item-cart").html(response);  
         });
 
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);  
+        });
+
         // var ajax2 = $.ajax({
         //     url : "/updateDeleteListCart/"+0,
         //     type : 'GET',
