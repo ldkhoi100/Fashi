@@ -287,7 +287,7 @@
 
     $("#change-item-cart").on("click", ".si-close i", function(){
         var ajax1 = $.ajax({
-            url : "/updatedeleteCart",
+            url : "/updatedeleteCart/"+ $(this).data("id"),
             type : 'GET',
         }).done(function(res){
             $("#list-cart").html(res);

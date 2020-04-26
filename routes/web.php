@@ -110,7 +110,7 @@ Route::get('/addCart/{id}', 'CartController@addCart')->name('addCart');
 Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name('saveListItemCart');
 Route::get('/addCart/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');
 Route::get('/deleteCart/{id}', 'CartController@deleteCart')->name('deleteCart');
-Route::get('/updatedeleteCart', 'CartController@updatedeleteCart')->name('updatedeleteCart');
+Route::get('/updatedeleteCart/{id}', 'CartController@updatedeleteCart')->name('updatedeleteCart');
 Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('deleteListCart');
 Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
 // Route::post('/addCart/{id}', 'CartController@addCart')->name('addCartPost');
