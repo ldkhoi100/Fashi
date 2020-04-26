@@ -34,6 +34,6 @@ class ReplyMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.replyContact', ['mess' => $this->message])->subject("Fashion Store");
+        return $this->view('mail.replyContact', ['mess' => $this->message])->subject("2Dollar Store");
     }
 }

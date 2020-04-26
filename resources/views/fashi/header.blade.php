@@ -34,6 +34,24 @@
     <!--  Zoom image detail product and toastr  -->
     <link rel="stylesheet" href="css/zoom-image.css" type="text/css">
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
+    <style>
+        .button-clicked {
+            background: #ffe0b3;
+        }
+
+        #select_search {
+            max-width: 23%;
+            height: 50px;
+            float: left;
+            background: transparent;
+            padding-left: 23px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            font-size: 16px;
+            color: #252525;
+            position: relative;
+        }
+    </style>
 </head>
 
 @if(session('toast'))
@@ -138,7 +156,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="img/logo.png" alt="">
+                                <img src="img/logo-2.jpg" alt="">
                             </a>
                         </div>
                     </div>

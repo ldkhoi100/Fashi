@@ -95,7 +95,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Login</h2>
-                    <form action="{{ route('login') }}" method="POST" id="my-form5">
+                    <form action="{{ route('login') }}" method="POST" id="my-form10">
                         @csrf
                         <div class="group-input usernamedivlogin @error('username') has-error has-feedback @enderror">
                             <label for="username">Username or email address</label>
@@ -137,7 +137,8 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="site-btn login-btn" id="btn-submitlogin5" style="border: none">Sign
+                        <button type="submit" class="site-btn login-btn" id="btn-submitlogin10"
+                            style="border: none">Sign
                             In</button>
                     </form>
 
@@ -174,9 +175,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#my-form5").submit(function (e) {
-            $("#btn-submitlogin5").attr("disabled", true);
-		    $("#btn-submitlogin5").addClass('button-clicked');
+        $("#my-form10").submit(function (e) {
+            $("#btn-submitlogin10").attr("disabled", true);
+		    $("#btn-submitlogin10").addClass('button-clicked');
             return true;
         });
     });

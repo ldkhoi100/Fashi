@@ -6,7 +6,8 @@
         margin: 0.2em;
         padding: 0 15px 0 46px;
         border: none;
-        text-align: left;
+        text-align: center;
+        width: 100%;
         line-height: 34px;
         white-space: nowrap;
         border-radius: 0.2em;
@@ -104,16 +105,16 @@
                         <a href="{{ url('/auth/redirect/google') }}" style="color:white">
                             <button class="loginBtn loginBtn--google">
                                 Login with Google
-                            </button></a> <br>
+                            </button></a>
                         <a href="{{ url('/auth/redirect/facebook') }}" style="color:white">
                             <button class="loginBtn loginBtn--facebook">
                                 Login with Facebook
                             </button>
-                        </a> <br>
+                        </a>
                     </div>
 
                     <p style="text-align: center;">
-                        <a href="" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
+                        <a href="/password/reset/" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
                         font: 13px/13px PTSans-Regular; display: inline-block;">Forgot password?</a>
                     </p>
                     <p style="text-align: center;">
@@ -212,11 +213,16 @@
                         <a href="{{ url('/auth/redirect/google') }}" style="color:white">
                             <button class="loginBtn loginBtn--google">
                                 Login with Google
-                            </button></a> <br>
+                            </button></a>
+                        <a href="{{ url('/auth/redirect/facebook') }}" style="color:white">
+                            <button class="loginBtn loginBtn--facebook">
+                                Login with Facebook
+                            </button>
+                        </a>
                     </div>
 
                     <p style="text-align: center;">
-                        <a href="" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
+                        <a href="/password/reset/" style="color: #ff5d3b; border-bottom: solid 1px #ff5d3b; margin: 10px 0; 
                         font: 13px/13px PTSans-Regular; display: inline-block;">Forgot password?</a>
                     </p>
                     <p style="text-align: center;">

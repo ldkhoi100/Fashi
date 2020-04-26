@@ -44,23 +44,6 @@ body {
     /* overflow: auto; */
 }
 
-.button-clicked {
-    background: #ffe0b3;
-}
-
-#select_search {
-    max-width: 23%;
-    height: 50px;
-    float: left;
-    background: transparent;
-    padding-left: 23px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    font-size: 16px;
-    color: #252525;
-    position: relative;
-}
-
 h1,
 h2,
 h3,

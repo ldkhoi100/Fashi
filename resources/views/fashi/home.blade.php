@@ -1,6 +1,6 @@
 @extends('fashi.layouts')
 
-@section('title', 'Fashion')
+@section('title', 'Dolla Shop')
 
 @section('content')
 

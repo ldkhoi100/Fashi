@@ -5,19 +5,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 // Auth::routes();
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-//Log in with google account
+//Log in with google and facebook account
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
 
 //Reset password
 Route::post('reset-password', 'ResetPasswordController@sendMail');
 Route::put('reset-password/{token}', 'ResetPasswordController@reset')->name('reset.password');
-
-Route::get('/home', 'HomeController@index');
 
 //Change password
 Route::resource('/details', 'ChangePasswordController');
@@ -48,8 +42,6 @@ Route::get('block/users/{id}', 'UserControllers@block')->name('users.block');
 
 //Fashion layouts
 Route::get('/', 'FashionControllers@home')->name('home');
-//->middleware('verified')
-//->middleware('password.confirm')
 Route::get('/products', 'FashionControllers@product')->name('product');
 Route::get('/shop', 'FashionControllers@shop')->name('shop');
 Route::get('/contact', 'FashionControllers@contact')->name('contact');

@@ -1,6 +1,6 @@
 @extends('fashi.layouts')
 
-@section('title', 'shop')
+@section('title', 'Shop')
 
 @section('content')
 
