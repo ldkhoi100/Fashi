@@ -266,7 +266,7 @@
 
     //delete in cart and update
     $("#change-item-cart").on("click", ".si-close i", function(){
-        var ajax1 = $.ajax({
+        $.ajax({
             url : "/deleteCart/"+ $(this).data("id"),
             type : 'GET',
         }).done(function(res){
@@ -286,7 +286,7 @@
     });
 
     $("#change-item-cart").on("click", ".si-close i", function(){
-        var ajax1 = $.ajax({
+        $.ajax({
             url : "/updatedeleteCart/"+ $(this).data("id"),
             type : 'GET',
         }).done(function(res){
