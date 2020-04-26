@@ -484,9 +484,9 @@ class CartController extends Controller
         return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
     }
 
-    public function updatedeleteCart(Request $request, $id)
+    public function updatedeleteCart(Request $request)
     {
-        Cart::instance(Auth::user()->id)->remove($id);
+        // Cart::instance(Auth::user()->id)->remove($id);
 
         $product = null;
         $size_product = null;
