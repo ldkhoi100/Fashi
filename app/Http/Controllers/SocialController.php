@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Validator, Redirect, Response, File;
 use Laravel\Socialite\Facades\Socialite;
 use App\User;
-use Exception;
 use Str;
 use Illuminate\Support\Facades\Hash;
 use Mail;
@@ -43,9 +42,13 @@ class SocialController extends Controller
     {
         $user = User::where('provider_id', $getInfo->id)->first();
         if (!$user) {
+            $username = substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5);
+            while ($username == $user->username) {
+                $username = substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5);
+            }
             $user = User::create([
                 'name'     => $getInfo->name,
-                'username' => substr($getInfo->email, 0, strrpos($getInfo->email, '@')) . "_social" . Str::random(5),
+                'username' => $username,
                 'email'    => $getInfo->email,
                 'image' => $getInfo->avatar,
                 'password' => Hash::make($password),

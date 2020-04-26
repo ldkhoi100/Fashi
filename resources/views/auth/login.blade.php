@@ -142,12 +142,12 @@
                             In</button>
                     </form>
 
-                    <div class="switch-login">
-                        <a href="{{ url('/auth/redirect/google') }}" style="color:white">
+                    <div class="switch-login" style="width: 98.5%">
+                        <a href="{{ url('/auth/redirect/google') }}" style="color:white;">
                             <button class="loginBtn loginBtn--google">
                                 Login with Google
                             </button></a> <br>
-                        <a href="{{ url('/auth/redirect/facebook') }}" style="color:white">
+                        <a href="{{ url('/auth/redirect/facebook') }}" style="color:white;">
                             <button class="loginBtn loginBtn--facebook">
                                 Login with Facebook
                             </button>

@@ -32,7 +32,9 @@
 
                         @foreach ($categories as $categories)
 
-                        <li><a href="{{ route('getProductWomen', $categories->id) }}">{{ $categories->name }}</a></li>
+                        <li><a
+                                href="{{ route('getProductWomen', Str::slug($categories->name)) }}">{{ $categories->name }}</a>
+                        </li>
 
                         @endforeach
 
@@ -44,7 +46,8 @@
                     <div class="fw-tags">
                         @foreach ($tags as $categories)
 
-                        <a href="{{ route('getProductWomen', $categories->id) }}">{{ $categories->name }}</a>
+                        <a
+                            href="{{ route('getProductWomen', Str::slug($categories->name)) }}">{{ $categories->name }}</a>
 
                         @endforeach
                     </div>

@@ -54,7 +54,7 @@
 
                             @if(!empty($previous_blog->id))
                             <div class="col-lg-5 col-md-6">
-                                <a href="{{ route('blogdetail', $previous_blog->id) }}" class="prev-blog">
+                                <a href="{{ route('blogdetail', Str::slug($previous_blog->title)) }}" class="prev-blog">
                                     <div class="pb-pic">
                                         <i class="ti-arrow-left"></i>
                                         <img src="{{ "img/blog/" . $previous_blog->image }}" alt=""
@@ -70,7 +70,7 @@
 
                             @if(!empty($next_blog->id))
                             <div class="col-lg-5 offset-lg-2 col-md-6">
-                                <a href="{{ route('blogdetail', $next_blog->id) }}" class="next-blog">
+                                <a href="{{ route('blogdetail', Str::slug($next_blog->title)) }}" class="next-blog">
                                     <div class="nb-pic">
                                         <img src="{{ "img/blog/" . $next_blog->image }}" alt=""
                                             style='border-radius: 50%;'>

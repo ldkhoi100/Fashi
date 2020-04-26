@@ -36,6 +36,7 @@
     <style>
         .button-clicked {
             background: #ffd9b3;
+            cursor: not-allowed;
         }
 
         #button::after {

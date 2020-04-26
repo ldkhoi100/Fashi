@@ -52,7 +52,7 @@
                         @foreach ($new_blogs as $blog)
 
                         <div class="recent-blog">
-                            <a href="{{ route('blogdetail', $blog->id) }}" class="rb-item">
+                            <a href="{{ route('blogdetail', Str::slug($blog->title)) }}" class="rb-item">
                                 <div class="rb-pic">
                                     <img src="{{ "img/blog/" . $blog->image }}" alt="" style='border-radius: 50%'>
                                 </div>
@@ -96,11 +96,11 @@
                     <div class="col-lg-6 col-sm-6">
                         <div class="blog-item">
                             <div class="bi-pic">
-                                <a href="{{ route('blogdetail', $blog->id) }}"><img
+                                <a href="{{ route('blogdetail', Str::slug($blog->title)) }}"><img
                                         src="{{ "img/blog/" . $blog->image }}" alt="" height='300px'></a>
                             </div>
                             <div class="bi-text">
-                                <a href="{{ route('blogdetail', $blog->id) }}">
+                                <a href="{{ route('blogdetail', Str::slug($blog->title)) }}">
                                     <h4>{{ $blog->title }} <br>
                                         <span style="margin-right: 50px; font-size: 15px"><i class="far fa-eye"></i>
                                             {{ $blog->view_count }}</span></h4>

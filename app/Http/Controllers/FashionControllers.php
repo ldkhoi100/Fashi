@@ -136,8 +136,12 @@ class FashionControllers extends Controller
         return view('fashi.blog_categories', compact('category_blog', 'blogs', 'new_blogs', 'tags_category_blog', 'id_categories_blog'));
     }
 
-    public function blogdetail($id)
+    public function blogdetail($name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_blog = Blogs::where('title', 'LIKE', ucwords($slugs[0]))->first();
+        $id = $find_blog->id;
+
         $blogKey = 'blog_' . $id;
         // Kiểm tra Session của sản phẩm có tồn tại hay không.
         // Nếu không tồn tại, sẽ tự động tăng trường view_count lên 1 đồng thời tạo session lưu trữ key sản phẩm.
@@ -145,7 +149,6 @@ class FashionControllers extends Controller
             Blogs::where('id', $id)->increment('view_count');
             Session::put($blogKey, 1);
         }
-
         $blog = Blogs::findOrFail($id);
         $id_blog = Blogs::find($id);
         $previous_blog = Blogs::where('id', '<', $id)->orderBy('id', 'desc')->first();
@@ -286,8 +289,12 @@ class FashionControllers extends Controller
         return view('fashi.kid', compact('categories', 'product', 'tags', 'count_product'));
     }
 
-    public function getProductMen(Request $request, $id)
+    public function getProductMen(Request $request, $name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_category = Categories::where('name', 'LIKE', ucwords($slugs[0]))->first();
+        $id = $find_category->id;
+
         $product = Products::where('id_categories', $id)->paginate(12);
         $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 2)->get();
@@ -302,8 +309,12 @@ class FashionControllers extends Controller
         return view('fashi.men_type_product', compact('categories', 'product', 'id_categories', 'tags'));
     }
 
-    public function getProductWomen(Request $request, $id)
+    public function getProductWomen(Request $request, $name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_category = Categories::where('name', 'LIKE', ucwords($slugs[0]))->first();
+        $id = $find_category->id;
+
         $product = Products::where('id_categories', $id)->paginate(12);
         $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 3)->get();
@@ -318,8 +329,12 @@ class FashionControllers extends Controller
         return view('fashi.women_type_product', compact('categories', 'product', 'id_categories', 'tags'));
     }
 
-    public function getProductKid(Request $request, $id)
+    public function getProductKid(Request $request, $name)
     {
+        $slugs = explode("-", str_replace('-', ' ', $name));
+        $find_category = Categories::where('name', 'LIKE', ucwords($slugs[0]))->first();
+        $id = $find_category->id;
+
         $product = Products::where('id_categories', $id)->paginate(12);
         $count_product = Products::where('id_categories', $id)->count();
         $categories = Categories::where('id_objects', 4)->get();

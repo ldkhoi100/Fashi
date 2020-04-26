@@ -76,7 +76,8 @@
                     <a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a>
                     <a href="{{ route('shop') }}"> Shop</a>
                     <a href="{{ route($product->objects->link_objects) }}"> {{ $product->objects->name }}</a>
-                    <a href="{{ route('getProductMen', $product->id_categories) }}">{{ $product->categories->name }}</a>
+                    <a
+                        href="{{ route('getProductMen', Str::slug($product->categories->name)) }}">{{ $product->categories->name }}</a>
                     <span>{{ $product->name }}</span>
                 </div>
             </div>
@@ -95,11 +96,17 @@
                     <ul class="filter-catagories">
                         @foreach ($categories as $categories)
                         @if($product->id_objects == 2)
-                        <li><a href="{{ route('getProductMen', $categories->id) }}">{{ $categories->name }}</a></li>
+                        <li><a
+                                href="{{ route('getProductMen', Str::slug($categories->name)) }}">{{ $categories->name }}</a>
+                        </li>
                         @elseif($product->id_objects == 3)
-                        <li><a href="{{ route('getProductWomen', $categories->id) }}">{{ $categories->name }}</a></li>
+                        <li><a
+                                href="{{ route('getProductWomen', Str::slug($categories->name)) }}">{{ $categories->name }}</a>
+                        </li>
                         @elseif($product->id_objects == 4)
-                        <li><a href="{{ route('getProductKid', $categories->id) }}">{{ $categories->name }}</a></li>
+                        <li><a
+                                href="{{ route('getProductKid', Str::slug($categories->name)) }}">{{ $categories->name }}</a>
+                        </li>
                         @else
                         <li>None</li>
                         @endif
@@ -111,7 +118,7 @@
                     <h4 class="fw-title">Tags</h4>
                     <div class="fw-tags">
                         <a
-                            href="{{ route('getProductMen', $product->id_categories) }}">{{ $product->categories->name }}</a>
+                            href="{{ route('getProductMen', Str::slug($product->categories->name)) }}">{{ $product->categories->name }}</a>
                         <a href="{{ route('men') }}">{{ $product->objects->name }}</a>
                     </div>
                 </div>

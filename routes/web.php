@@ -62,7 +62,7 @@ Route::get('/bills/search/{id}', 'FashionControllers@find_bill')->name('find.bil
 Route::get('/blog', 'FashionControllers@blog')->name('blog');
 Route::get('/blog/search', 'FashionControllers@blog')->name('blog.search');
 Route::get('/blog/categories/{id}', 'FashionControllers@getCategoriesBlog')->name('categories.blog');
-Route::get('/blog/detail/{id}', 'FashionControllers@blogdetail')->name('blogdetail');
+Route::get('/blog/detail/{slug}', 'FashionControllers@blogdetail')->name('blogdetail');
 
 //Comment blogs
 // Route::post('/comments', 'FashionControllers@comments')->name('comments');
@@ -78,7 +78,7 @@ Route::get('/shop/men', 'FashionControllers@men')->name('men');
 Route::get('/shop/women', 'FashionControllers@women')->name('women');
 Route::get('/shop/kid', 'FashionControllers@kid')->name('kid');
 
-Route::get('/shop/men/{id}', 'FashionControllers@getProductMen')->name('getProductMen');
+Route::get('/shop/men/{slug}', 'FashionControllers@getProductMen')->name('getProductMen');
 Route::get('/shop/women/{id}', 'FashionControllers@getProductWomen')->name('getProductWomen');
 Route::get('/shop/kid/{id}', 'FashionControllers@getProductKid')->name('getProductKid');
 

@@ -1,6 +1,6 @@
 @extends('fashi.layouts')
 
-@section('title', 'shopping cart')
+@section('title', 'Shopping Cart')
 
 @section('content')
 <style>
@@ -20,6 +20,7 @@
         background-color: #000;
     }
 </style>
+
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -35,6 +36,19 @@
     </div>
 </div>
 <!-- Breadcrumb Section Begin -->
+
+@if(Auth::check())
+@if(empty(Auth::user()->email_verified_at))
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 1px;">
+    <strong>Please verify email before making a purchase,
+        <a href="{{ url('/email/verify') }}" style="color: blue;">Click here to verify email</a>
+    </strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+@endif
 
 <!-- Shopping Cart Section Begin -->
 <section class="shopping-cart spad">
@@ -52,14 +66,14 @@
                                 <tr>
                                     <th width='1%'>#</th>
                                     <th>Image</th>
-                                    <th class="p-name" width='35%'>Name</th>
+                                    <th class="p-name" width='100%'>Name</th>
                                     <th width='0%'>Size</th>
-                                    <th style="margin-right: 10px">Price</th>
+                                    <th style="margin-right: 8px">Price</th>
                                     <th>Quantity</th>
                                     <th width='1%'>Save</th>
-                                    <th>Availability</th>
-                                    <th>Discount Percent</th>
-                                    <th>Total</th>
+                                    <th width='1%'>Availability</th>
+                                    <th width='1%'>Discount Percent</th>
+                                    <th width='1%'>Total</th>
                                     <th width='5%'><i class="ti-close"></i></th>
                                 </tr>
                             </thead>
@@ -92,8 +106,7 @@
 
                                     <td class="cart-pic first-row">
                                         <a href="{{ url('/shop/detail/' . Str::slug($value->name)) }}">
-                                            <img src="{{ "img/products/" . $value->options->img }}" alt=""
-                                                width='100px'>
+                                            <img src="{{ "img/products/" . $value->options->img }}" alt="" width='90px'>
                                         </a>
                                     </td>
 
@@ -151,17 +164,29 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart-buttons">
-                            <h4>Shipping address:</h4> <br />
-                            @if(Auth::user())
-                            <span>{{ Auth::user()->address }}</span>
+                            @if(empty(Auth::user()->address) || empty(Auth::user()->phone))
+                            <span
+                                style="font-weight: bold; color: #ee4d2d; border: 1px solid rgba(0, 0, 0, .125); border-radius: .25rem; padding: 3px;">Please
+                                update your address/phone first</span> <br><br>
                             @endif
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                data-target="#myModal">Change</button>
-                            <br><br>
-                            <h4>Phone number:</h4> <br />
-                            <span>Phone: +84 {{ Auth::user()->phone }}</span><br /><br />
+
+                            <div @if(empty(Auth::user()->address)) style="background: #ffe6e6" @endif>
+                                <h4>Shipping address:</h4> <br />
+                                @if(Auth::user())
+                                <span>{{ Auth::user()->address }}</span>
+                                @endif
+                                <a href="{{ route('email') }}" style="color:blue">Change</a>
+                            </div> <br><br>
+
+                            <div @if(empty(Auth::user()->phone)) style="background: #ffe6e6" @endif>
+                                <h4>Phone number:</h4> <br />
+                                <span>Phone: +84 {{ Auth::user()->phone }}</span>
+                                <a href="{{ route('phoneNumber') }}" style="color:blue">Change</a>
+                            </div> <br /><br />
+
                             <h4>Email: </h4> <br />
                             <span>Email&nbsp;: {{ Auth::user()->email }}</span>
+
                         </div>
                     </div>
 

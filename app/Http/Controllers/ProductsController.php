@@ -62,7 +62,7 @@ class ProductsController extends Controller
             return back()->with('delete', "Promotion price must be smaller than unit price!");
         }
         $product = new Products();
-        $product->name = request('name');
+        $product->name = ucwords(request('name'));
         $product->id_objects = request('id_objects');
         $product->description = request('description');
         $product->unit_price = request('unit_price');
@@ -183,7 +183,7 @@ class ProductsController extends Controller
             return back()->with('delete', "Promotion price must be smaller than unit price!");
         }
         $product = Products::withTrashed()->findOrFail($id);
-        $product->name = request('name');
+        $product->name = ucwords(request('name'));
         $product->description = request('description');
         $product->unit_price = request('unit_price');
         $product->highlight = request('highlight');

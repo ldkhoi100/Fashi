@@ -37,6 +37,7 @@
     <style>
         .button-clicked {
             background: #ffe0b3;
+            cursor: not-allowed;
         }
 
         #select_search {
@@ -156,7 +157,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="img/logo-2.jpg" alt="">
+                                <img src="img/logo.png" alt="">
                             </a>
                         </div>
                     </div>

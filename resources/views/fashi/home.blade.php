@@ -16,6 +16,7 @@
 </div>
 @endif
 @endif
+
 <!-- Hero Section Begin, Slide -->
 <section class="hero-section">
     <div class="hero-items owl-carousel">
@@ -87,7 +88,7 @@
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">New Product</li>
+                        <li class="active">Latest Product</li>
                         {{-- <li>HandBag</li>
                         <li>Shoes</li>
                         <li>Accessories</li> --}}
@@ -201,7 +202,7 @@
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">New Product</li>
+                        <li class="active">Latest Product</li>
                         {{-- <li>HandBag</li>
                         <li>Shoes</li>
                         <li>Accessories</li> --}}
@@ -312,8 +313,8 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="single-latest-blog">
-                    <a href="{{ route('blogdetail', $blog->id) }}"><img src={{ "img/blog/" . $blog->image }} alt=""
-                            height='300px'></a>
+                    <a href="{{ route('blogdetail', Str::slug($blog->title)) }}"><img
+                            src={{ "img/blog/" . $blog->image }} alt="" height='300px'></a>
                     <div class="latest-text">
                         <div class="tag-list">
                             <div class="tag-item">
@@ -325,7 +326,7 @@
                                 {{ $blog->view_count }}
                             </div>
                         </div>
-                        <a href="{{ route('blogdetail', $blog->id) }}">
+                        <a href="{{ route('blogdetail', Str::slug($blog->title)) }}">
                             <h4>{{ $blog->title }}</h4>
                         </a>
                         {{-- {!! substr($blog->description, 0, 20) !!} --}}

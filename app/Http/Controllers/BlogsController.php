@@ -52,7 +52,7 @@ class BlogsController extends Controller
     public function store(BlogsRequest $request)
     {
         $blogs = new Blogs();
-        $blogs->title = request('name');
+        $blogs->title = ucwords(request('name'));
         $blogs->description = request('description');
         $blogs->id_categories = request('id_categories');
 
@@ -105,11 +105,17 @@ class BlogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlogsRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required | min:2 | max:255 | string | unique:blogs,title,' . $id,
+            'description' => 'required | min:3 | string',
+            'id_categories' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg'
+        ]);
         $blogs = Blogs::withTrashed()->findOrFail($id);
 
-        $blogs->title = request('name');
+        $blogs->title = ucwords(request('name'));
         $blogs->description = request('description');
         $blogs->id_categories = request('id_categories');
 

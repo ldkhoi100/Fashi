@@ -204,7 +204,7 @@
                             style="border: none">REGISTER</button>
                     </form>
 
-                    <div class="switch-login">
+                    <div class="switch-login" style="width: 98.5%">
                         <a href="{{ url('/auth/redirect/google') }}" style="color:white">
                             <button class="loginBtn loginBtn--google">
                                 Login with Google

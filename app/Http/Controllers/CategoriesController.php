@@ -51,8 +51,14 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoriesRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required | min:3 | max:255 | string',
+            'description' => 'required | min:3 | string',
+            'id_objects' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg'
+        ]);
         $categories = new Categories();
         $categories->name = request('name');
         $categories->description = request('description');
@@ -106,8 +112,14 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoriesRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required | min:3 | max:255 | string',
+            'description' => 'required | min:3 | string',
+            'id_objects' => 'required | numeric',
+            'image' => 'image | mimes:png,jpg,jpeg'
+        ]);
         $categories = Categories::withTrashed()->findOrFail($id);
 
         $categories->name = request('name');

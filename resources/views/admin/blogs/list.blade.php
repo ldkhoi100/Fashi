@@ -61,7 +61,8 @@
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td><a href="{{ route('blogdetail', $blogs->id) }}" target="_blank">{{ $blogs->title }}</a>
+                            <td><a href="{{ route('blogdetail', Str::slug($blogs->title)) }}"
+                                    target="_blank">{{ $blogs->title }}</a>
                             </td>
                             <td>{{ $blogs->categories->name }}</td>
                             {{-- <td><a href="{{ route('blogs.show', $blogs->id) }}">Details</a></td> --}}
