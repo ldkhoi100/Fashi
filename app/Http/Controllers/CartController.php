@@ -458,7 +458,8 @@ class CartController extends Controller
     public function deleteCart($id)
     {
         Cart::instance(Auth::user()->id)->remove($id);
-        return view('ajax.cart');
+        $cart = Cart::instance(Auth::user()->id)->content();
+        return view('ajax.cart', compact('cart'));
     }
 
     public function updateDeleteListCart($id)
