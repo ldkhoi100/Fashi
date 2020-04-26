@@ -361,6 +361,14 @@
             }
         });
 
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);  
+        });
+
         // var ajax2 = $.ajax({
         //     url : "/updateDeleteListCart/"+0,
         //     type : 'GET',
@@ -376,19 +384,9 @@
         //         $("#change-item-cart").empty();
         //         $("#change-item-cart").html(response2[0]);  
         //         $('body').removeClass('modal-open');
-        //         Command: toastr["success"]("Success, Your discount code has been applied");
+        //         Command: toastr["success"]("Success, Your discount code has been applied");ss
         //     }
         // });
-    }
-
-    function coupons(){
-        $.ajax({
-            url : "/updateDeleteListCart/"+0,
-            type : 'GET',
-        }).done(function(response){
-            $("#change-item-cart").empty();
-            $("#change-item-cart").html(response);  
-        });
     }
 </script>
 
