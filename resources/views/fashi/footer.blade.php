@@ -267,11 +267,11 @@
     //delete in cart and update
     $("#change-item-cart").on("click", ".si-close i", function(){
         var ajax1 = $.ajax({
-            url : 'deleteCart/'+ $(this).data("id"),
+            url : "/deleteCart/"+ $(this).data("id"),
             type : 'GET',
         });
         var ajax2 = $.ajax({
-            url : 'updatedeleteCart',
+            url : "{{ route('updatedeleteCart') }}",
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){
@@ -286,11 +286,11 @@
     //Delete in shoppingcart and update
     $("#list-cart").on("click", ".close-td i", function(){
         var ajax3 = $.ajax({
-            url : 'deleteListCart/' + $(this).data("id"),
+            url : "/deleteListCart/" + $(this).data("id"),
             type : 'GET',
         });
         var ajax4 = $.ajax({
-            url : 'updateDeleteListCart/',
+            url : "{{ route('updateDeleteListCart') }}",
             type : 'GET',
         });
         $.when(ajax3, ajax4).done(function(res3, res4){
