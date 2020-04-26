@@ -16,6 +16,7 @@ use App\Bills;
 use App\Customers;
 use App\Bill_detail;
 use App\MessageCenter;
+use App\Size;
 
 class BillsController extends Controller
 {
@@ -216,6 +217,9 @@ class BillsController extends Controller
 
     public function pay_money_trash($id)
     {
+        $size = Size::where('id', 13)->first;
+        $size->name = "NO";
+        $size->save();
         $bill = Bills::withTrashed()->findOrFail($id);
         $bill->pay_money = !$bill->pay_money;
         $bill->save();

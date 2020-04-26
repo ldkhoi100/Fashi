@@ -93,7 +93,7 @@
                                 </tr>
                                 @elseif(Cart::instance(Auth::user()->id)->count() == 0)
                                 <tr>
-                                    <td colspan="10">
+                                    <td colspan="11">
                                         <h1>NO ITEMS</h1>
                                     </td>
                                 </tr>
