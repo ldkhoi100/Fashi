@@ -287,7 +287,7 @@
 
     $("#change-item-cart").on("click", ".si-close i", function(){
         $.ajax({
-            url : "/updatedeleteCart/",
+            url : "/updatedeleteCart/"+ $(this).data("id"),
             type : 'GET',
         }).done(function(res){
             $("#list-cart").html(res);
@@ -296,19 +296,32 @@
 
     //Delete in shoppingcart and update
     $("#list-cart").on("click", ".close-td i", function(){
-        var ajax3 = $.ajax({
+        $.ajax({
             url : "/deleteListCart/" + $(this).data("id"),
             type : 'GET',
-        });
-        var ajax4 = $.ajax({
-            url : "/updateDeleteListCart",
-            type : 'GET',
-        });
-        $.when(ajax3, ajax4).done(function(res3, res4){
+        }).done(function(res){
             $("#list-cart").empty();
-            $("#list-cart").html(res3[0]);
+            $("#list-cart").html(res);
+        });
+        // var ajax4 = $.ajax({
+        //     url : "/updateDeleteListCart",
+        //     type : 'GET',
+        // });
+        // $.when(ajax3, ajax4).done(function(res3, res4){
+        //     $("#list-cart").empty();
+        //     $("#list-cart").html(res3[0]);
+        //     $("#change-item-cart").empty();
+        //     $("#change-item-cart").html(res4[0]);    
+        // });
+    });
+
+    $("#list-cart").on("click", ".close-td i", function(){
+        $.ajax({
+            url : "/updateDeleteListCart/" + $(this).data("id"),
+            type : 'GET',
+        }).done(function(res){
             $("#change-item-cart").empty();
-            $("#change-item-cart").html(res4[0]);    
+            $("#change-item-cart").html(res);  
         });
     });
 </script>

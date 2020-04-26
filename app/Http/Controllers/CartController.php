@@ -460,8 +460,9 @@ class CartController extends Controller
         return view('ajax.cart');
     }
 
-    public function updateDeleteListCart()
+    public function updateDeleteListCart($id)
     {
+        Cart::instance(Auth::user()->id)->remove($id);
         return view('ajax.cart');
     }
 
@@ -484,9 +485,9 @@ class CartController extends Controller
         return view('ajax.list-cart', compact('coupon', 'product', 'size_product'));
     }
 
-    public function updatedeleteCart(Request $request)
+    public function updatedeleteCart(Request $request, $id)
     {
-        // Cart::instance(Auth::user()->id)->remove($id);
+        Cart::instance(Auth::user()->id)->remove($id);
 
         $product = null;
         $size_product = null;
