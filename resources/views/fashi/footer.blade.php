@@ -286,6 +286,16 @@
         // });
     });
 
+    $("#change-item-cart").on("click", ".si-close i", function(){
+        var ajax1 = $.ajax({
+            url : "/updatedeleteCart",
+            type : 'GET',
+        }).done(function(res){
+            $("#list-cart").empty();
+            $("#list-cart").html(res);
+        });
+    });
+
     //Delete in shoppingcart and update
     $("#list-cart").on("click", ".close-td i", function(){
         var ajax3 = $.ajax({
