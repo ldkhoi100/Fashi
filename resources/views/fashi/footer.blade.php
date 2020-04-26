@@ -368,6 +368,26 @@
             $("#change-item-cart").html(response);
         });
     });
+
+    $("#list-cart").on("click", ".save-td .ti-save", function(){
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);
+        });
+    });
+
+    $("#list-cart").on("click", ".save-td .ti-save", function(){
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);
+        });
+    });
 </script>
 
 </body>
