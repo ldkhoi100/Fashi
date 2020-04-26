@@ -271,7 +271,7 @@
             type : 'GET',
         });
         var ajax2 = $.ajax({
-            url : "{{ route('updatedeleteCart') }}",
+            url : "/updatedeleteCart",
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){
@@ -290,7 +290,7 @@
             type : 'GET',
         });
         var ajax4 = $.ajax({
-            url : "{{ route('updateDeleteListCart') }}",
+            url : "/updateDeleteListCart",
             type : 'GET',
         });
         $.when(ajax3, ajax4).done(function(res3, res4){
@@ -311,7 +311,7 @@
             type : 'GET',
         })
         var ajax2 = $.ajax({
-            url : "{{ route('updateDeleteListCart') }}",
+            url : "/updateDeleteListCart"
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){

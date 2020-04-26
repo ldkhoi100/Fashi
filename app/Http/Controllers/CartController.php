@@ -475,7 +475,6 @@ class CartController extends Controller
             $check = $product[] = Products::find($cart->id);
             $size_product[] = Size_products::where('id_size', $cart->options->size)->where('id_products', $check->id)->first();
         }
-
         //Request coupon code in function coupon()
         if ($request->session()->has('coupon')) {
             $coupon = Session('coupon');
