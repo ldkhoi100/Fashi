@@ -270,7 +270,6 @@
             url : "/deleteCart/"+ $(this).data("id"),
             type : 'GET',
         }).done(function(res){
-            $("#change-item-cart").empty();
             $("#change-item-cart").html(res);
         });
         // var ajax2 = $.ajax({
@@ -291,7 +290,6 @@
             url : "/updatedeleteCart",
             type : 'GET',
         }).done(function(res){
-            $("#list-cart").empty();
             $("#list-cart").html(res);
         });
     });
