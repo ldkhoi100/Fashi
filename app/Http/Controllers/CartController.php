@@ -462,7 +462,9 @@ class CartController extends Controller
 
     public function updateDeleteListCart($id)
     {
-        Cart::instance(Auth::user()->id)->remove($id);
+        if ($id != 0) {
+            Cart::instance(Auth::user()->id)->remove($id);
+        }
         return view('ajax.cart');
     }
 
