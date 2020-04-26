@@ -311,7 +311,7 @@
             type : 'GET',
         })
         var ajax2 = $.ajax({
-            url : "{{ route('updateDeleteListCart') }}",
+            url : "{{ route('deleteListCart') }}",
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(res1, res2){
