@@ -451,7 +451,8 @@ class CartController extends Controller
                 'namesize' => $qty_size_check->size->name,
             ]
         ]);
-        return view('ajax.cart');
+        $cart = Cart::instance(Auth::user()->id)->content();
+        return view('ajax.cart', compact('cart'));
     }
 
     public function deleteCart($id)
