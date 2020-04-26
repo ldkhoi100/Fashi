@@ -17,7 +17,7 @@
             <table>
                 <tbody>
 
-                    @foreach (Cart::instance(Auth::user()->id)->content() as $row)
+                    @foreach ($cart as $row)
 
                     <tr>
                         <td class="si-pic">
