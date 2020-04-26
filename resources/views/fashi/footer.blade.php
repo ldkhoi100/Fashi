@@ -330,24 +330,44 @@
     $("#list-cart").on("click", ".save-td .ti-save", function(){
         var y = $(this).data("idsave");
         var x = document.getElementById("quantityItem" + $(this).data("idsave")).value;
-        var ajax1 = $.ajax({
+        $.ajax({
             url : "/saveCart/"+ y + '/'+ x,
             type : 'GET',
-        })
-        var ajax2 = $.ajax({
-            url : "/updateDeleteListCart",
-            type : 'GET',
-        });
-        $.when(ajax1, ajax2).done(function(res1, res2){
-            if(res1[0].status == "Wrong") {
+        }).done(function(res1){
+            if(res1.status == "Wrong") {
                 Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
             } else {
                 Command: toastr["success"]("Updated this product");
                 $("#list-cart").empty();
-                $("#list-cart").html(res1[0]);
-                $("#change-item-cart").empty();
-                $("#change-item-cart").html(res2[0]);
-            }  
+                $("#list-cart").html(res1);
+            }
+        });
+        // var ajax2 = $.ajax({
+        //     url : "/updateDeleteListCart",
+        //     type : 'GET',
+        // });
+        // $.when(ajax1, ajax2).done(function(res1, res2){
+        //     if(res1[0].status == "Wrong") {
+        //         Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
+        //     } else {
+        //         Command: toastr["success"]("Updated this product");
+        //         $("#list-cart").empty();
+        //         $("#list-cart").html(res1[0]);
+        //         $("#change-item-cart").empty();
+        //         $("#change-item-cart").html(res2[0]);
+        //     }  
+        // });
+    });
+
+    $("#list-cart").on("click", ".save-td .ti-save", function(){
+        var y = $(this).data("idsave");
+        var x = document.getElementById("quantityItem" + $(this).data("idsave")).value;
+        $.ajax({
+            url : "/updateDeleteListCart/"+0
+            type : 'GET',
+        }).done(function(res2){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(res2);
         });
     });
 </script>
