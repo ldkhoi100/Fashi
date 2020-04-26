@@ -10,6 +10,8 @@ class Size extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     public function products()
     {
         return $this->belongsToMany(Products::class, 'size_products', 'id_products', 'id_size');
