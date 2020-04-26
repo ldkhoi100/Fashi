@@ -333,13 +333,13 @@
         $.ajax({
             url : "/saveCart/"+ y + '/'+ x,
             type : 'GET',
-        }).done(function(res1){
-            if(res1.status == "Wrong") {
+        }).done(function(response){
+            if(response.status == "Wrong") {
                 Command: toastr["warning"]("The number you have entered exceeds the number allowed !");
             } else {
                 Command: toastr["success"]("Updated this product");
                 $("#list-cart").empty();
-                $("#list-cart").html(res1);
+                $("#list-cart").html(response);
             }
         });
         // var ajax2 = $.ajax({
@@ -360,14 +360,12 @@
     });
 
     $("#list-cart").on("click", ".save-td .ti-save", function(){
-        var y = $(this).data("idsave");
-        var x = document.getElementById("quantityItem" + $(this).data("idsave")).value;
         $.ajax({
-            url : "/updateDeleteListCart/"+0
+            url : "/updateDeleteListCart/"+0,
             type : 'GET',
-        }).done(function(res2){
+        }).done(function(response){
             $("#change-item-cart").empty();
-            $("#change-item-cart").html(res2);
+            $("#change-item-cart").html(response);
         });
     });
 </script>
