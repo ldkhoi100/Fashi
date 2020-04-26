@@ -36,19 +36,17 @@
                         password</span>
                     <hr>
 
-                    <form action="{{ route('verifyPhone') }}" method="post" class="beta-form-checkout" id="my-form5>
+                    <form action="{{ route('verifyPhone') }}" method="post" class="beta-form-checkout" id="my-form5">
                         @csrf
 
                         <table>
                             <tr>
-                                <td><label for="">Phone number: &nbsp;</label> </td>
+                                <td><label>Phone number: &nbsp;</label> </td>
                                 <td>
-                                    <span
-                                        style=" border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px;
-                        color: #5d5d5d">+84
-                        {{ $user->phone }}</span>
-                        </td>
-                        </tr>
+                                    <span style=" border: 1px solid #dadada; border-radius: 12px; padding: 0px 10px;
+                        color: #5d5d5d">+84 {{ $user->phone }}</span>
+                                </td>
+                            </tr>
                         </table><br>
 
                         <div class="form-input @error('phone') has-error has-feedback @enderror">
