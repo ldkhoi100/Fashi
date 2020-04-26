@@ -29,6 +29,7 @@
                             <th>#</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Provider</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Address</th>
@@ -46,6 +47,7 @@
                             <th>#</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Provider</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Address</th>
@@ -66,7 +68,7 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $users->username }}</td>
                             <td>{{ $users->email }}</td>
-
+                            <td>{{ $users->provider }}</td>
                             <td>{{ $users->name }}</td>
                             <td>{{ $users->phone }}</td>
                             <td>{{ $users->address }}</td>

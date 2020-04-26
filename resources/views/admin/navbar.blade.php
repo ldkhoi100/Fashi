@@ -157,27 +157,10 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
 
                 @endforeach
 
-                {{-- <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-comments"></i>
-
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 2, 2019</div>
-                        Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                </a> --}}
-
                 <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications') }}">Show All
                     Alerts</a>
             </div>
         </li>
-
-        {{-- <i class="fas fa-file-alt text-white"></i>
-                            <i class="fas fa-donate text-white"></i>
-                            <i class="fas fa-exclamation-triangle text-white"></i> --}}
 
         <!-- Nav Item - Messages -->
         <li class="nav-item dropdown no-arrow mx-1">
@@ -267,14 +250,12 @@ return $string ? implode(', ', $string) . ' ago' : 'just now';
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
                 </a>
 
-                @if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[1]->id == 2)
+                @if(count(Auth::user()->roles) >= 2 && Auth::user()->roles[0]->id == 1 && Auth::user()->roles[1]->id ==
+                2)
                 <a class="dropdown-item" href="{{ route('users.index') }}">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Users managerment
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Managerment users
                 </a>
                 @endif
-                {{-- <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-                </a> --}}
 
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

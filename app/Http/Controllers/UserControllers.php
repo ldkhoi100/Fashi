@@ -113,8 +113,9 @@ class UserControllers extends Controller
     {
         $user = User::findOrFail($id);
         $user->roles()->detach();
+        $user->messenge2()->forceDelete();
         $user->delete();
-        return back()->with('success', "User $user->username deleted");
+        return back()->with('success', "User $user->username deleted forever !");
     }
 
     public function block($id)
