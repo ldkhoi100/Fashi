@@ -350,7 +350,7 @@
             type : 'GET',
         });
         var ajax2 = $.ajax({
-            url : 'updateDeleteListCart/',
+            url : "{{ route('updateDeleteListCart') }}",
             type : 'GET',
         });
         $.when(ajax1, ajax2).done(function(response, response2) {
