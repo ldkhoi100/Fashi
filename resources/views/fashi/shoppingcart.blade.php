@@ -360,13 +360,6 @@
                 Command: toastr["success"]("Success, Your discount code has been applied");
             }
         });
-        $.ajax({
-            url : "/updateDeleteListCart/"+0,
-            type : 'GET',
-        }).done(function(response2){
-            $("#change-item-cart").empty();
-            $("#change-item-cart").html(response2);  
-        });
 
         // var ajax2 = $.ajax({
         //     url : "/updateDeleteListCart/"+0,
@@ -386,6 +379,16 @@
         //         Command: toastr["success"]("Success, Your discount code has been applied");
         //     }
         // });
+    }
+
+    function coupons(){
+        $.ajax({
+            url : "/updateDeleteListCart/"+0,
+            type : 'GET',
+        }).done(function(response){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(response);  
+        });
     }
 </script>
 
