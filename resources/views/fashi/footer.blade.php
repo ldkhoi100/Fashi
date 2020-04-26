@@ -294,6 +294,15 @@
         });
     });
 
+    $("#change-item-cart").on("click", ".si-close i", function(){
+        $.ajax({
+            url : "/updatedeleteCart/"+ $(this).data("id"),
+            type : 'GET',
+        }).done(function(res){
+            $("#list-cart").html(res);
+        });
+    });
+
     //Delete in shoppingcart and update
     $("#list-cart").on("click", ".close-td i", function(){
         $.ajax({
@@ -313,6 +322,16 @@
         //     $("#change-item-cart").empty();
         //     $("#change-item-cart").html(res4[0]);    
         // });
+    });
+
+    $("#list-cart").on("click", ".close-td i", function(){
+        $.ajax({
+            url : "/updateDeleteListCart/" + $(this).data("id"),
+            type : 'GET',
+        }).done(function(res){
+            $("#change-item-cart").empty();
+            $("#change-item-cart").html(res);  
+        });
     });
 
     $("#list-cart").on("click", ".close-td i", function(){
