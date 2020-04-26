@@ -269,18 +269,21 @@
         var ajax1 = $.ajax({
             url : "/deleteCart/"+ $(this).data("id"),
             type : 'GET',
-        });
-        var ajax2 = $.ajax({
-            url : "/updatedeleteCart",
-            type : 'GET',
-        });
-        $.when(ajax1, ajax2).done(function(res1, res2){
+        }).done(function(res){
             $("#change-item-cart").empty();
-            $("#change-item-cart").html(res1[0]);
-            $("#list-cart").empty();
-            $("#list-cart").html(res2[0]);
-            
+            $("#change-item-cart").html(res);
         });
+        // var ajax2 = $.ajax({
+        //     url : "/updatedeleteCart",
+        //     type : 'GET',
+        // });
+        // $.when(ajax1, ajax2).done(function(res1, res2){
+        //     $("#change-item-cart").empty();
+        //     $("#change-item-cart").html(res1[0]);
+        //     $("#list-cart").empty();
+        //     $("#list-cart").html(res2[0]);
+            
+        // });
     });
 
     //Delete in shoppingcart and update
